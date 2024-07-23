@@ -1,0 +1,1 @@
+<div>Bạn có một dịch vụ {{$customer->name}} sắp hết hạn trong 1 ngày tới</div>

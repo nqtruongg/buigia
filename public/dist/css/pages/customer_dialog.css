@@ -1,0 +1,37 @@
+.dialog-header {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.time-dialog{
+    color: #b2b2b2;
+    font-size: 13px;
+    margin-left: 12px;
+}
+.card.dialog .card-tools{
+    margin: 0;
+}
+
+.note-toolbar.card-header{
+    background: #f5f5f5;
+}
+
+.dialog-content p{
+    margin-bottom: 5px;
+}
+
+.btn-dialog-edit{
+    color: #17a2b8;
+}
+
+.btn-dialog-delete{
+    color: #dc3545;
+}
+
+.btn-dialog-edit:hover{
+    color: #17a2b8;
+}
+
+.btn-dialog-delete:hover{
+    color: #dc3545;
+}

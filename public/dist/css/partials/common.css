@@ -1,0 +1,77 @@
+.w-30 {
+    width: 30% !important;
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+.w-20 {
+    width: 20% !important;
+}
+
+.w-15 {
+    width: 15% !important;
+}
+.w-10 {
+    width: 10% !important;
+}
+
+.w-40{
+    width: 40%;
+}
+
+.pd-10{
+    padding: 10px !important;
+}
+
+.pd-5{
+    padding: 5px !important;
+}
+
+.pt-10{
+    padding-top: 10px;
+}
+
+.pr-10{
+    padding-right: 10px;
+}
+
+.pl-10{
+    padding-left: 10px;
+}
+
+.number-hidden-input::-webkit-inner-spin-button,
+.number-hidden-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.number-hidden-input {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.dz-image img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.background-success{
+    background-color: #e6f5d0;
+    color: #84cc16;
+}
+
+.background-info{
+    background-color: #a5d7de;
+    color: #17a2b8;
+}
+
+.bt-none{
+    border-top: none !important;
+}
+
+.file-block img {
+    width: 40px;
+    height: 40px;
+}
