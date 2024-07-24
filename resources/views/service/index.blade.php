@@ -64,7 +64,7 @@
                                         <th class="text-center">#</th>
                                         <th class="text-center">{{ trans('language.service.name') }}</th>
                                         <th class="text-center">{{ trans('language.service.price') }}</th>
-                                        <th class="text-center">{{ trans('language.service.percent') }}</th>
+                                        {{-- <th class="text-center">{{ trans('language.service.percent') }}</th> --}}
                                         <th class="text-center">{{ trans('language.service.description') }}</th>
                                         <th class="text-center">{{ trans('language.service.type') }}</th>
                                         <th class="text-center">{{ trans('language.action') }}</th>
@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td>{{ $item->name }}</td>
                                                 <td class="text-center">{{ number_format($item->price) }}đ</td>
-                                                <td class="text-center">{{ $item->percent ?? 0 }}%</td>
+                                                {{-- <td class="text-center">{{ $item->percent ?? 0 }}%</td> --}}
                                                 <td>{{ $item->description }}</td>
                                                 <td class="text-center">{!! \App\Models\Service::checkType($item->type) !!}</td>
                                                 <td class="text-center">

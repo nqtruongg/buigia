@@ -34,7 +34,7 @@ class ServiceRequest extends FormRequest
 
             'price' => 'required|string|max:255',
             'description' => 'required|string|max:500',
-            'percent' => 'required',
+            // 'percent' => 'required',
             'type' => 'required',
         ];
     }
@@ -53,7 +53,7 @@ class ServiceRequest extends FormRequest
             'description.required' => 'Mô tả là bắt buộc.',
             'description.string' => 'Mô tả phải là một chuỗi.',
             'description.max' => 'Mô tả không thể vượt quá :max ký tự.',
-            'percent.required' => 'Phần trăm hoa hồng là bắt buộc',
+            // 'percent.required' => 'Phần trăm hoa hồng là bắt buộc',
             'type.required' => 'Tình trạng là bắt buộc'
         ];
     }
