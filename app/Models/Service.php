@@ -36,4 +36,9 @@ class Service extends Model
         }
         return $html;
     }
+
+    public function houseHolder()
+    {
+        return $this->belongsTo(HouseHolder::class, 'house_holder_id');
+    }
 }
