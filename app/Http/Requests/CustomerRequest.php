@@ -24,10 +24,10 @@ class CustomerRequest extends FormRequest
     public function rules(): array
     {
         $status = $this->input('status');
-
+        $type = $this->input('type');
         $rules = [
+            'type' => 'nullable|integer',
             'name' => 'required|string|max:255',
-            // 'responsible_person' => 'required|string|max:255',
             'tax_code' => 'nullable|string|max:255',
             'status' => 'required',
             'email' => [
@@ -66,6 +66,17 @@ class CustomerRequest extends FormRequest
                 'note.*' => 'nullable|string|max:100',
                 'supplier' => 'nullable|array|max:100',
                 'supplier.*' => 'nullable|string|max:100',
+            ];
+        }
+
+        if($type == 1){
+            $rules += [
+                'responsible_person' => 'required|string|max:255',
+
+            ];
+        }else{
+            $rules += [
+                'responsible_person' => 'nullable|string|max:255',
             ];
         }
 

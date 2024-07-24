@@ -12,7 +12,7 @@ class HouseHolderRepository
 
     public function getListHouseHolder($request)
     {
-        $houseHolders = HouseHolder::all();
+        $houseHolders = HouseHolder::query();
 
         if($request->name != null){
             $houseHolders = $houseHolders->where('name', 'LIKE', "%{$request->name}%");
@@ -38,8 +38,6 @@ class HouseHolderRepository
             'address' => $request->address,
             'email' => $request->email,
             'tax_code' => $request->tax_code ?? '',
-            'type' => $request->type ?? '',
-            'status' => $request->status,
             'code' => $code,
             'description' => $request->description ?? '',
         ]);
@@ -71,8 +69,7 @@ class HouseHolderRepository
             'address' => $request->address,
             'email' => $request->email,
             'tax_code' => $request->tax_code ?? '',
-            'type' => $request->type ?? '',
-            'status' => $request->status,
+            'code' => $houseHolder->code,
             'description' => $request->description ?? '',
         ]);
         return true;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HouseHolder;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HouseHolderRequest;
 use App\Models\HouseHolder;
 use App\Services\HouseHolderService;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class HouseHolderController extends Controller
         return view('householder.create');
     }
 
-    public function store(Request $request)
+    public function store(HouseHolderRequest $request)
     {
         try{
             DB::beginTransaction();

@@ -229,6 +229,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('householder.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/detail/{id}', 'detail')->name('detail');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');

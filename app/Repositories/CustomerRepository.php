@@ -153,7 +153,7 @@ class CustomerRepository
         $params = [
             'name' => $request->name,
             'code' => $code,
-            'responsible_person' => $request->responsible_person,
+            'responsible_person' => $request->responsible_person ?? '',
             'tax_code' => $request->tax_code,
             'status' => $request->status,
             'email' => $request->email,
@@ -162,6 +162,7 @@ class CustomerRepository
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
             'user_id' => $request->user_id,
+            'type' => $request->type ?? 0,
         ];
 
         $customer = Customer::create($params);
@@ -207,7 +208,7 @@ class CustomerRepository
 
         $params = [
             'name' => $request->name,
-            'responsible_person' => $request->responsible_person,
+            'responsible_person' => $request->responsible_person ?? '',
             'tax_code' => $request->tax_code,
             'status' => $request->status,
             'email' => $request->email,
@@ -216,6 +217,7 @@ class CustomerRepository
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
             'user_id' => $request->user_id,
+            'type' => $request->type ?? 0,
         ];
 
 

@@ -87,14 +87,6 @@
                                                     placeholder="{{ trans('language.customer.tax_code') }}">
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>{{ trans('language.customer.career') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="career"
-                                                    value="{{ request()->career ?? '' }}"
-                                                    placeholder="{{ trans('language.customer.career') }}">
-                                            </div>
-                                        </div> --}}
                                         <div class="mr-2">
                                             <div class="form-group d-flex flex-column">
                                                 <label>&nbsp;</label>
