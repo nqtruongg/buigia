@@ -19,19 +19,19 @@ class BannerController extends Controller
 
     public function index(Request $request)
     {
-        $banner = $this->bannerService->getListBannerIndex($request);
-        return response()->json($banner);
+//        $banner = $this->bannerService->getListBannerIndex($request);
+        return view('banner.list');
     }
 
     public function detail($id)
     {
         $banner = $this->bannerService->getBannerById($id);
-        return response()->json($banner);
+        return view('banner.detail');
     }
 
     public function create(Request $request)
     {
-        //return view
+        return view('banner.create');
     }
 
     public function store(Request $request)

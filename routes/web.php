@@ -16,6 +16,7 @@ use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\Service\ServiceExpireController;
 use App\Http\Controllers\Supplier\SupplierController;
+use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/composer-update', [AuthController::class, 'composerUpdate']);
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth');
+
 Route::post('/login', [AuthController::class, 'loginSubmit'])->name('auth.submit');
 
 Route::middleware(['auth'])->group(function () {
@@ -43,6 +45,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/statistic', [HomeController::class, 'statistic'])->name('home.statistic');
 
+
+    //Banner
+    Route::prefix('banner')
+        ->controller(BannerController::class)
+        ->name('banner.')
+        ->group(function () {
+            Route::get('/',                 'index')->name('index');
+            Route::get('/create',           'create')->name('create');
+            Route::post('/store',           'store')->name('store');
+            Route::get('/edit/{id}',        'edit')->name('edit');
+            Route::post('/update/{id}',     'update')->name('update');
+            Route::delete('/delete/{id}',   'delete')->name('delete');
+            Route::post('/get-list-role',   'getListRole')->name('getListRole');
+    });
 
 
     //user

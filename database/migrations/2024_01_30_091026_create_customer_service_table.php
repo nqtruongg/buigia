@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('service_id');
             $table->integer('time');
+            $table->timestamp('ended_at')->nullable();
             $table->timestamps();
         });
     }

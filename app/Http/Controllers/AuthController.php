@@ -21,8 +21,8 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+
         if (Auth::guard()->attempt($data)) {
-            
             return redirect()->route('home.index');
         } else {
             return back()->with([
@@ -30,7 +30,7 @@ class AuthController extends Controller
             ]);
         }
     }
-    
+
     public function logout()
     {
         Auth::guard()->logout();

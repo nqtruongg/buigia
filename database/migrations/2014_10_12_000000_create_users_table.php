@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password', 255);
             $table->integer('department_id')->nullable();
             $table->integer('position')->nullable();
-            $table->integer('role')->nullable();
+            $table->integer('role_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

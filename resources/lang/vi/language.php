@@ -190,5 +190,16 @@ return [
         'edit' => 'Sửa nhà cung cấp',
         'list' => 'Danh sách nhà cung cấp',
         'name' => 'Tên nhà cung cấp'
+    ],
+
+    //banner
+    'banner' => [
+        'title' => 'Banner',
+        'add' => 'Thêm banner',
+        'edit' => 'Sửa banner',
+        'list' => 'Danh sách banner',
+        'name' => 'Tên banner',
+        'link' => 'Link banner',
+        'hot' => 'Nổi bật'
     ]
 ];

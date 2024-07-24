@@ -19,7 +19,7 @@
                     ->first();
             @endphp
             <div class="info">
-                <a href="#" class="d-block">{{ $user->full_name }}</a>
+                <a href="#" class="d-block">{{ $user->full_name ?? '' }}</a>
             </div>
         </div>
 

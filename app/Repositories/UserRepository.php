@@ -107,7 +107,7 @@ class UserRepository
             'password' => Hash::make($request->password),
         ]);
 
-        
+
 
         return true;
     }
