@@ -69,4 +69,10 @@ return [
     //supplier
     'create_supplier_success' => 'Tạo nhà cung cấp thành công',
     'update_supplier_success' => 'Sửa nhà cung cấp thành công',
+
+    //supplier
+    'confirm_delete_banner' => 'Bạn có muốn xoá banner',
+    'create_banner_success' => 'Thêm banner thành công',
+    'update_banner_success' => 'Sửa banner thành công',
+    'delete_banner_success' => 'Xóa banner thành công',
 ];

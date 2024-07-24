@@ -19,8 +19,13 @@ class BannerController extends Controller
 
     public function index(Request $request)
     {
-//        $banner = $this->bannerService->getListBannerIndex($request);
-        return view('banner.list');
+        $parentBanner = $this->bannerService->getAllParentCate();
+        $listBanner = $this->bannerService->getListBannerIndex($request);
+
+        $listBannerByCate = $this->bannerService->getBannerByIdCate($request->query('parent_id'));
+
+
+        return view('banner.list', compact('parentBanner', 'listBanner', 'listBannerByCate'));
     }
 
     public function detail($id)
@@ -31,7 +36,9 @@ class BannerController extends Controller
 
     public function create(Request $request)
     {
-        return view('banner.create');
+        $parentBanner = $this->bannerService->getAllParentCate();
+
+        return view('banner.create', compact('parentBanner'));
     }
 
     public function store(Request $request)
@@ -40,7 +47,14 @@ class BannerController extends Controller
             DB::beginTransaction();
             $this->bannerService->createBanner($request);
             DB::commit();
-            //return
+
+            $redirectUrl = $request->parent_id ?
+                route('banner.index') . '?parent_id=' . $request->parent_id :
+                route('banner.index');
+
+            return redirect($redirectUrl)->with([
+                'status_succeed' => trans('message.create_banner_success')
+            ]);
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Message: ' . $exception->getMessage() . ' ---Line: ' . $exception->getLine());
@@ -53,7 +67,10 @@ class BannerController extends Controller
     public function edit($id)
     {
         $banner = $this->bannerService->getBannerById($id);
-        //return view
+
+        $parentBanner = $this->bannerService->getAllParentCate();
+
+        return view('banner.edit', compact('parentBanner', 'banner'));
     }
 
     public function update(Request $request, $id)
@@ -62,7 +79,14 @@ class BannerController extends Controller
             DB::beginTransaction();
             $this->bannerService->updateBanner($request, $id);
             DB::commit();
-            //return
+
+            $redirectUrl = $request->parent_id ?
+                route('banner.index') . '?parent_id=' . $request->parent_id :
+                route('banner.index');
+
+            return redirect($redirectUrl)->with([
+                'status_succeed' => trans('message.update_banner_success')
+            ]);
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Message: ' . $exception->getMessage() . ' ---Line: ' . $exception->getLine());
@@ -78,7 +102,12 @@ class BannerController extends Controller
             DB::beginTransaction();
             $this->bannerService->deleteBanner($id);
             DB::commit();
-            //return
+            return [
+                'status' => 200,
+                'msg' => [
+                    'text' => trans('message.success'),
+                ],
+            ];
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("File: " . $e->getFile() . '---Line: ' . $e->getLine() . "---Message: " . $e->getMessage());
