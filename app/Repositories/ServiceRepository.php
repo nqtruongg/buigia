@@ -14,7 +14,7 @@ class ServiceRepository
 
     public function getListService($request)
     {
-        $services = Service::select('id', 'name', 'price', 'description', 'type', 'percent');
+        $services = Service::select('id', 'name', 'price', 'description', 'type');
 
         if($request->name != null){
             $services = $services->where('name', 'LIKE', "%{$request->name}%");
@@ -29,7 +29,6 @@ class ServiceRepository
         Service::create([
             'name' => $request->name,
             'price' => str_replace(',', '', $request->price),
-            'percent' => $request->percent,
             'type' => $request->type,
             'description' => $request->description
         ]);
@@ -49,7 +48,6 @@ class ServiceRepository
             'name' => $request->name,
             'price' => str_replace(',', '', $request->price),
             'description' => $request->description,
-            'percent' => $request->percent,
             'type' => $request->type,
         ]);
         return true;
