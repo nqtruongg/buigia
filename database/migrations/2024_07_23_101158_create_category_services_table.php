@@ -26,10 +26,9 @@ return new class extends Migration
             $table->string('keyword_seo')->nullable();
             $table->string('title_seo')->nullable();
             $table->string('description_seo')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('parent_id')->references('id')->on('category_services')->onDelete('cascade');
         });
     }
 
