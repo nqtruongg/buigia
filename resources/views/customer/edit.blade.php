@@ -13,10 +13,164 @@
     ])
 
     @php
-        $serviceTabHasErrors = $errors->has('services.*') || $errors->has('time.*') || $errors->has('start.*') || $errors->has('end.*') || $errors->has('view_total.*') || $errors->has('note.*') || $errors->has('supplier.*');
-        $infoTabHasErrors = $errors->has('name') || $errors->has('responsible_person') || $errors->has('tax_code') || $errors->has('status') || $errors->has('email') || $errors->has('phone') || $errors->has('address') || $errors->has('invoice_address') || $errors->has('career');
+        $serviceTabHasErrors =
+            $errors->has('services.*') ||
+            $errors->has('time.*') ||
+            $errors->has('start.*') ||
+            $errors->has('end.*') ||
+            $errors->has('view_total.*') ||
+            $errors->has('note.*') ||
+            $errors->has('supplier.*');
+        $infoTabHasErrors =
+            $errors->has('name') ||
+            $errors->has('responsible_person') ||
+            $errors->has('tax_code') ||
+            $errors->has('status') ||
+            $errors->has('email') ||
+            $errors->has('phone') ||
+            $errors->has('address') ||
+            $errors->has('invoice_address') ||
+            $errors->has('career');
 
     @endphp
+
+    <style>
+        @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+            .checkbox-wrapper-14 input[type=checkbox] {
+                --active: #275EFE;
+                --active-inner: #fff;
+                --focus: 2px rgba(39, 94, 254, .3);
+                --border: #BBC1E1;
+                --border-hover: #275EFE;
+                --background: #fff;
+                --disabled: #F6F8FF;
+                --disabled-inner: #E1E6F9;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                height: 21px;
+                outline: none;
+                display: inline-block;
+                vertical-align: top;
+                position: relative;
+                margin: 0;
+                cursor: pointer;
+                border: 1px solid var(--bc, var(--border));
+                background: var(--b, var(--background));
+                transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:after {
+                content: "";
+                display: block;
+                left: 0;
+                top: 0;
+                position: absolute;
+                transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:checked {
+                --b: var(--active);
+                --bc: var(--active);
+                --d-o: .3s;
+                --d-t: .6s;
+                --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:disabled {
+                --b: var(--disabled);
+                cursor: not-allowed;
+                opacity: 0.9;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:disabled:checked {
+                --b: var(--disabled-inner);
+                --bc: var(--border);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:disabled+label {
+                cursor: not-allowed;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:hover:not(:checked):not(:disabled) {
+                --bc: var(--border-hover);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:focus {
+                box-shadow: 0 0 0 var(--focus);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+                width: 21px;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+                opacity: var(--o, 0);
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+                --o: 1;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]+label {
+                display: inline-block;
+                vertical-align: middle;
+                cursor: pointer;
+                margin-left: 4px;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+                border-radius: 7px;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+                width: 5px;
+                height: 9px;
+                border: 2px solid var(--active-inner);
+                border-top: 0;
+                border-left: 0;
+                left: 7px;
+                top: 4px;
+                transform: rotate(var(--r, 20deg));
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+                --r: 43deg;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox].switch {
+                width: 38px;
+                border-radius: 11px;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox].switch:after {
+                left: 2px;
+                top: 2px;
+                border-radius: 50%;
+                width: 17px;
+                height: 17px;
+                background: var(--ab, var(--border));
+                transform: translateX(var(--x, 0));
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox].switch:checked {
+                --ab: var(--active-inner);
+                --x: 17px;
+            }
+
+            .checkbox-wrapper-14 input[type=checkbox].switch:disabled:not(:checked):after {
+                opacity: 0.6;
+            }
+        }
+
+        .checkbox-wrapper-14 * {
+            box-sizing: inherit;
+        }
+
+        .checkbox-wrapper-14 *:before,
+        .checkbox-wrapper-14 *:after {
+            box-sizing: inherit;
+        }
+    </style>
 
     <section class="content">
         <div class="container-fluid">
@@ -63,6 +217,11 @@
                                     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
                                         aria-labelledby="custom-tabs-four-home-tab">
                                         <div class="card-body">
+                                            <div class="checkbox-wrapper-14">
+                                                <input id="s1-14" type="checkbox" class="switch" name="type"
+                                                    value="{{ old('type') ?? $customer->type }}" {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
+                                                <label for="s1-14">Công ty/Tổ chức</label>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -78,21 +237,33 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>{{ trans('language.customer.responsible_person') }}<span
+                                                        <label>{{ trans('language.customer.staff') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="responsible_person"
-                                                            value="{{ old('responsible_person') ?? $customer->responsible_person }}"
-                                                            placeholder="{{ trans('language.customer.responsible_person') }}">
-                                                        @if ($errors->first('responsible_person'))
+                                                        <select class="form-control select2" name="user_id" id="user_id">
+                                                            <option selected="selected" value=" ">Nhân viên chăm sóc
+                                                            </option>
+                                                            @php
+                                                                $choose_staff = old('user_id')
+                                                                    ? old('user_id')
+                                                                    : $customer->user_id;
+                                                            @endphp
+                                                            @foreach ($staff as $item)
+                                                                <option @if ($choose_staff == $item->id) selected @endif
+                                                                    value="{{ $item->id }}">{{ $item->first_name }}
+                                                                    {{ $item->last_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @if ($errors->first('user_id'))
                                                             <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('responsible_person') }}
+                                                                {{ $errors->first('user_id') }}
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
+
                                             </div>
 
                                             <div class="row">
@@ -118,7 +289,9 @@
                                                             <option selected="selected" value=" ">Tình trạng
                                                             </option>
                                                             @php
-                                                                $choose_status = old('status') ? old('status') : $customer->status;
+                                                                $choose_status = old('status')
+                                                                    ? old('status')
+                                                                    : $customer->status;
                                                             @endphp
                                                             @foreach ($status as $item)
                                                                 <option @if ($choose_status == $item->id) selected @endif
@@ -208,30 +381,23 @@
                                                         @endif
                                                     </div>
                                                 </div> --}}
-
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 checkTypeCustomer">
                                                     <div class="form-group">
-                                                        <label>{{ trans('language.customer.staff') }}<span
+                                                        <label>{{ trans('language.customer.responsible_person') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <select class="form-control select2" name="user_id" id="user_id">
-                                                            <option selected="selected" value=" ">Nhân viên chăm sóc
-                                                            </option>
-                                                            @php
-                                                                $choose_staff = old('user_id') ? old('user_id') : $customer->user_id;
-                                                            @endphp
-                                                            @foreach ($staff as $item)
-                                                                <option @if ($choose_status == $item->id) selected @endif
-                                                                    value="{{ $item->id }}">{{ $item->first_name }} {{ $item->last_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        @if ($errors->first('user_id'))
+                                                        <input type="text" class="form-control"
+                                                            name="responsible_person"
+                                                            value="{{ old('responsible_person') ?? $customer->responsible_person }}"
+                                                            placeholder="{{ trans('language.customer.responsible_person') }}">
+                                                        @if ($errors->first('responsible_person'))
                                                             <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('user_id') }}
+                                                                {{ $errors->first('responsible_person') }}
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -443,7 +609,9 @@
                                                                 <select class="form-control select2" name="supplier[]">
                                                                     <option selected="selected" value=" "></option>
                                                                     @foreach ($suppliers as $item)
-                                                                        <option @if($item->id == $value->supplier) selected @endif value="{{ $item->id }}">
+                                                                        <option
+                                                                            @if ($item->id == $value->supplier) selected @endif
+                                                                            value="{{ $item->id }}">
                                                                             {{ $item->name }}
                                                                         </option>
                                                                     @endforeach
@@ -549,4 +717,29 @@
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/customer.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the checkbox and the div containing the input field
+            var checkbox = document.getElementById('s1-14');
+            var inputDiv = document.querySelector(
+                '.checkTypeCustomer'); // Assuming this is the div you want to show/hide
+
+            // Function to toggle visibility
+            function toggleInput() {
+                // Check the checkbox state to determine visibility
+                if (checkbox.checked) {
+                    inputDiv.style.display = ''; // Show
+                } else {
+                    inputDiv.style.display = 'none'; // Hide
+                }
+            }
+
+            // Initial check in case you want the input hidden by default
+            toggleInput();
+
+            // Event listener for checkbox changes
+            checkbox.addEventListener('change', toggleInput);
+        });
+    </script>
 @endsection

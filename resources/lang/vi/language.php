@@ -128,6 +128,28 @@ return [
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
     ],
+    'householder' => [
+        'title' => 'Chủ nhà',
+        'name' => 'Tên chủ nhà',
+        'add' => 'Thêm chủ nhà',
+        'edit' => 'Chỉnh sửa chủ nhà',
+        'list' => 'Danh sách chủ nhà',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ',
+        'invoice_address' => 'Địa chỉ xuất hoá đơn',
+        'supplier' => 'Nhà cung cấp',
+        'career' => 'Ngành nghề',
+        'status' => 'Trạng thái',
+        'staff' => 'Nhân viên chăm sóc',
+        'tax_code' => 'Mã số thuế',
+        'info' => 'Thông tin',
+        'document' => 'Tài liệu',
+        'code' => 'Mã HH',
+        'detail' => 'Chi tiết chủ nhà',
+        'info' => 'Thông tin',
+        'dialog' => 'Cuộc trò chuyện',
+        'active' => 'Kích hoạt',
+    ],
 
     //receivable
     'receivable' => [

@@ -164,6 +164,31 @@
                     </ul>
                 </li>
 
+                {{-- house holder --}}
+                <li class="nav-item">
+                    <a href="{{ route('home.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.householder.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('householder.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.householder.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('householder.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.householder.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- customer --}}
                 <li class="nav-item">
                     <a href="{{ route('home.index') }}" class="nav-link">
