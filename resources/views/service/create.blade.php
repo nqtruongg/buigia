@@ -48,7 +48,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="form-group">
                                             <label>{{ trans('language.service.percent') }}<span
                                                     class="text-danger">*</span></label>
@@ -61,7 +61,7 @@
                                                 </div>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>{{ trans('language.service.type') }}<span
