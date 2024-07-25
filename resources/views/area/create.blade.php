@@ -168,10 +168,16 @@
                                                             <option value="">
                                                                 --{{ __('language.area.parent_id') }}--
                                                             </option>
-                                                            {{-- @foreach (App\Models\City::all() as $i)
-                                                                <option value="{{ $i->id }}">
-                                                                    {{ $i->name }}</option>
-                                                            @endforeach --}}
+                                                            @foreach($listCateArea as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                                                                @if(count($category->childrenRecursive) > 0)
+                                                                    @include('components.child-category', [
+                                                                        'children' => $category->childrenRecursive,
+                                                                        'depth' => 1
+                                                                    ])
+                                                                @endif
+                                                            @endforeach
                                                         </select>
                                                         @if ($errors->first('parent_id'))
                                                             <div class="invalid-alert text-danger">

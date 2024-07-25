@@ -25,8 +25,8 @@
                                             <label>{{ trans('language.categoryPost.name') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                value="{{ old('name') ?? $categoryPostById->name }}"
-                                                placeholder="{{ trans('language.banner.name') }}">
+                                                   value="{{ old('name') ?? $categoryPostById->name }}"
+                                                   placeholder="{{ trans('language.categoryPost.name') }}">
                                             @if ($errors->first('name'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('name') }}

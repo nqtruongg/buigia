@@ -9,13 +9,36 @@ class AreaRepository
     const PAGINATE = 15;
     const PAGINATE_FILE = 5;
 
+    public function getListParentArea()
+    {
+        $area = Area::select(
+            'id',
+            'name',
+            'active',
+            'hot',
+            'order',
+            'parent_id'
+        )->where('parent_id', 0)
+            ->orderBy('id', 'DESC')
+            ->paginate(self::PAGINATE);
+        return $area;
+    }
+
+    public function getAreaByCate($id)
+    {
+        $area = Area::where('parent_id', $id)
+            ->paginate(self::PAGINATE);
+        return $area;
+    }
+
     public function getListArea($request)
     {
         $area = Area::query();
         if ($request->name != null) {
             $area = $area->where('name', 'LIKE', "%{$request->name}%");
         }
-        $area = $area->orderBy('id', 'desc')->paginate(self::PAGINATE);
+        $area = $area->where('parent_id', 0)
+            ->orderBy('id', 'desc')->paginate(self::PAGINATE);
         return $area;
     }
 

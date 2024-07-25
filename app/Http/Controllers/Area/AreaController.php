@@ -24,7 +24,10 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         $areas = $this->areaService->getListArea($request);
-        return view('area.index', compact('areas'));
+
+        $listAreaByCate = $this->areaService->getAreaByCate($request->query('parent_id'));
+
+        return view('area.index', compact('areas', 'listAreaByCate'));
     }
 
 
@@ -33,7 +36,8 @@ class AreaController extends Controller
      */
     public function create()
     {
-        return view('area.create');
+        $listCateArea = $this->areaService->getListParentArea();
+        return view('area.create', compact('listCateArea'));
     }
 
     /**
@@ -45,7 +49,13 @@ class AreaController extends Controller
             DB::beginTransaction();
             $this->areaService->createArea($request);
             DB::commit();
-            return redirect()->route('area.index')->with([
+
+            $redirectUrl = $request->parent_id ?
+                route('area.index') . '?parent_id=' . $request->parent_id :
+                route('area.index');
+
+
+            return redirect($redirectUrl)->with([
                 'status_succeed' => trans('message.create_service_success')
             ]);
         } catch (\Exception $exception) {
@@ -71,8 +81,9 @@ class AreaController extends Controller
     public function edit($id)
     {
         $area = $this->areaService->getAreaById($id);
+        $listCateArea = $this->areaService->getListParentArea();
         // $districts = $this->areaAddress->getDistricts($area->city_id);
-        return view('area.edit', compact('area'));
+        return view('area.edit', compact('area', 'listCateArea'));
     }
 
     /**

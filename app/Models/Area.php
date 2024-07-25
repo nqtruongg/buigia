@@ -13,6 +13,7 @@ class Area extends Model
     protected $table = 'areas';
     protected $guarded = [];
 
+
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
@@ -34,6 +35,11 @@ class Area extends Model
     public function childs()
     {
         return $this->hasMany(Area::class, 'parent_id');
+    }
+
+    public function childrenRecursive()
+    {
+        return $this->childs()->with('childrenRecursive');
     }
 
     public function services()
