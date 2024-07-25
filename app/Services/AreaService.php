@@ -11,6 +11,15 @@ class AreaService
         $this->areaRepository = $areaRepository;
     }
 
+    public function getListParentArea()
+    {
+        return $this->areaRepository->getListParentArea();
+    }
+
+    public function getAreaByCate($id)
+    {
+        return $this->areaRepository->getAreaByCate($id);
+    }
     public function getListArea($request)
     {
         return $this->areaRepository->getListArea($request);

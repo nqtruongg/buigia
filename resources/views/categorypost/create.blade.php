@@ -26,7 +26,7 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name"
                                                    value="{{ old('name') ?? '' }}"
-                                                   placeholder="{{ trans('language.banner.name') }}">
+                                                   placeholder="{{ trans('language.categoryPost.name') }}">
                                             @if ($errors->first('name'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('name') }}
@@ -130,7 +130,6 @@
                                                 <option disabled selected>--chọn--</option>
                                                 @foreach($listCategoryPost as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
-
                                                     @if(count($category->childrenRecursive) > 0)
                                                         @include('components.child-category', [
                                                             'children' => $category->childrenRecursive,

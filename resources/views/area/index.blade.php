@@ -70,56 +70,114 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($areas->count() > 0)
-                                        @foreach ($areas as $key => $item)
+                                    @if(!empty($_GET['parent_id']))
+                                        @if ($listAreaByCate->count() > 0)
+                                            @foreach ($listAreaByCate as $key => $item)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $key + 1 + ($listAreaByCate->currentPage() - 1) * $listAreaByCate->perPage() }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('area.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
+                                                    </td>
+                                                    <td class="text-center">{{ $item->slug }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
+                                                            data-url="{{ route('area.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('area.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="flex justify-center items-center">
+                                                            <a class="flex items-center mr-3"
+                                                               href="{{ route('area.edit', ['id' => $item->id]) }}">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ trans('language.edit') }}
+                                                            </a>
+                                                            <a href="javascript:void(0)"
+                                                               class="flex items-center text-danger deleteTable"
+                                                               data-id="{{ $item->id }}"
+                                                               data-title="{{ trans('message.confirm_delete_area') }}"
+                                                               data-text="<span >{{ $item->name }}</span>"
+                                                               data-url="{{ route('area.delete', ['id' => $item->id]) }}"
+                                                               data-method="DELETE" data-icon="question">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                                {{ trans('language.delete') }}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
                                             <tr>
-                                                <td class="text-center">
-                                                    {{ $key + 1 + ($areas->currentPage() - 1) * $areas->perPage() }}
-                                                </td>
-                                                <td>{{ $item->name }}</td>
-                                                <td class="text-center">{{ $item->slug }}</td>
-                                                <td class="text-center">
-                                                    <button
-                                                        class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                        data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                        data-url="{{ route('area.changeActive') }}">
-                                                        {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
-                                                    </button>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button
-                                                        class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                        data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                        data-url="{{ route('area.changeHot') }}">
-                                                        {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
-                                                    </button>
-                                                </td>
-                                                <td class="text-center">
-                                                    <div class="flex justify-center items-center">
-                                                        <a class="flex items-center mr-3"
-                                                            href="{{ route('area.edit', ['id' => $item->id]) }}">
-                                                            <i class="fas fa-edit"></i>
-                                                            {{ trans('language.edit') }}
-                                                        </a>
-                                                        <a href="javascript:void(0)"
-                                                            class="flex items-center text-danger deleteTable"
-                                                            data-id="{{ $item->id }}"
-                                                            data-title="{{ trans('message.confirm_delete_area') }}"
-                                                            data-text="<span >{{ $item->name }}</span>"
-                                                            data-url="{{ route('area.delete', ['id' => $item->id]) }}"
-                                                            data-method="DELETE" data-icon="question">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                            {{ trans('language.delete') }}
-                                                        </a>
-                                                    </div>
-                                                </td>
+                                                <td colspan="9" class="text-center"> {{ trans('language.no-data') }} </td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     @else
-                                        <tr>
-                                            <td colspan="9" class="text-center"> {{ trans('language.no-data') }} </td>
-                                        </tr>
+                                        @if ($areas->count() > 0)
+                                            @foreach ($areas as $key => $item)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $key + 1 + ($areas->currentPage() - 1) * $areas->perPage() }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('area.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
+                                                    </td>
+                                                    <td class="text-center">{{ $item->slug }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
+                                                            data-url="{{ route('area.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('area.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="flex justify-center items-center">
+                                                            <a class="flex items-center mr-3"
+                                                               href="{{ route('area.edit', ['id' => $item->id]) }}">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ trans('language.edit') }}
+                                                            </a>
+                                                            <a href="javascript:void(0)"
+                                                               class="flex items-center text-danger deleteTable"
+                                                               data-id="{{ $item->id }}"
+                                                               data-title="{{ trans('message.confirm_delete_area') }}"
+                                                               data-text="<span >{{ $item->name }}</span>"
+                                                               data-url="{{ route('area.delete', ['id' => $item->id]) }}"
+                                                               data-method="DELETE" data-icon="question">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                                {{ trans('language.delete') }}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="9" class="text-center"> {{ trans('language.no-data') }} </td>
+                                            </tr>
+                                        @endif
                                     @endif
+
                                 </tbody>
                             </table>
                             <div>
