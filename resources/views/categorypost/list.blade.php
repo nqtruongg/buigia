@@ -29,14 +29,14 @@
                     <div class="card">
                         <div class="collapse {{ optional(request())->hasAny(['name', 'email', 'phone', 'role_id', 'department_id']) ? 'show' : '' }}"
                              id="collapseExample">
-                            <form action="{{ route('banner.index') }}" method="get">
+                            <form action="{{ route('categoryPost.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>{{ trans('language.categoryPost.name') }}</label>
-                                                    <input type="text" class="form-control form-control-sm" name="name"
+                                                    <input type="text" class="form-control" name="name"
                                                            value="{{ request()->categoryPost ?? '' }}"
                                                            placeholder="{{ trans('language.categoryPost.name') }}">
                                                 </div>
@@ -62,8 +62,23 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="mr-2">
+                                                    <div class="form-group d-flex flex-column">
+                                                        <label>&nbsp;</label>
+                                                        <button type="submit" class="btn btn-success"><i
+                                                                class="fas fa-search"></i>{{ trans('language.search') }}</button>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group d-flex flex-column">
+                                                        <label>&nbsp;</label>
+                                                        <a href="{{ route('categoryPost.index') }}" class="btn btn-success"><i
+                                                                class="fas fa-sync-alt"></i></a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </form>
