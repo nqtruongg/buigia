@@ -254,6 +254,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'destroy')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
         });
 
     // commission
