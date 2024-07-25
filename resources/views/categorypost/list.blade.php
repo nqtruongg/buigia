@@ -32,19 +32,17 @@
                             <form action="{{ route('categoryPost.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>{{ trans('language.categoryPost.name') }}</label>
-                                                    <input type="text" class="form-control" name="name"
-                                                           value="{{ request()->categoryPost ?? '' }}"
-                                                           placeholder="{{ trans('language.categoryPost.name') }}">
-                                                </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.categoryPost.name') }}</label>
+                                                <input type="text" class="form-control" name="name"
+                                                       value="{{ request()->categoryPost ?? '' }}"
+                                                       placeholder="{{ trans('language.categoryPost.name') }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-5">
                                             <div class="row">
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.categoryPost.parent_id') }}<span
                                                                 class="text-danger">*</span></label>
