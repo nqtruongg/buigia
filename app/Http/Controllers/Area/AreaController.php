@@ -1,48 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Commission;
+namespace App\Http\Controllers\Area;
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CommissionRequest;
-use App\Services\CommissionService;
+use App\Http\Requests\AreaRequest;
+use App\Models\Area;
+use App\Services\AreaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class CommissionController extends Controller
+class AreaController extends Controller
 {
-    private $commissionService;
-    public function __construct(CommissionService $commissionService)
+    private $areaService;
+    private $areaAddress;
+
+    public function __construct(AreaService $areaService, AddressController $areaAddress)
     {
-        $this->commissionService = $commissionService;
+        $this->areaService = $areaService;
+        $this->areaAddress = $areaAddress;
     }
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $commissions = $this->commissionService->getListCommission($request);
-        return view('commission.index', compact('commissions'));
+        $areas = $this->areaService->getListArea($request);
+        return view('area.index', compact('areas'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('commission.create');
+        return view('area.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CommissionRequest $request)
+    public function store(AreaRequest $request)
     {
         try {
             DB::beginTransaction();
-            $this->commissionService->createCommission($request);
+            $this->areaService->createArea($request);
             DB::commit();
-            return redirect()->route('commission.index')->with([
+            return redirect()->route('area.index')->with([
                 'status_succeed' => trans('message.create_service_success')
             ]);
         } catch (\Exception $exception) {
@@ -67,20 +70,21 @@ class CommissionController extends Controller
      */
     public function edit($id)
     {
-        $commission = $this->commissionService->getCommissionById($id);
-        return view('commission.edit', compact('commission'));
+        $area = $this->areaService->getAreaById($id);
+        // $districts = $this->areaAddress->getDistricts($area->city_id);
+        return view('area.edit', compact('area'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CommissionRequest $request, $id)
+    public function update(AreaRequest $request, $id)
     {
         try {
             DB::beginTransaction();
-            $this->commissionService->updateCommission($request, $id);
+            $this->areaService->updateArea($request, $id);
             DB::commit();
-            return redirect()->route('commission.index')->with([
+            return redirect()->route('area.index')->with([
                 'status_succeed' => trans('message.update_service_success')
             ]);
         } catch (\Exception $exception) {
@@ -99,7 +103,7 @@ class CommissionController extends Controller
     {
         try {
             DB::beginTransaction();
-            $this->commissionService->deleteCommission($id);
+            $this->areaService->deleteArea($id);
             DB::commit();
             return [
                 'status' => 200,
@@ -117,5 +121,20 @@ class CommissionController extends Controller
         }
     }
 
+    public function changeActive(Request $request)
+    {
+        $item = Area::find($request->id);
+        $item->active = $item->active == 1 ? 0 : 1;
+        $item->save();
 
+        return response()->json(['newStatus' => $item->active]);
+    }
+    public function changeHot(Request $request)
+    {
+        $item = Area::find($request->id);
+        $item->hot = $item->hot == 1 ? 0 : 1;
+        $item->save();
+
+        return response()->json(['newHot' => $item->hot]);
+    }
 }
