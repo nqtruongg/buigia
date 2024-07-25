@@ -230,20 +230,25 @@ return [
         'parent_id' => 'Danh mục cha'
     ],
 
-    //householder
-    'householder' => [
-        'title' => 'Chủ nhà',
-        'add' => 'Thêm chủ nhà',
-        'edit' => 'Sửa chủ nhà',
-        'list' => 'Danh sách chủ nhà',
-        'name' => 'Tên chủ nhà',
-        'link' => 'Link chủ nhà',
+    //categoryPost
+    'categoryPost' => [
+        'title' => 'Danh mục tin tức',
+        'add' => 'Thêm danh mục tin tức',
+        'edit' => 'Sửa danh mục tin tức',
+        'list' => 'Danh sách danh mục',
+        'name' => 'Tên danh mục',
         'hot' => 'Nổi bật',
         'active' => 'Trạng thái',
         'order' => 'Số thứ tự',
         'description' => 'Mô tả',
         'image_path' => 'Hình ảnh',
-        'parent_id' => 'Danh mục cha'
+        'banner_path' => 'Ảnh bìa',
+        'slug' => 'Nhập slug',
+        'parent_id' => 'Danh mục cha',
+        'description_seo' => 'Mô tả seo',
+        'keyword_seo' => 'Từ khóa seo',
+        'title_seo' => 'Tiêu đề seo',
+        'content' => 'Nhập nội dung',
     ],
 
 

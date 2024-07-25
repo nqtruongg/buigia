@@ -140,6 +140,31 @@
                     </ul>
                 </li>
 
+                {{-- Danh mục tin tức --}}
+                <li class="nav-item">
+                    <a href="{{ route('categoryPost.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.categoryPost.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('categoryPost.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.categoryPost.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categoryPost.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.categoryPost.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- service --}}
                 <li class="nav-item">
                     <a href="{{ route('service.index') }}" class="nav-link">

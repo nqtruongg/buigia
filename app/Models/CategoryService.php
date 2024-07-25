@@ -11,4 +11,6 @@ class CategoryService extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'category_services';
     protected $guarded = [];
+
+
 }

@@ -36,8 +36,8 @@
                                             <div class="form-group">
                                                 <label>{{ trans('language.banner.name') }}</label>
                                                 <input type="text" class="form-control form-control-sm" name="name"
-                                                       value="{{ request()->first_name ?? '' }}"
-                                                       placeholder="{{ trans('language.user.first_name') }}">
+                                                       value="{{ request()->name ?? '' }}"
+                                                       placeholder="{{ trans('language.banner.name') }}">
                                             </div>
                                         </div>
                                     </div>

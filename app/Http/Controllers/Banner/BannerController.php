@@ -20,6 +20,7 @@ class BannerController extends Controller
     public function index(Request $request)
     {
         $parentBanner = $this->bannerService->getAllParentCate();
+
         $listBanner = $this->bannerService->getListBannerIndex($request);
 
         $listBannerByCate = $this->bannerService->getBannerByIdCate($request->query('parent_id'));

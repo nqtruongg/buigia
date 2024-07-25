@@ -79,9 +79,15 @@ return [
     'create_supplier_success' => 'Tạo nhà cung cấp thành công',
     'update_supplier_success' => 'Sửa nhà cung cấp thành công',
 
-    //supplier
+    //banner
     'confirm_delete_banner' => 'Bạn có muốn xoá banner',
     'create_banner_success' => 'Thêm banner thành công',
     'update_banner_success' => 'Sửa banner thành công',
     'delete_banner_success' => 'Xóa banner thành công',
+
+    //category_post
+    'confirm_delete_category_post' => 'Bạn có muốn xoá danh mục này không',
+    'create_category_post_success' => 'Thêm danh mục thành công',
+    'update_category_post_success' => 'Sửa danh mục thành công',
+    'delete_category_post_success' => 'Xóa danh mục thành công',
 ];
