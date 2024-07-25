@@ -151,6 +151,32 @@ return [
         'active' => 'Kích hoạt',
     ],
 
+    'commission' => [
+        'title' => 'Phần trăm hoa hồng',
+        'name' => 'Tên phần trăm hoa hồng',
+        'add' => 'Thêm phần trăm hoa hồng',
+        'edit' => 'Chỉnh sửa phần trăm hoa hồng',
+        'list' => 'Danh sách phần trăm hoa hồng',
+        'min_price' => 'Tiền tối thiểu',
+        'max_price' => 'Tiền tối đa',
+        'percent' => 'Phần trăm',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ',
+        'invoice_address' => 'Địa chỉ xuất hoá đơn',
+        'supplier' => 'Nhà cung cấp',
+        'career' => 'Ngành nghề',
+        'status' => 'Trạng thái',
+        'staff' => 'Nhân viên chăm sóc',
+        'tax_code' => 'Mã số thuế',
+        'info' => 'Thông tin',
+        'document' => 'Tài liệu',
+        'code' => 'Mã HH',
+        'detail' => 'Chi tiết chủ nhà',
+        'info' => 'Thông tin',
+        'dialog' => 'Cuộc trò chuyện',
+        'active' => 'Kích hoạt',
+    ],
+
     //receivable
     'receivable' => [
         'title' => 'Công nợ',
