@@ -219,7 +219,8 @@
                                         <div class="card-body">
                                             <div class="checkbox-wrapper-14">
                                                 <input id="s1-14" type="checkbox" class="switch" name="type"
-                                                    value="{{ old('type') ?? $customer->type }}" {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
+                                                    value="{{ old('type') ?? $customer->type }}"
+                                                    {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
                                                 <label for="s1-14">Công ty/Tổ chức</label>
                                             </div>
                                             <div class="row">
@@ -271,14 +272,16 @@
                                                         <label>{{ trans('language.banner.image_path') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="file" class="form-control" id="image_path"
-                                                               name="image_path">
+                                                            name="image_path">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <img id="img" style="{{ !empty($customer->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}" src="{{ asset($customer->image_path) }}" alt="">
+                                                        <img id="img"
+                                                            style="{{ !empty($customer->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}"
+                                                            src="{{ asset($customer->image_path) }}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -303,7 +306,8 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.status') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <select class="form-control select2" name="status" id="status">
+                                                        <select class="form-control select2" name="status"
+                                                            id="status">
                                                             <option selected="selected" value=" ">Tình trạng
                                                             </option>
                                                             @php
@@ -735,42 +739,4 @@
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/customer.js') }}"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the checkbox and the div containing the input field
-            var checkbox = document.getElementById('s1-14');
-            var inputDiv = document.querySelector(
-                '.checkTypeCustomer'); // Assuming this is the div you want to show/hide
-
-            // Function to toggle visibility
-            function toggleInput() {
-                // Check the checkbox state to determine visibility
-                if (checkbox.checked) {
-                    inputDiv.style.display = ''; // Show
-                } else {
-                    inputDiv.style.display = 'none'; // Hide
-                }
-            }
-
-            // Initial check in case you want the input hidden by default
-            toggleInput();
-
-            // Event listener for checkbox changes
-            checkbox.addEventListener('change', toggleInput);
-        });
-    </script>
-    <script>
-        $('#image_path').on('change', function () {
-            let reader = new FileReader()
-            reader.onload = (e) => {
-                $('#img').attr('src', e.target.result);
-                $('#img').css('width', '200px');
-                $('#img').css('height', '200px');
-                $('#img').css('object-fit', 'cover');
-            }
-            reader.readAsDataURL(this.files[0]);
-        })
-    </script>
-
 @endsection

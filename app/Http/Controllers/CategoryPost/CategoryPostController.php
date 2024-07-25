@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CategoryPost;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryPostRequest;
+use App\Models\CategoryPost;
 use App\Services\CategoryPostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,5 +135,21 @@ class CategoryPostController extends Controller
                 'status_failed' => trans('message.server_error')
             ]);
         }
+    }
+    public function changeActive(Request $request)
+    {
+        $item = CategoryPost::find($request->id);
+        $item->active = $item->active == 1 ? 0 : 1;
+        $item->save();
+
+        return response()->json(['newStatus' => $item->active]);
+    }
+    public function changeHot(Request $request)
+    {
+        $item = CategoryPost::find($request->id);
+        $item->hot = $item->hot == 1 ? 0 : 1;
+        $item->save();
+
+        return response()->json(['newHot' => $item->hot]);
     }
 }

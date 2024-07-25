@@ -132,8 +132,22 @@
                                                 <td>
                                                     <a href="{{ route('categoryPost.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
                                                 </td>
-                                                <td>{{ $item->hot }}</td>
-                                                <td>{{ $item->active }}</td>
+                                                <td class="text-center">
+                                                    <button
+                                                        class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                        data-id="{{ $item->id }}" data-status="{{ $item->active }}"
+                                                        data-url="{{ route('categoryPost.changeActive') }}">
+                                                        {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                    </button>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button
+                                                        class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                        data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
+                                                        data-url="{{ route('categoryPost.changeHot') }}">
+                                                        {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                    </button>
+                                                </td>
                                                 <td>{{ $item->order }}</td>
                                                 <td class="text-center">
                                                     <div class="flex justify-center items-center">
@@ -176,4 +190,8 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+<script src="{{ asset('dist/js/pages/categorypost.js') }}"></script>
 @endsection
