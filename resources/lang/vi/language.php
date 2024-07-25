@@ -248,6 +248,29 @@ return [
         'list' => 'Danh sách banner',
         'name' => 'Tên banner',
         'link' => 'Link banner',
-        'hot' => 'Nổi bật'
-    ]
+        'hot' => 'Nổi bật',
+        'active' => 'Trạng thái',
+        'order' => 'Số thứ tự',
+        'description' => 'Mô tả',
+        'image_path' => 'Hình ảnh',
+        'parent_id' => 'Danh mục cha'
+    ],
+
+    //householder
+    'householder' => [
+        'title' => 'Chủ nhà',
+        'add' => 'Thêm chủ nhà',
+        'edit' => 'Sửa chủ nhà',
+        'list' => 'Danh sách chủ nhà',
+        'name' => 'Tên chủ nhà',
+        'link' => 'Link chủ nhà',
+        'hot' => 'Nổi bật',
+        'active' => 'Trạng thái',
+        'order' => 'Số thứ tự',
+        'description' => 'Mô tả',
+        'image_path' => 'Hình ảnh',
+        'parent_id' => 'Danh mục cha'
+    ],
+
+
 ];

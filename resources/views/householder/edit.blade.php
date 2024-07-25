@@ -79,6 +79,26 @@
                                             </div>
 
                                             <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>{{ trans('language.householder.image_path') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="file" class="form-control" id="image_path" name="image_path">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <img id="img"
+                                                             style="{{ !empty($houseHolder->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}"
+                                                             src="{{ asset($houseHolder->image_path) }}"
+                                                             alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.householder.tax_code') }}</label>
@@ -172,5 +192,15 @@
 @section('js')
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    {{-- <script src="{{ asset('dist/js/pages/householder.js') }}"></script> --}}
+    <script>
+        $('#image_path').on('change', function () {
+            let reader = new FileReader()
+            reader.onload = (e) => {
+                $('#img').attr('src', e.target.result);
+                $('#img').css('width', '200px');
+                $('#img').css('height', '200px');
+            }
+            reader.readAsDataURL(this.files[0]);
+        })
+    </script>
 @endsection

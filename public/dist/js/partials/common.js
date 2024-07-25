@@ -4,7 +4,7 @@ $(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     //select2
     $('.select2').select2({
         width: '100%'
@@ -13,13 +13,16 @@ $(function () {
 
     // delete record
     $(document).on('click', '.deleteTable', deleteRecord);
-    function deleteRecord(e){
+
+    function deleteRecord(event) {
         event.preventDefault();
+
         let btn = $(this);
+
         Swal.fire({
             title: btn.data('title'),
             html: btn.data('text'),
-            icon:  btn.data('icon'),
+            icon: btn.data('icon'),
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
             cancelButtonText: 'Thoát',
@@ -37,15 +40,16 @@ $(function () {
                     contentType: false,
                     cache: false,
                     processData: false,
-                    success: function (data){
-                        if (data.status === 200){
+                    success: function (data) {
+                        if (data.status === 200) {
                             toastr.success(data.msg.text, {timeOut: 5000})
                             btn.closest('tr').remove();
-                        }else {
+                        } else {
                             toastr.error(data.msg.title, {timeOut: 5000})
                         }
                     },
-                    error: function (err){
+                    error: function (err) {
+                        console.log(err);
                         toastr.error('Thất bại', {timeOut: 5000})
                     }
                 })
@@ -55,13 +59,14 @@ $(function () {
 
     //delete dialog
     $(document).on('click', '.deleteDialog', deleteDialog);
-    function deleteDialog(e){
+
+    function deleteDialog(e) {
         event.preventDefault();
         let btn = $(this);
         Swal.fire({
             title: btn.data('title'),
             html: btn.data('text'),
-            icon:  btn.data('icon'),
+            icon: btn.data('icon'),
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
             cancelButtonText: 'Thoát',
@@ -79,15 +84,15 @@ $(function () {
                     contentType: false,
                     cache: false,
                     processData: false,
-                    success: function (data){
-                        if (data.status === 200){
+                    success: function (data) {
+                        if (data.status === 200) {
                             toastr.success(data.msg.text, {timeOut: 5000})
                             btn.closest('.dialog').remove();
-                        }else {
+                        } else {
                             toastr.error(data.msg.title, {timeOut: 5000})
                         }
                     },
-                    error: function (err){
+                    error: function (err) {
                         toastr.error('Thất bại', {timeOut: 5000})
                     }
                 })

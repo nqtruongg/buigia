@@ -9,6 +9,7 @@ use App\Services\HouseHolderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class HouseHolderController extends Controller
 {
@@ -77,6 +78,12 @@ class HouseHolderController extends Controller
             $house_holder = HouseHolder::find($id);
             if ($house_holder) {
                 DB::beginTransaction();
+                if ($house_holder->image_path) {
+                    $imagePath = 'public/householders/' . basename($house_holder->image_path);
+                    if (Storage::exists($imagePath)) {
+                        Storage::delete($imagePath);
+                    }
+                }
                 $house_holder->delete();
                 DB::commit();
                 return [

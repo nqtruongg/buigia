@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('banners', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('banners', function (Blueprint $table) {
-            //
+            $table->softDeletes();
         });
     }
 };

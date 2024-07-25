@@ -263,8 +263,26 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
                                             </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>{{ trans('language.banner.image_path') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="file" class="form-control" id="image_path"
+                                                               name="image_path">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <img id="img" style="{{ !empty($customer->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}" src="{{ asset($customer->image_path) }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
 
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -742,4 +760,17 @@
             checkbox.addEventListener('change', toggleInput);
         });
     </script>
+    <script>
+        $('#image_path').on('change', function () {
+            let reader = new FileReader()
+            reader.onload = (e) => {
+                $('#img').attr('src', e.target.result);
+                $('#img').css('width', '200px');
+                $('#img').css('height', '200px');
+                $('#img').css('object-fit', 'cover');
+            }
+            reader.readAsDataURL(this.files[0]);
+        })
+    </script>
+
 @endsection
