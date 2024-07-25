@@ -170,7 +170,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionProvider::class,
         App\Providers\ViewServiceProvider::class,
-        Prettus\Repository\Providers\RepositoryServiceProvider::class
     ])->toArray(),
 
     /*
