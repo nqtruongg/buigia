@@ -128,6 +128,7 @@ return [
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
     ],
+
     'householder' => [
         'title' => 'Chủ nhà',
         'name' => 'Tên chủ nhà',
@@ -230,21 +231,70 @@ return [
         'parent_id' => 'Danh mục cha'
     ],
 
-    //householder
-    'householder' => [
-        'title' => 'Chủ nhà',
-        'add' => 'Thêm chủ nhà',
-        'edit' => 'Sửa chủ nhà',
-        'list' => 'Danh sách chủ nhà',
-        'name' => 'Tên chủ nhà',
-        'link' => 'Link chủ nhà',
-        'hot' => 'Nổi bật',
+
+    // categoryPost
+    'categoryPost' => [
+        'title' => 'Danh mục tin tức',
+        'slug' => 'Slug',
+        'add' => 'Thêm danh mục',
+        'edit' => 'Sửa tin tức',
+        'list' => 'Danh sách tin tức',
+        'name' => 'Tên tin tức',
+        'hot' => 'Nối báo',
         'active' => 'Trạng thái',
         'order' => 'Số thứ tự',
         'description' => 'Mô tả',
+        'description_seo' => 'Mô tả seo',
+        'title_seo' => 'Tiêu đề seo',
+        'content' => 'Nội dung',
+        'keyword_seo' => 'Từ khóa seo',
         'image_path' => 'Hình ảnh',
+        'banner_path' => 'Ảnh bìa',
         'parent_id' => 'Danh mục cha'
     ],
 
+    'commission' => [
+        'title' => 'Phần trăm hoa hồng',
+        'name' => 'Tên phần trăm hoa hồng',
+        'add' => 'Thêm phần trăm hoa hồng',
+        'edit' => 'Chỉnh sửa phần trăm hoa hồng',
+        'list' => 'Danh sách phần trăm hoa hồng',
+        'min_price' => 'Tiền tối thiểu',
+        'max_price' => 'Tiền tối đa',
+        'percent' => 'Phần trăm',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ',
+        'invoice_address' => 'Địa chỉ xuất hoá đơn',
+        'supplier' => 'Nhà cung cấp',
+        'career' => 'Ngành nghề',
+        'status' => 'Trạng thái',
+        'staff' => 'Nhân viên chăm sóc',
+        'tax_code' => 'Mã số thuế',
+        'info' => 'Thông tin',
+        'document' => 'Tài liệu',
+        'code' => 'Mã HH',
+        'detail' => 'Chi tiết chủ nhà',
+        'dialog' => 'Cuộc trò chuyện',
+        'active' => 'Kích hoạt',
+    ],
+
+    'area' => [
+        'title' => 'Khu vực',
+        'name' => 'Tên khu vực',
+        'add' => 'Thêm khu vực',
+        'edit' => 'Chỉnh sửa khu vực',
+        'list' => 'Danh sách khu vực',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ cụ thể',
+        'active' => 'Trạng thái',
+        'hot' => 'Nổi bật',
+        'order' => 'Thứ tự',
+        'parent_id' => 'Danh mục cha',
+        'slug' => 'Slug',
+        'district_id' => 'Quận/Huyện',
+        'commune_id' => 'Phường/Xã',
+        'city_id' => 'Tỉnh/Thành phố',
+        'info' => 'Thông tin',
+    ],
 
 ];

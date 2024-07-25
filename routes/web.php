@@ -6,6 +6,9 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\PriceQuoteController;
 use App\Http\Controllers\Department\DepartmentController;
 use App\Http\Controllers\DragDropController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Area\AreaController;
+use App\Http\Controllers\Commission\CommissionController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\TaskController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\HouseHolder\HouseHolderController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\CategoryPost\CategoryPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -224,6 +228,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/thirty-day', [ServiceExpireController::class, 'expirethirtyDay'])->name('noti.thirtyDay');
     });
 
+    // householder
     Route::prefix('householder')
         ->controller(HouseHolderController::class)
         ->name('householder.')
@@ -236,4 +241,52 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
         });
+
+    // categoryPost
+    Route::prefix('categoryPost')
+        ->controller(CategoryPostController::class)
+        ->name('categoryPost.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'destroy')->name('delete');
+        });
+
+    // commission
+    Route::prefix('commission')
+        ->controller(CommissionController::class)
+        ->name('commission.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
+        });
+
+    Route::prefix('area')
+        ->controller(AreaController::class)
+        ->name('area.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+    Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
+        Route::group(['prefix' => 'address'], function () {
+            Route::get('district', [AddressController::class, 'getDistricts'])->name('ajax.address.districts');
+            Route::get('communes', [AddressController::class, 'getCommunes'])->name('ajax.address.communes');
+        });
+    });
 });
