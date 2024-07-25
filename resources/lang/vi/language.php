@@ -239,7 +239,7 @@ return [
         'add' => 'Thêm danh mục',
         'edit' => 'Sửa tin tức',
         'list' => 'Danh sách danh mục',
-        'name' => 'Tên tin tức',
+        'name' => 'Tên danh mục tin tức',
         'hot' => 'Nổi bật',
         'active' => 'Trạng thái',
         'order' => 'Số thứ tự',
