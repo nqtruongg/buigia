@@ -22,6 +22,15 @@ return [
     'update_customer_service_success' => 'Chỉnh sửa dịch vụ thành công',
     'create_customer_document_success' => 'Thêm tài liệu thành công',
 
+    //customer
+    'create_householder_success' => 'Thêm chủ nhà thành công',
+    'update_householder_success' => 'Sửa chủ nhà thành công',
+    'confirm_delete_householder' => 'Bạn có muốn xoá chủ nhà',
+    'create_householder_dialog_success' => 'Thêm cuộc trò chuyện thành công',
+    'update_householder_dialog_success' => 'Chỉnh sửa cuộc trò chuyện thành công',
+    'confirm_delete_householder_dialog' => 'Bạn muốn xoá cuộc trò chuyện',
+    'update_householder_service_success' => 'Chỉnh sửa dịch vụ thành công',
+    'create_householder_document_success' => 'Thêm tài liệu thành công',
     //account
     'update_account_susscess' => 'Cập nhật thông tin thành công',
     'update_account_failed' => 'Cập nhật thông tin thất bại',

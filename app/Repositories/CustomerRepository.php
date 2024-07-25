@@ -150,10 +150,15 @@ class CustomerRepository
 
         $code = $this->generateCode();
 
+        if ($request->hasFile('image_path')) {
+            $path = $request->file('image_path')->storePublicly('public/customer');
+            $request->image_path = Storage::url($path);
+        }
+
         $params = [
             'name' => $request->name,
             'code' => $code,
-            'responsible_person' => $request->responsible_person,
+            'responsible_person' => $request->responsible_person ?? '',
             'tax_code' => $request->tax_code,
             'status' => $request->status,
             'email' => $request->email,
@@ -162,6 +167,8 @@ class CustomerRepository
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
             'user_id' => $request->user_id,
+            'type' => $request->type ?? 0,
+            'image_path' => $request->image_path,
         ];
 
         $customer = Customer::create($params);
@@ -205,9 +212,25 @@ class CustomerRepository
             return $value !== null;
         });
 
+        $customer = Customer::find($id);
+
+        if ($request->hasFile('image_path')) {
+            if ($customer->image_path) {
+                $imagePath = 'public/customer/' . basename($customer->image_path);
+                if (Storage::exists($imagePath)) {
+                    Storage::delete($imagePath);
+                }
+            }
+
+            $path = $request->file('image_path')->store('public/customer');
+            $imagePath = Storage::url($path);
+        } else {
+            $imagePath = $customer->image_path;
+        }
+
         $params = [
             'name' => $request->name,
-            'responsible_person' => $request->responsible_person,
+            'responsible_person' => $request->responsible_person ?? '',
             'tax_code' => $request->tax_code,
             'status' => $request->status,
             'email' => $request->email,
@@ -216,10 +239,13 @@ class CustomerRepository
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
             'user_id' => $request->user_id,
+            'type' => $request->type ?? 0,
+            'image_path' => $imagePath,
         ];
 
 
-        $customer = Customer::find($id);
+
+
         $customer->update($params);
 
         $file_ids = CustomerDocument::where('customer_id', $id)->pluck('id')->toArray();
@@ -339,6 +365,14 @@ class CustomerRepository
                     File::delete(public_path($item));
                 }
             }
+
+            if ($customer->image_path) {
+                $imagePath = 'public/customer/' . basename($customer->image_path);
+                if (Storage::exists($imagePath)) {
+                    Storage::delete($imagePath);
+                }
+            }
+
             CustomerDocument::where('customer_id', $id)->delete();
             $customer->delete();
 

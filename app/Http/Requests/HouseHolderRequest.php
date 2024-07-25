@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Customer;
+use App\Models\HouseHolder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CustomerRequest extends FormRequest
+class HouseHolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,17 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-        $status = $this->input('status');
-        $type = $this->input('type');
+        // $status = $this->input('status');
+
         $rules = [
-            'type' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'tax_code' => 'nullable|string|max:255',
-            'status' => 'required',
+            'description' => 'nullable|string|max:255',
             'email' => [
                 'required',
                 'email',
                 'string',
-                Rule::unique(Customer::class, 'email')->where(function ($query) {
+                Rule::unique(HouseHolder::class, 'email')->where(function ($query) {
                     $query->whereNull('deleted_at')->whereNot('id', $this->id);
                 }),
             ],
@@ -42,43 +41,15 @@ class CustomerRequest extends FormRequest
                 'required',
                 'digits_between:10,11',
                 'numeric',
-                Rule::unique(Customer::class, 'phone')->where(function ($query) {
+                Rule::unique(HouseHolder::class, 'phone')->where(function ($query) {
                     $query->whereNull('deleted_at')->whereNot('id', $this->id);
                 }),
             ],
             'address' => 'nullable|string|max:255',
             'invoice_address' => 'nullable|string|max:255',
-            'career' => 'nullable|string|max:255',
-            'user_id' => 'required|exists:users,id',
+            // 'career' => 'nullable|string|max:255',
         ];
 
-        if ($status == 1 || $status == 2) {
-            $rules += [
-                'services' => 'required',
-                'services.*' => 'required',
-                'start' => 'required',
-                'start.*' => 'required',
-                'end' => 'required',
-                'end.*' => 'required',
-                'view_total' => 'required',
-                'view_total.*' => 'required',
-                'note' => 'nullable|array|max:100',
-                'note.*' => 'nullable|string|max:100',
-                'supplier' => 'nullable|array|max:100',
-                'supplier.*' => 'nullable|string|max:100',
-            ];
-        }
-
-        if($type == 1){
-            $rules += [
-                'responsible_person' => 'required|string|max:255',
-
-            ];
-        }else{
-            $rules += [
-                'responsible_person' => 'nullable|string|max:255',
-            ];
-        }
 
         return $rules;
     }
@@ -90,14 +61,12 @@ class CustomerRequest extends FormRequest
             'name.string' => 'Tên phải là một chuỗi ký tự.',
             'name.max' => 'Tên không được vượt quá :max ký tự.',
 
-            'responsible_person.required' => 'Trường người chịu trách nhiệm là bắt buộc.',
-            'responsible_person.string' => 'Người chịu trách nhiệm phải là một chuỗi ký tự.',
-            'responsible_person.max' => 'Người chịu trách nhiệm không được vượt quá :max ký tự.',
-
             'tax_code.string' => 'Mã số thuế phải là một chuỗi ký tự.',
             'tax_code.max' => 'Mã số thuế không được vượt quá :max ký tự.',
 
-            'status.required' => 'Trường trạng thái là bắt buộc.',
+            'description.string' => 'Mô tả phải là một chuỗi ký tự.',
+            'description.max' => 'Mô tả không được vượt quá :max ký tự.',
+
 
             'email.required' => 'Trường email là bắt buộc.',
             'email.email' => 'Email không hợp lệ.',
@@ -116,11 +85,6 @@ class CustomerRequest extends FormRequest
             'invoice_address.required' => 'Trường địa chỉ hóa đơn là bắt buộc.',
             'invoice_address.string' => 'Địa chỉ hóa đơn phải là một chuỗi ký tự.',
             'invoice_address.max' => 'Địa chỉ hóa đơn không được vượt quá :max ký tự.',
-
-
-
-            'career.string' => 'Ngành nghề phải là một chuỗi ký tự.',
-            'career.max' => 'Ngành nghề không được vượt quá :max ký tự.',
 
             'services' => 'Trường dịch vụ là bắt buộc',
             'services.*' => 'Trường dịch vụ là bắt buộc',

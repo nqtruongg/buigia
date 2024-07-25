@@ -61,7 +61,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <img id="img" width="200px" height="200px" src="{{ asset($banner->image_path) }}" alt="">
+                                            <img id="img" style="{{ !empty($banner->image_path) ? 'with: 200px; height: 200px; object-fit: cover' : '' }}" src="{{ asset($banner->image_path) }}" alt="">
                                         </div>
                                     </div>
                                 </div>

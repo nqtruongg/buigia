@@ -22,9 +22,10 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->string('description')->nullable();
             $table->string('image_path')->nullable();
-            $table->integer('parent_id')->default(0);
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();
-//            $table->foreign('parent_id')->references('id')->on('banners')->onDelete('cascade');
+
+            $table->foreign('parent_id')->references('id')->on('banners')->onDelete('cascade');
         });
     }
 
