@@ -50,6 +50,10 @@ return [
     'update_user_success' => 'Sửa nhân viên thành công',
     'confirm_delete_user' => 'Bạn có muốn xoá nhân viên',
 
+    //commission
+    'create_commission_success' => 'Thêm phần trăm hoa hồng thành công',
+    'update_commission_success' => 'Sửa phần trăm hoa hồng thành công',
+    'confirm_delete_commission' => 'Bạn có muốn xoá phần trăm hoa hồng',
     //service
     'create_service_success' => 'Thêm dịch vụ thành công',
     'update_service_success' => 'Sửa dịch vụ thành công',

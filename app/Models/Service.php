@@ -41,4 +41,9 @@ class Service extends Model
     {
         return $this->belongsTo(HouseHolder::class, 'house_holder_id');
     }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
 }
