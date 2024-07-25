@@ -124,10 +124,10 @@ return [
         'document' => 'Tài liệu',
         'code' => 'Mã KH',
         'detail' => 'Chi tiết khách hàng',
-        'info' => 'Thông tin',
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
     ],
+
     'householder' => [
         'title' => 'Chủ nhà',
         'name' => 'Tên chủ nhà',
@@ -146,9 +146,53 @@ return [
         'document' => 'Tài liệu',
         'code' => 'Mã HH',
         'detail' => 'Chi tiết chủ nhà',
-        'info' => 'Thông tin',
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
+        'image_path' => 'Hình ảnh',
+    ],
+
+    'commission' => [
+        'title' => 'Phần trăm hoa hồng',
+        'name' => 'Tên phần trăm hoa hồng',
+        'add' => 'Thêm phần trăm hoa hồng',
+        'edit' => 'Chỉnh sửa phần trăm hoa hồng',
+        'list' => 'Danh sách phần trăm hoa hồng',
+        'min_price' => 'Tiền tối thiểu',
+        'max_price' => 'Tiền tối đa',
+        'percent' => 'Phần trăm',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ',
+        'invoice_address' => 'Địa chỉ xuất hoá đơn',
+        'supplier' => 'Nhà cung cấp',
+        'career' => 'Ngành nghề',
+        'status' => 'Trạng thái',
+        'staff' => 'Nhân viên chăm sóc',
+        'tax_code' => 'Mã số thuế',
+        'info' => 'Thông tin',
+        'document' => 'Tài liệu',
+        'code' => 'Mã HH',
+        'detail' => 'Chi tiết chủ nhà',
+        'dialog' => 'Cuộc trò chuyện',
+        'active' => 'Kích hoạt',
+    ],
+
+    'area' => [
+        'title' => 'Khu vực',
+        'name' => 'Tên khu vực',
+        'add' => 'Thêm khu vực',
+        'edit' => 'Chỉnh sửa khu vực',
+        'list' => 'Danh sách khu vực',
+        'description' => 'Mô tả ngắn',
+        'address' => 'Địa chỉ cụ thể',
+        'active' => 'Trạng thái',
+        'hot' => 'Nổi bật',
+        'order' => 'Thứ tự',
+        'parent_id' => 'Danh mục cha',
+        'slug' => 'Slug',
+        'district_id' => 'Quận/Huyện',
+        'commune_id' => 'Phường/Xã',
+        'city_id' => 'Tỉnh/Thành phố',
+        'info' => 'Thông tin',
     ],
 
     //receivable
@@ -230,21 +274,6 @@ return [
         'parent_id' => 'Danh mục cha'
     ],
 
-    //householder
-    'householder' => [
-        'title' => 'Chủ nhà',
-        'add' => 'Thêm chủ nhà',
-        'edit' => 'Sửa chủ nhà',
-        'list' => 'Danh sách chủ nhà',
-        'name' => 'Tên chủ nhà',
-        'link' => 'Link chủ nhà',
-        'hot' => 'Nổi bật',
-        'active' => 'Trạng thái',
-        'order' => 'Số thứ tự',
-        'description' => 'Mô tả',
-        'image_path' => 'Hình ảnh',
-        'parent_id' => 'Danh mục cha'
-    ],
 
 
 ];

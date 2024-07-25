@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Area\AreaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Customer\CustomerController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\Service\ServiceExpireController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Banner\BannerController;
+use App\Http\Controllers\Commission\CommissionController;
 use App\Http\Controllers\HouseHolder\HouseHolderController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -235,5 +238,38 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
+        });
+
+    Route::prefix('commission')
+        ->controller(CommissionController::class)
+        ->name('commission.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
+        });
+
+        Route::prefix('area')
+        ->controller(AreaController::class)
+        ->name('area.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+        Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
+            Route::group(['prefix' => 'address'], function () {
+                Route::get('district', [AddressController::class, 'getDistricts'])->name('ajax.address.districts');
+                Route::get('communes', [AddressController::class, 'getCommunes'])->name('ajax.address.communes');
+            });
         });
 });
