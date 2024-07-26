@@ -140,6 +140,32 @@
                         </li>
                     </ul>
                 </li>
+
+                {{-- Quản lí slider --}}
+                <li class="nav-item">
+                    <a href="{{ route('banner.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.banner.sidebarTitle') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('banner.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.banner.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('banner.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.banner.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- service --}}
                 <li class="nav-item">
                     <a href="{{ route('service.index') }}" class="nav-link">

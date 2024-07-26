@@ -75,8 +75,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->postService->getPostById($id);
+
         $listCategoryPost = $this->postService->getListCategoryPost();
+
         $selectedCategoryIds = $post->categories->pluck('id')->toArray();
+
         return view('post.edit', compact('post', 'listCategoryPost', 'selectedCategoryIds'));
     }
 
