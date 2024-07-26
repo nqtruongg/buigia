@@ -115,7 +115,30 @@
                     </ul>
                 </li>
 
-
+                {{-- banner --}}
+                <li class="nav-item">
+                    <a href="{{ route('banner.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.banner.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('banner.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.banner.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('banner.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.banner.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{-- Tin tức --}}
                 <li class="nav-item">
                     <a href="{{ route('post.index') }}" class="nav-link">
