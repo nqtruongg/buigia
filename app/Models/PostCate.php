@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PostCate extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $table = 'posts_cate';
     protected $guarded = [];
 
     public function post()
