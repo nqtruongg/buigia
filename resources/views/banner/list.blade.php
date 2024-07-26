@@ -42,24 +42,6 @@
                                         </div>
                                         <div class="col-md-5">
                                             <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="form-group">
-                                                        <label>{{ trans('language.banner.parent_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select class="form-control" name="parent_id">
-                                                            <option disabled selected>--chọn--</option>
-                                                            @foreach($parentBanner as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                @if(count($category->childrenRecursive) > 0)
-                                                                    @include('components.child-category', [
-                                                                        'children' => $category->childrenRecursive,
-                                                                        'depth' => 1
-                                                                    ])
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div class="mr-2">
                                                     <div class="form-group d-flex flex-column">
                                                         <label>&nbsp;</label>

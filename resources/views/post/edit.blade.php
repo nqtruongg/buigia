@@ -56,6 +56,11 @@
                                                     class="text-danger">*</span></label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
                                         </div>
+                                        @if ($errors->first('image_path'))
+                                            <div class="invalid-alert text-danger">
+                                                {{ $errors->first('image_path') }}
+                                            </div>
+                                        @endif
                                         <div class="form-group">
                                             <img id="img" style="{{ !empty($post->image_path) ? 'with: 200px; height: 200px; object-fit: cover' : '' }}" src="{{ asset($post->image_path) }}" alt="{{ $post->name }}">
                                         </div>
@@ -66,6 +71,11 @@
                                                 <span class="text-danger">*</span></label>
                                             <input type="file" class="form-control" id="banner_path" name="banner_path">
                                         </div>
+                                        @if ($errors->first('banner_path'))
+                                            <div class="invalid-alert text-danger">
+                                                {{ $errors->first('banner_path') }}
+                                            </div>
+                                        @endif
                                         <div class="form-group">
                                             <img id="img_banner_path" style="{{ !empty($post->banner_path) ? 'with: 200px; height: 200px; object-fit: cover' : '' }}" src="{{ asset($post->banner_path) }}" alt="{{ $post->name }}">
                                         </div>

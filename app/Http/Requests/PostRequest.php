@@ -33,8 +33,8 @@ class PostRequest extends FormRequest
                     $query->whereNull('deleted_at')->whereNot('id', $this->id);
                 })
             ],
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'banner_path' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'image_path' => 'nullable|image',
+            'banner_path' => 'nullable|image',
             'description' => 'nullable|string',
             'description_seo' => 'nullable|string|max:255',
             'keyword_seo' => 'nullable|string|max:255',

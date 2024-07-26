@@ -85,13 +85,13 @@ class PostRepository
 
         if ($request->hasFile('image_path')) {
             if ($postById->image_path) {
-                $imagePath = 'public/post/' . basename($postById->image_path);
+                $imagePath = 'public/posts/' . basename($postById->image_path);
                 if (Storage::exists($imagePath)) {
                     Storage::delete($imagePath);
                 }
             }
 
-            $path = $request->file('image_path')->store('public/post');
+            $path = $request->file('image_path')->store('public/posts');
             $imagePath = Storage::url($path);
         } else {
             $imagePath = $postById->image_path;
@@ -99,13 +99,13 @@ class PostRepository
 
         if ($request->hasFile('banner_path')) {
             if ($postById->banner_path) {
-                $bannerPath = 'public/post/' . basename($postById->banner_path);
+                $bannerPath = 'public/posts/' . basename($postById->banner_path);
                 if (Storage::exists($bannerPath)) {
                     Storage::delete($bannerPath);
                 }
             }
 
-            $path = $request->file('banner_path')->store('public/post');
+            $path = $request->file('banner_path')->store('public/posts');
             $bannerPath = Storage::url($path);
         } else {
             $bannerPath = $postById->banner_path;
@@ -148,14 +148,14 @@ class PostRepository
         }
 
         if ($postById->image_path) {
-            $imagePath = 'public/post/' . basename($postById->image_path);
+            $imagePath = 'public/posts/' . basename($postById->image_path);
             if (Storage::exists($imagePath)) {
                 Storage::delete($imagePath);
             }
         }
 
         if ($postById->banner_path) {
-            $bannerPath = 'public/post/' . basename($postById->banner_path);
+            $bannerPath = 'public/posts/' . basename($postById->banner_path);
             if (Storage::exists($bannerPath)) {
                 Storage::delete($bannerPath);
             }
