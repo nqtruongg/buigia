@@ -12,9 +12,9 @@ class PostService
         $this->postRepository = $postRepository;
     }
 
-    public function getListPost()
+    public function getListPost($request)
     {
-        return $this->postRepository->getListPost();
+        return $this->postRepository->getListPost($request);
     }
 
     public function getListCategoryPost()

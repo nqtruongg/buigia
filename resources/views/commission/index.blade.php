@@ -39,22 +39,6 @@
                                                     placeholder="{{ trans('language.commission.name') }}">
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>{{ trans('language.commission.code') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="code"
-                                                    value="{{ request()->code ?? '' }}"
-                                                    placeholder="{{ trans('language.commission.code') }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>{{ trans('language.phone') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="phone"
-                                                    value="{{ request()->phone ?? '' }}"
-                                                    placeholder="{{ trans('language.phone') }}">
-                                            </div>
-                                        </div> --}}
                                         <div class="mr-2">
                                             <div class="form-group d-flex flex-column">
                                                 <label>&nbsp;</label>

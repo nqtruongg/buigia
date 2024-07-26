@@ -13,21 +13,13 @@ class PostRepository
     const PAGINATE = 15;
     const PAGINATE_FILE = 5;
 
-    public function getListPost()
+    public function getListPost($request)
     {
-        $post = Post::select(
-            'id',
-            'name',
-            'description',
-            'image_path',
-            'slug',
-            'hot',
-            'active',
-            'order',
-            'category_id'
-        )
-            ->orderBy('id', 'DESC')
-            ->paginate(self::PAGINATE);
+        $post = Post::query();
+        if ($request->name != null) {
+            $post = $post->where('name', 'LIKE', "%{$request->name}%");
+        }
+        $post = $post->orderBy('id', 'desc')->paginate(self::PAGINATE);
         return $post;
     }
 
@@ -51,40 +43,34 @@ class PostRepository
 
     public function createPost($request)
     {
-
+        $user_id = Auth::id();
+        $post = new Post();
+        $post->name = $request->name;
+        $post->slug = $request->slug;
+        $post->description = $request->description;
+        $post->description_seo = $request->description_seo ?? '';
+        $post->keyword_seo = $request->keyword_seo ?? '';
+        $post->title_seo = $request->title_seo ?? '';
+        $post->content = $request->content ?? '';
+        $post->active = $request->active;
+        $post->hot = $request->hot;
+        $post->order = $request->order;
         if ($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->storePublicly('public/post');
-            $request->merge(['image_path' => Storage::url($path)]);
+            $path = $request->file('image_path')->storePublicly('public/posts');
+            $post->image_path = Storage::url($path);
         }
 
         if ($request->hasFile('banner_path')) {
-            $path = $request->file('banner_path')->storePublicly('public/post');
-            $request->merge(['banner_path' => Storage::url($path)]);
+            $path = $request->file('banner_path')->storePublicly('public/posts');
+            $post->banner_path = Storage::url($path);
         }
 
-        $data = $request->only([
-            'name',
-            'slug',
-            'description',
-            'description_seo',
-            'keyword_seo',
-            'title_seo',
-            'content',
-            'image_path',
-            'banner_path',
-            'active',
-            'hot',
-            'order',
-        ]);
-
-        $data['user_id'] = Auth::id();
-
-        $post = Post::create($data);
-
+        $post->user_id = $user_id;
+        $post->setting_id = $request->setting_id ?? '';
+        $post->save();
         if ($request->has('category_id')) {
             $post->categories()->sync($request->category_id);
         }
-
         return true;
     }
 
@@ -92,7 +78,7 @@ class PostRepository
     {
         $postById = Post::findOrFail($id);
 
-        if(!$postById) {
+        if (!$postById) {
             return false;
         }
 
@@ -127,34 +113,26 @@ class PostRepository
         $data = [
             'name' => $request->name,
             'slug' => $request->slug,
-            'description' => $request->description,
-            'description_seo' => $request->description_seo,
-            'keyword_seo' => $request->keyword_seo,
-            'title_seo' => $request->title_seo,
-            'content' => $request->content,
+            'description' => $request->description ?? '',
+            'description_seo' => $request->description_seo ?? '',
+            'keyword_seo' => $request->keyword_seo ?? '',
+            'title_seo' => $request->title_seo ?? '',
+            'content' => $request->content ?? '',
             'image_path' => $imagePath,
             'banner_path' => $bannerPath,
             'active' => $request->active,
             'hot' => $request->hot,
             'order' => $request->order,
-            'category_id' => $request->category_id,
             'user_id' => Auth::user()->id,
-            'setting_id' => $request->setting_id
+            'setting_id' => $request->setting_id ?? ''
         ];
 
         $postById->update($data);
 
-        $postCate = PostCate::where('post_id', $postById->id)->first();
-
-        if ($postCate) {
-            $postCate->update([
-                'category_id' => $request->category_id
-            ]);
+        if ($request->has('category_id')) {
+            $postById->categories()->sync($request->category_id);
         } else {
-            PostCate::create([
-                'post_id' => $postById->id,
-                'category_id' => $request->category_id
-            ]);
+            $postById->categories()->detach();
         }
 
         return true;
@@ -164,7 +142,7 @@ class PostRepository
     {
         $postById = Post::findOrFail($id);
 
-        if(!$postById) {
+        if (!$postById) {
             return false;
         }
 
