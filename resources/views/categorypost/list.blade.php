@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
                         <a href="{{ route('categoryPost.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.categoryPost.add') }}</a>
                     </div>
@@ -48,12 +48,13 @@
                                                                 class="text-danger">*</span></label>
                                                         <select class="form-control" name="parent_id">
                                                             <option value="" disabled selected>--chọn--</option>
-                                                            @foreach($listCategoryPost as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                @if(count($category->childrenRecursive) > 0)
+                                                            @foreach ($listCategoryPost as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}
+                                                                </option>
+                                                                @if (count($category->childrenRecursive) > 0)
                                                                     @include('components.child-category', [
                                                                         'children' => $category->childrenRecursive,
-                                                                        'depth' => 1
+                                                                        'depth' => 1,
                                                                     ])
                                                                 @endif
                                                             @endforeach
@@ -84,112 +85,132 @@
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">{{ trans('language.categoryPost.name') }}</th>
-                                    <th class="text-center">{{ trans('language.categoryPost.hot') }}</th>
-                                    <th class="text-center">{{ trans('language.categoryPost.active') }}</th>
-                                    <th class="text-center">{{ trans('language.categoryPost.order') }}</th>
-                                    <th class="text-center">{{ trans('language.action') }}</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">{{ trans('language.categoryPost.name') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryPost.description') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryPost.active') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryPost.hot') }}</th>
+                                        <th class="text-center">{{ trans('language.action') }}</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($_GET['parent_id']))
-                                    @if ($listCategoryPostByIdCate->count() > 0)
-                                        @foreach ($listCategoryPostByIdCate as $key => $item)
-                                            <tr>
-                                                <td class="text-center">
-                                                    {{ $key + 1 + ($listCategoryPostByIdCate->currentPage() - 1) * $listCategoryPostByIdCate->perPage() }}
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('categoryPost.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
-                                                </td>
-                                                <td>{{ $item->hot }}</td>
-                                                <td>{{ $item->active }}</td>
-                                                <td>{{ $item->order }}</td>
-                                                <td class="text-center">
-                                                    <div class="flex justify-center items-center">
-                                                        <a class="flex items-center mr-3"
-                                                           href="{{ route('categoryPost.edit', ['id' => $item->id]) }}">
-                                                            <i class="fas fa-edit"></i>
-                                                            {{ trans('language.edit') }}
-                                                        </a>
-                                                        <a href="javascript:void(0)"
-                                                           class="flex items-center text-danger deleteTable"
-                                                           data-id="{{ $item->id }}"
-                                                           data-title="{{ trans('message.confirm_delete_category_post') }}"
-                                                           data-text="<span>{{ $item->name }}</span>"
-                                                           data-url="{{ route('categoryPost.delete', ['id' => $item->id]) }}"
-                                                           data-method="DELETE"
-                                                           data-icon="question">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                            {{ trans('language.delete') }}
-                                                        </a>
+                                    @if (!empty($_GET['parent_id']))
+                                        @if ($listCategoryPostByIdCate->count() > 0)
+                                            @foreach ($listCategoryPostByIdCate as $key => $item)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $key + 1 + ($listCategoryPostByIdCate->currentPage() - 1) * $listCategoryPostByIdCate->perPage() }}
+                                                    </td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ route('categoryPost.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
+                                                    </td>
+                                                    <td>{{ $item->description }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->active }}"
+                                                            data-url="{{ route('categoryPost.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('categoryPost.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="flex justify-center items-center">
+                                                            <a class="flex items-center mr-3"
+                                                                href="{{ route('categoryPost.edit', ['id' => $item->id]) }}">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ trans('language.edit') }}
+                                                            </a>
+                                                            <a href="javascript:void(0)"
+                                                                class="flex items-center text-danger deleteTable"
+                                                                data-id="{{ $item->id }}"
+                                                                data-title="{{ trans('message.confirm_delete_category_post') }}"
+                                                                data-text="<span>{{ $item->name }}</span>"
+                                                                data-url="{{ route('categoryPost.delete', ['id' => $item->id]) }}"
+                                                                data-method="DELETE" data-icon="question">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                                {{ trans('language.delete') }}
+                                                            </a>
 
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="7" class="text-center"> {{ trans('language.no-data') }} </td>
-                                        </tr>
-                                    @endif
-                                @else
-                                    @if ($listCategoryPost->count() > 0)
-                                        @foreach ($listCategoryPost as $key => $item)
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
                                             <tr>
-                                                <td class="text-center">
-                                                    {{ $key + 1 + ($listCategoryPost->currentPage() - 1) * $listCategoryPost->perPage() }}
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('categoryPost.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button
-                                                        class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                        data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                        data-url="{{ route('categoryPost.changeActive') }}">
-                                                        {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
-                                                    </button>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button
-                                                        class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                        data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                        data-url="{{ route('categoryPost.changeHot') }}">
-                                                        {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
-                                                    </button>
-                                                </td>
-                                                <td>{{ $item->order }}</td>
-                                                <td class="text-center">
-                                                    <div class="flex justify-center items-center">
-                                                        <a class="flex items-center mr-3"
-                                                           href="{{ route('categoryPost.edit', ['id' => $item->id]) }}">
-                                                            <i class="fas fa-edit"></i>
-                                                            {{ trans('language.edit') }}
-                                                        </a>
-                                                        <a href="javascript:void(0)"
-                                                           class="flex items-center text-danger deleteTable"
-                                                           data-id="{{ $item->id }}"
-                                                           data-title="{{ trans('message.confirm_delete_banner') }}"
-                                                           data-text="<span>{{ $item->name }}</span>"
-                                                           data-url="{{ route('categoryPost.delete', ['id' => $item->id]) }}"
-                                                           data-method="DELETE"
-                                                           data-icon="question">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                            {{ trans('language.delete') }}
-                                                        </a>
-                                                    </div>
+                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }}
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     @else
-                                        <tr>
-                                            <td colspan="7" class="text-center"> {{ trans('language.no-data') }} </td>
-                                        </tr>
+                                        @if ($listCategoryPost->count() > 0)
+                                            @foreach ($listCategoryPost as $key => $item)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $key + 1 + ($listCategoryPost->currentPage() - 1) * $listCategoryPost->perPage() }}
+                                                    </td>
+                                                    <td>
+                                                        <a
+                                                            href="{{ route('categoryPost.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
+                                                    </td>
+                                                    <td>{{ $item->description }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->active }}"
+                                                            data-url="{{ route('categoryPost.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('categoryPost.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="flex justify-center items-center">
+                                                            <a class="flex items-center mr-3"
+                                                                href="{{ route('categoryPost.edit', ['id' => $item->id]) }}">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ trans('language.edit') }}
+                                                            </a>
+                                                            <a href="javascript:void(0)"
+                                                                class="flex items-center text-danger deleteTable"
+                                                                data-id="{{ $item->id }}"
+                                                                data-title="{{ trans('message.confirm_delete_banner') }}"
+                                                                data-text="<span>{{ $item->name }}</span>"
+                                                                data-url="{{ route('categoryPost.delete', ['id' => $item->id]) }}"
+                                                                data-method="DELETE" data-icon="question">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                                {{ trans('language.delete') }}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }}
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endif
-                                @endif
                                 </tbody>
                             </table>
                             <div>
@@ -206,5 +227,4 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('dist/js/pages/categorypost.js') }}"></script>
 @endsection

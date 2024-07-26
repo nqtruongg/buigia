@@ -24,6 +24,7 @@ use App\Http\Controllers\HouseHolder\HouseHolderController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CategoryPost\CategoryPostController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\Service\CategoryServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
             Route::post('/get-list-role', 'getListRole')->name('getListRole');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
         });
 
 
@@ -247,6 +250,21 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('categoryPost')
         ->controller(CategoryPostController::class)
         ->name('categoryPost.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'destroy')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+        Route::prefix('categoryService')
+        ->controller(CategoryServiceController::class)
+        ->name('categoryService.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail/{id}', 'detail')->name('detail');

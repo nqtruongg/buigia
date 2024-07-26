@@ -220,5 +220,4 @@
 @section('js')
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/area.js') }}"></script>
 @endsection

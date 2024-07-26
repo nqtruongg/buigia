@@ -147,9 +147,9 @@ return [
         'document' => 'Tài liệu',
         'code' => 'Mã HH',
         'detail' => 'Chi tiết chủ nhà',
-        'info' => 'Thông tin',
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
+        'image_path' => 'Hình ảnh',
     ],
 
     //receivable
@@ -252,6 +252,28 @@ return [
         'banner_path' => 'Ảnh bìa',
         'parent_id' => 'Danh mục cha'
     ],
+
+        // categoryPost
+        'categoryService' => [
+            'title' => 'Danh mục bất động sản',
+            'slug' => 'Slug',
+            'add' => 'Thêm danh mục bất động sản',
+            'edit' => 'Sửa danh mục bất động sản',
+            'list' => 'Danh sách danh mục bất động sản',
+            'name' => 'Tên danh mục bất động sản',
+            'hot' => 'Nổi bật',
+            'active' => 'Trạng thái',
+            'order' => 'Số thứ tự',
+            'description' => 'Mô tả',
+            'description_seo' => 'Mô tả seo',
+            'title_seo' => 'Tiêu đề seo',
+            'content' => 'Nội dung',
+            'keyword_seo' => 'Từ khóa seo',
+            'image_path' => 'Hình ảnh',
+            'banner_path' => 'Ảnh bìa',
+            'parent_id' => 'Danh mục cha'
+        ],
+
 
     'commission' => [
         'title' => 'Phần trăm hoa hồng',

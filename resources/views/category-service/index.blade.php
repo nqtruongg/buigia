@@ -5,9 +5,9 @@
 
 @section('content')
     @include('partials.breadcrumb', [
-        'title' => trans('language.banner.add'),
-        'middle_page' => trans('language.banner.title'),
-        'current_page' => trans('language.banner.add'),
+        'title' => trans('language.categoryService.add'),
+        'middle_page' => trans('language.categoryService.title'),
+        'current_page' => trans('language.categoryService.add'),
     ])
 
     <section class="content">
@@ -16,9 +16,9 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
-                        <a href="{{ route('banner.create') }}" type="button" class="btn btn-info">
-                            <i class="fas fa-plus"></i>{{ trans('language.banner.add') }}</a>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                        <a href="{{ route('categoryService.create') }}" type="button" class="btn btn-info">
+                            <i class="fas fa-plus"></i>{{ trans('language.categoryService.add') }}</a>
                     </div>
                 </div>
             </div>
@@ -28,56 +28,42 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="collapse {{ optional(request())->hasAny(['name', 'email', 'phone', 'role_id', 'department_id']) ? 'show' : '' }}"
-                             id="collapseExample">
+                            id="collapseExample">
                             <form action="{{ route('banner.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>{{ trans('language.banner.name') }}</label>
-                                                <input type="text" class="form-control" name="name"
-                                                       value="{{ request()->name ?? '' }}"
-                                                       placeholder="{{ trans('language.banner.name') }}">
+                                        <div class="col-md-6">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>{{ trans('language.categoryService.name') }}</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="name" value="{{ request()->categoryService ?? '' }}"
+                                                        placeholder="{{ trans('language.categoryService.name') }}">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <div class="row">
-                                                <div class="col-md-5">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>{{ trans('language.banner.parent_id') }}<span
+                                                        <label>{{ trans('language.categoryService.parent_id') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select class="form-control" name="parent_id">
-                                                            <option disabled selected>--chọn--</option>
-                                                            @foreach($parentBanner as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                                @if(count($category->childrenRecursive) > 0)
+                                                            <option value="" disabled selected>--chọn--</option>
+                                                            @foreach ($categoryServices as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}
+                                                                </option>
+                                                                @if (count($category->childrenRecursive) > 0)
                                                                     @include('components.child-category', [
                                                                         'children' => $category->childrenRecursive,
-                                                                        'depth' => 1
+                                                                        'depth' => 1,
                                                                     ])
                                                                 @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="mr-2">
-                                                    <div class="form-group d-flex flex-column">
-                                                        <label>&nbsp;</label>
-                                                        <button type="submit" class="btn btn-success"><i
-                                                                class="fas fa-search"></i>{{ trans('language.search') }}</button>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <div class="form-group d-flex flex-column">
-                                                        <label>&nbsp;</label>
-                                                        <a href="{{ route('categoryPost.index') }}" class="btn btn-success"><i
-                                                                class="fas fa-sync-alt"></i></a>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3">
-
                                         </div>
                                     </div>
                                 </div>
@@ -86,56 +72,60 @@
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">{{ trans('language.banner.name') }}</th>
-                                    <th class="text-center">{{ trans('language.banner.active') }}</th>
-                                    <th class="text-center">{{ trans('language.banner.hot') }}</th>
-                                    <th class="text-center">{{ trans('language.action') }}</th>
-                                </tr>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">{{ trans('language.categoryService.name') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryService.description') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryService.active') }}</th>
+                                        <th class="text-center">{{ trans('language.categoryService.hot') }}</th>
+                                        <th class="text-center">{{ trans('language.action') }}</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    @if(!empty($_GET['parent_id']))
-                                        @if ($listBannerByCate->count() > 0)
-                                            @foreach ($listBannerByCate as $key => $item)
+                                    @if (!empty($_GET['parent_id']))
+                                        @if ($listCategoryServiceByCate->count() > 0)
+                                            @foreach ($listCategoryServiceByCate as $key => $item)
                                                 <tr>
                                                     <td class="text-center">
-                                                        {{ $key + 1 + ($listBannerByCate->currentPage() - 1) * $listBannerByCate->perPage() }}
+                                                        {{ $key + 1 + ($listCategoryServiceByCate->currentPage() - 1) * $listCategoryServiceByCate->perPage() }}
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
+                                                        <a
+                                                            href="{{ route('categoryService.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
                                                     </td>
+                                                    <td>{{ $item->description }}</td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                            data-url="{{ route('banner.changeActive') }}">
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->active }}"
+                                                            data-url="{{ route('categoryService.changeActive') }}">
                                                             {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
                                                         </button>
                                                     </td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                            data-url="{{ route('banner.changeHot') }}">
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('categoryService.changeHot') }}">
                                                             {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
                                                         </button>
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
                                                             <a class="flex items-center mr-3"
-                                                               href="{{ route('banner.edit', ['id' => $item->id]) }}">
+                                                                href="{{ route('categoryService.edit', ['id' => $item->id]) }}">
                                                                 <i class="fas fa-edit"></i>
                                                                 {{ trans('language.edit') }}
                                                             </a>
                                                             <a href="javascript:void(0)"
-                                                               class="flex items-center text-danger deleteTable"
-                                                               data-id="{{ $item->id }}"
-                                                               data-title="{{ trans('message.confirm_delete_banner') }}"
-                                                               data-text="<span>{{ $item->name }}</span>"
-                                                               data-url="{{ route('banner.delete', ['id' => $item->id]) }}"
-                                                               data-method="DELETE"
-                                                               data-icon="question">
+                                                                class="flex items-center text-danger deleteTable"
+                                                                data-id="{{ $item->id }}"
+                                                                data-title="{{ trans('message.confirm_delete_category_post') }}"
+                                                                data-text="<span>{{ $item->name }}</span>"
+                                                                data-url="{{ route('categoryService.delete', ['id' => $item->id]) }}"
+                                                                data-method="DELETE" data-icon="question">
                                                                 <i class="fas fa-trash-alt"></i>
                                                                 {{ trans('language.delete') }}
                                                             </a>
@@ -146,50 +136,54 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }} </td>
+                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }}
+                                                </td>
                                             </tr>
                                         @endif
                                     @else
-                                        @if ($listBanner->count() > 0)
-                                            @foreach ($listBanner as $key => $item)
+                                        @if ($categoryServices->count() > 0)
+                                            @foreach ($categoryServices as $key => $item)
                                                 <tr>
                                                     <td class="text-center">
-                                                        {{ $key + 1 + ($listBanner->currentPage() - 1) * $listBanner->perPage() }}
+                                                        {{ $key + 1 + ($categoryServices->currentPage() - 1) * $categoryServices->perPage() }}
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
+                                                        <a
+                                                            href="{{ route('categoryService.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
                                                     </td>
+                                                    <td>{{ $item->description }}</td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                            data-url="{{ route('banner.changeActive') }}">
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->active }}"
+                                                            data-url="{{ route('categoryService.changeActive') }}">
                                                             {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
                                                         </button>
                                                     </td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                            data-url="{{ route('banner.changeHot') }}">
+                                                            data-id="{{ $item->id }}"
+                                                            data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('categoryService.changeHot') }}">
                                                             {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
                                                         </button>
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
                                                             <a class="flex items-center mr-3"
-                                                               href="{{ route('banner.edit', ['id' => $item->id]) }}">
+                                                                href="{{ route('categoryService.edit', ['id' => $item->id]) }}">
                                                                 <i class="fas fa-edit"></i>
                                                                 {{ trans('language.edit') }}
                                                             </a>
                                                             <a href="javascript:void(0)"
-                                                               class="flex items-center text-danger deleteTable"
-                                                               data-id="{{ $item->id }}"
-                                                               data-title="{{ trans('message.confirm_delete_banner') }}"
-                                                               data-text="<span>{{ $item->name }}</span>"
-                                                               data-url="{{ route('banner.delete', ['id' => $item->id]) }}"
-                                                               data-method="DELETE"
-                                                               data-icon="question">
+                                                                class="flex items-center text-danger deleteTable"
+                                                                data-id="{{ $item->id }}"
+                                                                data-title="{{ trans('message.confirm_delete_banner') }}"
+                                                                data-text="<span>{{ $item->name }}</span>"
+                                                                data-url="{{ route('categoryService.delete', ['id' => $item->id]) }}"
+                                                                data-method="DELETE" data-icon="question">
                                                                 <i class="fas fa-trash-alt"></i>
                                                                 {{ trans('language.delete') }}
                                                             </a>
@@ -199,7 +193,8 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }} </td>
+                                                <td colspan="7" class="text-center"> {{ trans('language.no-data') }}
+                                                </td>
                                             </tr>
                                         @endif
                                     @endif
@@ -207,7 +202,7 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    {{ $listBanner->links('pagination::bootstrap-4') }}
+                                    {{ $categoryServices->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         </div>
@@ -216,4 +211,7 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
 @endsection
