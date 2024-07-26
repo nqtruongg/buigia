@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CategoryPost;
+use App\Models\PostCate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 

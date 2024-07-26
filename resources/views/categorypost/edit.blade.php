@@ -123,11 +123,11 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.categoryPost.parent_id') }}<span
                                                     class="text-danger">*</span></label>
-                                            <select class="form-control" name="parent_id">
-                                                <option disabled selected>--chọn--</option>
+                                            <select class="form-control select2" name="parent_id" multiple>
+                                                <option disabled>--chọn--</option>
                                                 @foreach ($listCategoryPost as $category)
                                                     <option
-                                                        {{ $category->id == $categoryPostById->parent_id ? 'selected' : '' }}
+                                                        {{ $category->id === $categoryPostById->parent_id ? 'selected' : '' }}
                                                         value="{{ $category->id }}">{{ $category->name }}</option>
 
                                                     @if (count($category->childrenRecursive) > 0)

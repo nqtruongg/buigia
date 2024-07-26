@@ -48,13 +48,14 @@ class PostRepository
         $post->name = $request->name;
         $post->slug = $request->slug;
         $post->description = $request->description;
-        $post->description_seo = $request->description_seo ?? '';
-        $post->keyword_seo = $request->keyword_seo ?? '';
-        $post->title_seo = $request->title_seo ?? '';
-        $post->content = $request->content ?? '';
+        $post->description_seo = $request->description_seo ?? null;
+        $post->keyword_seo = $request->keyword_seo ?? null;
+        $post->title_seo = $request->title_seo ?? null;
+        $post->content = $request->content ?? null;
         $post->active = $request->active;
         $post->hot = $request->hot;
         $post->order = $request->order;
+
         if ($request->hasFile('image_path')) {
             $path = $request->file('image_path')->storePublicly('public/posts');
             $post->image_path = Storage::url($path);
@@ -66,7 +67,7 @@ class PostRepository
         }
 
         $post->user_id = $user_id;
-        $post->setting_id = $request->setting_id ?? '';
+        $post->setting_id = $request->setting_id ?? null;
         $post->save();
         if ($request->has('category_id')) {
             $post->categories()->sync($request->category_id);
@@ -113,18 +114,18 @@ class PostRepository
         $data = [
             'name' => $request->name,
             'slug' => $request->slug,
-            'description' => $request->description ?? '',
-            'description_seo' => $request->description_seo ?? '',
-            'keyword_seo' => $request->keyword_seo ?? '',
-            'title_seo' => $request->title_seo ?? '',
-            'content' => $request->content ?? '',
+            'description' => $request->description ?? null,
+            'description_seo' => $request->description_seo ?? null,
+            'keyword_seo' => $request->keyword_seo ?? null,
+            'title_seo' => $request->title_seo ?? null,
+            'content' => $request->content ?? null,
             'image_path' => $imagePath,
             'banner_path' => $bannerPath,
             'active' => $request->active,
             'hot' => $request->hot,
             'order' => $request->order,
             'user_id' => Auth::user()->id,
-            'setting_id' => $request->setting_id ?? ''
+            'setting_id' => $request->setting_id ?? null
         ];
 
         $postById->update($data);
