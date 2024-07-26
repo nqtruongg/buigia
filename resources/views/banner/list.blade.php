@@ -72,9 +72,8 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">{{ trans('language.banner.name') }}</th>
-                                    <th class="text-center">{{ trans('language.banner.hot') }}</th>
                                     <th class="text-center">{{ trans('language.banner.active') }}</th>
-                                    <th class="text-center">{{ trans('language.banner.order') }}</th>
+                                    <th class="text-center">{{ trans('language.banner.hot') }}</th>
                                     <th class="text-center">{{ trans('language.action') }}</th>
                                 </tr>
                                 </thead>
@@ -89,9 +88,22 @@
                                                     <td>
                                                         <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
                                                     </td>
-                                                    <td>{{ $item->hot }}</td>
-                                                    <td>{{ $item->active }}</td>
-                                                    <td>{{ $item->order }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
+                                                            data-url="{{ route('banner.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('banner.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
                                                             <a class="flex items-center mr-3"
@@ -130,9 +142,22 @@
                                                     <td>
                                                         <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
                                                     </td>
-                                                    <td>{{ $item->hot }}</td>
-                                                    <td>{{ $item->active }}</td>
-                                                    <td>{{ $item->order }}</td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
+                                                            data-url="{{ route('banner.changeActive') }}">
+                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button
+                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
+                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
+                                                            data-url="{{ route('banner.changeHot') }}">
+                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
+                                                        </button>
+                                                    </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
                                                             <a class="flex items-center mr-3"

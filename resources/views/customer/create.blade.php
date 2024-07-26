@@ -264,19 +264,30 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.banner.image_path') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="file" class="form-control" id="image_path"
                                                             name="image_path">
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <img id="img" src="" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 checkTypeCustomer">
+                                                    <div class="form-group">
+                                                        <label>{{ trans('language.customer.responsible_person') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                            name="responsible_person"
+                                                            value="{{ old('responsible_person') ?? '' }}"
+                                                            placeholder="{{ trans('language.customer.responsible_person') }}">
+                                                        @if ($errors->first('responsible_person'))
+                                                            <div class="invalid-alert text-danger">
+                                                                {{ $errors->first('responsible_person') }}
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -355,6 +366,65 @@
                                             </div>
 
                                             <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">{{ __('language.area.city_id') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="city_id" id="city_register"
+                                                            data-url="{{ route('ajax.address.districts') }}"
+                                                            class="form-control">
+                                                            <option value="">
+                                                                --{{ __('language.area.city_id') }}--
+                                                            </option>
+                                                            @foreach (App\Models\City::all() as $i)
+                                                                <option value="{{ $i->id }}">
+                                                                    {{ $i->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @if ($errors->first('city_id'))
+                                                            <div class="invalid-alert text-danger">
+                                                                {{ $errors->first('city_id') }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">{{ __('language.area.district_id') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="district_id" id="district_register"
+                                                            class="form-control"
+                                                            data-url="{{ route('ajax.address.communes') }}">
+                                                            <option value="">
+                                                                --{{ __('language.area.district_id') }}--
+                                                            </option>
+                                                        </select>
+                                                        @if ($errors->first('district_id'))
+                                                            <div class="invalid-alert text-danger">
+                                                                {{ $errors->first('district_id') }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="">{{ __('language.area.commune_id') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <select name="commune_id" id="commune_register" class="w-100 form-control">
+                                                            <option value="">
+                                                                --{{ __('language.area.commune_id') }}--
+                                                            </option>
+                                                        </select>
+                                                        @if ($errors->first('commune_id'))
+                                                            <div class="invalid-alert text-danger">
+                                                                {{ $errors->first('commune_id') }}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.address') }}</label>
@@ -384,21 +454,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6 checkTypeCustomer">
-                                                    <div class="form-group">
-                                                        <label>{{ trans('language.customer.responsible_person') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control"
-                                                            name="responsible_person"
-                                                            value="{{ old('responsible_person') ?? '' }}"
-                                                            placeholder="{{ trans('language.customer.responsible_person') }}">
-                                                        @if ($errors->first('responsible_person'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('responsible_person') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

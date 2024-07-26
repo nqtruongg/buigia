@@ -50,6 +50,10 @@
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/partials/common.js') }}"></script>
+    <script src="{{ asset('dist/js/partials/address.js') }}"></script>
+    <script src="{{ asset('dist/js/partials/common.js') }}"></script>
+    <script src="{{ asset('dist/js/partials/change-status.js') }}"></script>
+    <script src="{{ asset('dist/js/partials/upload-image.js') }}"></script>
     <script type="module">
         // Show alert
         @if (session('status_succeed'))

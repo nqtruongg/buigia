@@ -184,45 +184,4 @@
 @endsection
 
 @section('js')
-    <script>
-        $(document).ready(function() {
-            $('.toggle-active-btn').click(function() {
-                var button = $(this); // The button that was clicked
-                var itemId = button.data('id'); // The item ID
-                var currentStatus = button.data('status'); // The current active status
-
-                $.ajax({
-                    url: "{{ route('customer.toggleStatus') }}", // Your route here
-                    type: 'POST',
-                    data: {
-                        id: itemId,
-                        _token: '{{ csrf_token() }}', // CSRF token for Laravel
-                    },
-                    success: function(response) {
-                        // Assuming the response contains the new status
-                        button.data('status', response.newStatus);
-
-                        // Update button text
-                        var buttonText = response.newStatus == 1 ? 'Đã kích hoạt' :
-                            'Chưa kích hoạt';
-                        button.text(buttonText);
-
-                        // Remove existing classes and add new ones based on the new status
-                        button.removeClass('btn-success btn-danger');
-                        var buttonClass = response.newStatus == 1 ? 'btn-success' :
-                        'btn-danger';
-                        button.addClass(buttonClass);
-
-                        // Using SweetAlert to show a success message
-                        Swal.fire({
-                            title: 'Thành công!',
-                            text: 'Cập nhật trạng thái thành công!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 @endsection
