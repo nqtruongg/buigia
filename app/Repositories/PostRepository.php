@@ -147,6 +147,10 @@ class PostRepository
             return false;
         }
 
+        foreach ($postById->childs as $child) {
+            $this->deletePost($child->id);
+        }
+
         if ($postById->image_path) {
             $imagePath = 'public/posts/' . basename($postById->image_path);
             if (Storage::exists($imagePath)) {
