@@ -94,4 +94,10 @@ return [
     'create_category_post_success' => 'Thêm danh mục thành công',
     'update_category_post_success' => 'Sửa danh mục thành công',
     'delete_category_post_success' => 'Xóa danh mục thành công',
+
+    //post
+    'confirm_delete_post' => 'Bạn có muốn xoá tin tức này không',
+    'create_post_success' => 'Thêm tin tức thành công',
+    'update_post_success' => 'Sửa tin tức thành công',
+    'delete_post_success' => 'Xóa tin tức thành công',
 ];

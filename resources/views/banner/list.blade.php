@@ -31,36 +31,53 @@
                              id="collapseExample">
                             <form action="{{ route('banner.index') }}" method="get">
                                 <div class="card-header">
-                                    <div class="col-md-12 d-flex">
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>{{ trans('language.banner.name') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                <input type="text" class="form-control" name="name"
                                                        value="{{ request()->name ?? '' }}"
                                                        placeholder="{{ trans('language.banner.name') }}">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12 d-flex">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>{{ trans('language.banner.parent_id') }}<span
-                                                            class="text-danger">*</span></label>
-                                                    <select class="form-control" name="parent_id">
-                                                        <option disabled selected>--chọn--</option>
-                                                        @foreach($parentBanner as $category)
-                                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                            @if(count($category->childrenRecursive) > 0)
-                                                                @include('components.child-category', [
-                                                                    'children' => $category->childrenRecursive,
-                                                                    'depth' => 1
-                                                                ])
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
+                                        <div class="col-md-5">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group">
+                                                        <label>{{ trans('language.banner.parent_id') }}<span
+                                                                class="text-danger">*</span></label>
+                                                        <select class="form-control" name="parent_id">
+                                                            <option disabled selected>--chọn--</option>
+                                                            @foreach($parentBanner as $category)
+                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @if(count($category->childrenRecursive) > 0)
+                                                                    @include('components.child-category', [
+                                                                        'children' => $category->childrenRecursive,
+                                                                        'depth' => 1
+                                                                    ])
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="mr-2">
+                                                    <div class="form-group d-flex flex-column">
+                                                        <label>&nbsp;</label>
+                                                        <button type="submit" class="btn btn-success"><i
+                                                                class="fas fa-search"></i>{{ trans('language.search') }}</button>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group d-flex flex-column">
+                                                        <label>&nbsp;</label>
+                                                        <a href="{{ route('categoryPost.index') }}" class="btn btn-success"><i
+                                                                class="fas fa-sync-alt"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-3">
+
                                         </div>
                                     </div>
                                 </div>

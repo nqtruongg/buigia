@@ -189,6 +189,57 @@
                         </li>
                     </ul>
                 </li>
+
+                {{-- Tin tức --}}
+                <li class="nav-item">
+                    <a href="{{ route('post.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.post.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('post.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.post.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('post.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.post.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                {{-- Khu vực --}}
+                <li class="nav-item">
+                    <a href="{{ route('area.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.area.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('area.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.area.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('area.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.area.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- service --}}
                 <li class="nav-item">
                     <a href="{{ route('service.index') }}" class="nav-link">

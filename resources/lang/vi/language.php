@@ -319,4 +319,25 @@ return [
         'info' => 'Thông tin',
     ],
 
+    'post' => [
+        'title' => 'Tin tức',
+        'name' => 'Tên tin tức',
+        'add' => 'Thêm tin tức',
+        'edit' => 'Chỉnh sửa tin tức',
+        'list' => 'Danh sách tin tức',
+        'image_path' => 'Hình ảnh',
+        'banner_path' => 'Ảnh bìa',
+        'address' => 'Địa chỉ cụ thể',
+        'active' => 'Trạng thái',
+        'hot' => 'Nổi bật',
+        'content' => 'Nội dung',
+        'order' => 'Thứ tự',
+        'parent_id' => 'Danh mục cha',
+        'slug' => 'Slug',
+        'description' => 'Mô tả',
+        'description_seo' => 'Mô tả seo',
+        'title_seo' => 'Tiêu đề seo',
+        'keyword_seo' => 'Từ khóa seo',
+    ],
+
 ];
