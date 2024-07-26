@@ -119,7 +119,6 @@
                                                 <option value="" disabled>--chọn--</option>
                                                 @foreach ($listCategoryPost as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
-
                                                     @if (count($category->childrenRecursive) > 0)
                                                         @include('components.child-category', [
                                                             'children' => $category->childrenRecursive,

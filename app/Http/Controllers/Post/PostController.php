@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listPost = $this->postService->getListPost();
+        $listPost = $this->postService->getListPost($request);
         return view('post.index', compact('listPost'));
     }
 
@@ -71,9 +72,12 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        return view('post.edit');
+        $post = $this->postService->getPostById($id);
+        $listCategoryPost = $this->postService->getListCategoryPost();
+        $selectedCategoryIds = $post->categories->pluck('id')->toArray();
+        return view('post.edit', compact('post', 'listCategoryPost', 'selectedCategoryIds'));
     }
 
     /**
@@ -83,6 +87,7 @@ class PostController extends Controller
     {
         try {
             DB::beginTransaction();
+            $this->postService->updatePost($request, $id);
             DB::commit();
 
             $redirectUrl = $request->parent_id ?
@@ -104,10 +109,11 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
         try {
             DB::beginTransaction();
+            $this->postService->deletePost($id);
             DB::commit();
 
             return [
@@ -123,5 +129,22 @@ class PostController extends Controller
                 'status_failed' => trans('message.server_error')
             ]);
         }
+    }
+
+    public function changeActive(Request $request)
+    {
+        $item = Post::find($request->id);
+        $item->active = $item->active == 1 ? 0 : 1;
+        $item->save();
+
+        return response()->json(['newStatus' => $item->active]);
+    }
+    public function changeHot(Request $request)
+    {
+        $item = Post::find($request->id);
+        $item->hot = $item->hot == 1 ? 0 : 1;
+        $item->save();
+
+        return response()->json(['newHot' => $item->hot]);
     }
 }
