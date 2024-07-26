@@ -26,12 +26,12 @@ return new class extends Migration
             $table->tinyInteger('active')->nullable()->default(1);
             $table->tinyInteger('hot')->nullable()->default(0);
             $table->bigInteger('order')->nullable()->default(0);
-            $table->foreignId('category_id')->constrained('category_posts')->onDelete('cascade');
             $table->bigInteger('user_id');
             $table->bigInteger('setting_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
+        
     }
 
     /**
