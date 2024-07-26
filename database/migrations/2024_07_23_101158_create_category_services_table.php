@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id(); // Đây sẽ là khóa chính tự động tăng giá trị
             $table->string('name', 255)->nullable();
             $table->string('slug', 255)->nullable();
-            $table->integer('share_id')->nullable(); // Đã loại bỏ tự động tăng giá trị khỏi cột này
             $table->string('image_path')->nullable();
             $table->string('banner_path')->nullable();
             $table->tinyInteger('active')->default(1);
@@ -27,6 +26,7 @@ return new class extends Migration
             $table->string('title_seo')->nullable();
             $table->string('description_seo')->nullable();
             $table->integer('parent_id')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 
         });

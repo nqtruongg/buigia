@@ -13,4 +13,14 @@ class CategoryService extends Model
     protected $guarded = [];
 
 
+    public function childs()
+    {
+        return $this->hasMany(CategoryService::class, 'parent_id');
+    }
+
+    public function childrenRecursive()
+    {
+        return $this->childs()->with('childrenRecursive');
+    }
+
 }

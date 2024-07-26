@@ -20,7 +20,10 @@ class CategoryPostRepository
             'slug',
             'hot',
             'active',
-            'order'
+            'order',
+            'parent_id',
+            'description',
+            'content',
         )
             ->where('parent_id', 0)
             ->orderBy('id', 'DESC')

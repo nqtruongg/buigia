@@ -194,5 +194,4 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('dist/js/pages/area.js') }}"></script>
 @endsection

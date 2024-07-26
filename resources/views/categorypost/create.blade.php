@@ -77,7 +77,7 @@
                                             <label>{{ trans('language.categoryPost.hot') }}<span
                                                     class="text-danger">*</span></label><br>
                                             Có <input type="radio" name="hot" value="1">
-                                            không <input type="radio" name="hot" value="0">
+                                            không <input type="radio" name="hot" value="0" checked>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -183,5 +183,4 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('dist/js/pages/categorypost.js') }}"></script>
 @endsection

@@ -128,7 +128,7 @@
                                                         <label for="">{{ __('language.area.commune_id') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select name="commune_id" id="commune_register" class="w-100 form-control">
-                                                            <option value="{{ $area->commune_id }}">{{ $area->district->commune_id ?? ''}}</option>
+                                                            <option value="{{ $area->commune_id }}">{{ $area->commune->name ?? ''}}</option>
                                                             <option value="">
                                                                 --{{ __('language.area.commune_id') }}--
                                                             </option>
@@ -219,5 +219,4 @@
 @section('js')
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/area.js') }}"></script>
 @endsection

@@ -169,6 +169,9 @@ class CustomerRepository
             'user_id' => $request->user_id,
             'type' => $request->type ?? 0,
             'image_path' => $request->image_path,
+            'city_id' => $request->city_id ?? null,
+            'district_id' => $request->district_id ?? null,
+            'commune_id' => $request->commune_id ?? null,
         ];
 
         $customer = Customer::create($params);
@@ -241,6 +244,9 @@ class CustomerRepository
             'user_id' => $request->user_id,
             'type' => $request->type ?? 0,
             'image_path' => $imagePath,
+            'city_id' => $request->city_id ?? null,
+            'district_id' => $request->district_id ?? null,
+            'commune_id' => $request->commune_id ?? null,
         ];
 
 

@@ -14,4 +14,16 @@ class Customer extends Model
 
     protected $guarded = [];
 
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class, 'commune_id');
+    }
 }

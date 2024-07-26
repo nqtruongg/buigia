@@ -1,61 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Services\BannerService;
+use App\Models\CategoryService;
+use App\Services\CategoryServiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class BannerController extends Controller
+class CategoryServiceController extends Controller
 {
-    protected $bannerService;
+    private $categoryService;
 
-    public function __construct(BannerService $bannerService)
+    public function __construct(CategoryServiService $categoryService)
     {
-        $this->bannerService = $bannerService;
+        $this->categoryService = $categoryService;
     }
 
     public function index(Request $request)
     {
-        $parentBanner = $this->bannerService->getAllParentCate();
+        $categoryServices = $this->categoryService->getListCategoryService($request);
 
-        $listBanner = $this->bannerService->getListBannerIndex($request);
+        $listCategoryServiceByCate = $this->categoryService->getCategoryServiceByCate($request->query('parent_id'));
 
-        $listBannerByCate = $this->bannerService->getBannerByIdCate($request->query('parent_id'));
-
-
-        return view('banner.list', compact('parentBanner', 'listBanner', 'listBannerByCate'));
+        return view('category-service.index', compact('categoryServices', 'listCategoryServiceByCate'));
     }
 
-    public function detail($id)
+    public function create()
     {
-        $banner = $this->bannerService->getBannerById($id);
-        return view('banner.detail');
-    }
-
-    public function create(Request $request)
-    {
-        $parentBanner = $this->bannerService->getAllParentCate();
-
-        return view('banner.create', compact('parentBanner'));
+        $listCateCategoryService = $this->categoryService->getListCategoryServiceParent();
+        return view('category-service.create', compact('listCateCategoryService'));
     }
 
     public function store(Request $request)
     {
         try {
             DB::beginTransaction();
-            $this->bannerService->createBanner($request);
+            $this->categoryService->createCategoryService($request);
             DB::commit();
 
             $redirectUrl = $request->parent_id ?
-                route('banner.index') . '?parent_id=' . $request->parent_id :
-                route('banner.index');
+                route('categoryService.index') . '?parent_id=' . $request->parent_id :
+                route('categoryService.index');
 
             return redirect($redirectUrl)->with([
-                'status_succeed' => trans('message.create_banner_success')
+                'status_succeed' => trans('message.create_service_success')
             ]);
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -68,26 +58,24 @@ class BannerController extends Controller
 
     public function edit($id)
     {
-        $banner = $this->bannerService->getBannerById($id);
-
-        $parentBanner = $this->bannerService->getAllParentCate();
-
-        return view('banner.edit', compact('parentBanner', 'banner'));
+        $categoryService = $this->categoryService->getCategoryServiceById($id);
+        $listCateCategoryService = $this->categoryService->getListCategoryServiceParent();
+        return view('category-service.edit', compact('categoryService', 'listCateCategoryService'));
     }
 
     public function update(Request $request, $id)
     {
         try {
             DB::beginTransaction();
-            $this->bannerService->updateBanner($request, $id);
+            $this->categoryService->updateCategoryService($request, $id);
             DB::commit();
 
             $redirectUrl = $request->parent_id ?
-                route('banner.index') . '?parent_id=' . $request->parent_id :
-                route('banner.index');
+                route('categoryService.index') . '?parent_id=' . $request->parent_id :
+                route('categoryService.index');
 
             return redirect($redirectUrl)->with([
-                'status_succeed' => trans('message.update_banner_success')
+                'status_succeed' => trans('message.update_service_success')
             ]);
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -102,7 +90,7 @@ class BannerController extends Controller
     {
         try {
             DB::beginTransaction();
-            $this->bannerService->deleteBanner($id);
+            $this->categoryService->deleteCategoryService($id);
             DB::commit();
             return [
                 'status' => 200,
@@ -119,10 +107,9 @@ class BannerController extends Controller
             ], 500);
         }
     }
-
     public function changeActive(Request $request)
     {
-        $item = Banner::find($request->id);
+        $item = CategoryService::find($request->id);
         $item->active = $item->active == 1 ? 0 : 1;
         $item->save();
 
@@ -130,7 +117,7 @@ class BannerController extends Controller
     }
     public function changeHot(Request $request)
     {
-        $item = Banner::find($request->id);
+        $item = CategoryService::find($request->id);
         $item->hot = $item->hot == 1 ? 0 : 1;
         $item->save();
 

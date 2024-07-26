@@ -140,6 +140,31 @@
                     </ul>
                 </li>
 
+                {{-- house holder --}}
+                <li class="nav-item">
+                    <a href="{{ route('home.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.commission.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('commission.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.commission.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('commission.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.commission.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- Danh mục tin tức --}}
                 <li class="nav-item">
                     <a href="{{ route('categoryPost.index') }}" class="nav-link">
@@ -164,32 +189,6 @@
                         </li>
                     </ul>
                 </li>
-
-                {{-- Khu vực --}}
-                <li class="nav-item">
-                    <a href="{{ route('area.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            {{ trans('language.area.title') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('area.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>{{ trans('language.area.list') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('area.create') }}" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>{{ trans('language.area.add') }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
                 {{-- service --}}
                 <li class="nav-item">
                     <a href="{{ route('service.index') }}" class="nav-link">
@@ -199,6 +198,20 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('categoryService.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.categoryService.title') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categoryService.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.categoryService.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('service.index') }}" class="nav-link">
@@ -213,9 +226,24 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('area.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.area.list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('area.create') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.area.add') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('supplier.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
@@ -237,7 +265,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 {{-- house holder --}}
                 <li class="nav-item">

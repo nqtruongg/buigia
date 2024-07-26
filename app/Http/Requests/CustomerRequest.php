@@ -50,6 +50,9 @@ class CustomerRequest extends FormRequest
             'invoice_address' => 'nullable|string|max:255',
             'career' => 'nullable|string|max:255',
             'user_id' => 'required|exists:users,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'district_id' => 'nullable|exists:districts,id',
+            'commune_id' => 'nullable|exists:communes,id',
         ];
 
         if ($status == 1 || $status == 2) {
@@ -147,6 +150,9 @@ class CustomerRequest extends FormRequest
             'supplier.*.max' => 'Nhà cung cấp không được vượt quá :max ký tự.',
             'user_id.required' => 'Nhân viên tư vấn là bắt buộc.',
             'user_id.exists' => 'Người dùng không tồn tại.',
+            'city_id.exists' => 'Thành phố không tồn tại.',
+            'district_id.exists' => 'Quận huyện không tồn tại.',
+            'commune_id.exists' => 'Xã phường không tồn tại.',
         ];
     }
 }
