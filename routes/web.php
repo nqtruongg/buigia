@@ -23,6 +23,7 @@ use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\HouseHolder\HouseHolderController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CategoryPost\CategoryPostController;
+use App\Http\Controllers\Post\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -271,6 +272,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/delete/{id}', 'delete')->name('delete');
         });
 
+    // area
     Route::prefix('area')
         ->controller(AreaController::class)
         ->name('area.')
@@ -285,6 +287,24 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/change-hot', 'changeHot')->name('changeHot');
         });
 
+
+    // post
+    Route::prefix('post')
+        ->controller(PostController::class)
+        ->name('post.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+
+    //ajax
     Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
         Route::group(['prefix' => 'address'], function () {
             Route::get('district', [AddressController::class, 'getDistricts'])->name('ajax.address.districts');
