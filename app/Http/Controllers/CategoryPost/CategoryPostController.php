@@ -44,6 +44,7 @@ class CategoryPostController extends Controller
      */
     public function store(CategoryPostRequest $request)
     {
+
         try {
             DB::beginTransaction();
             $this->categoryPostService->createCategoryPost($request);
