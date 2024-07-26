@@ -54,39 +54,35 @@ class PostRepository
 
         if ($request->hasFile('image_path')) {
             $path = $request->file('image_path')->storePublicly('public/post');
-            $request->image_path = Storage::url($path);
+            $request->merge(['image_path' => Storage::url($path)]);
         }
 
         if ($request->hasFile('banner_path')) {
             $path = $request->file('banner_path')->storePublicly('public/post');
-            $request->banner_path = Storage::url($path);
+            $request->merge(['banner_path' => Storage::url($path)]);
         }
 
-        $data = [
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'description' => $request->description,
-            'description_seo' => $request->description_seo,
-            'keyword_seo' => $request->keyword_seo,
-            'title_seo' => $request->title_seo,
-            'content' => $request->content,
-            'image_path' => $request->image_path,
-            'banner_path' => $request->banner_path,
-            'active' => $request->active,
-            'hot' => $request->hot,
-            'order' => $request->order,
-            'category_id' => $request->category_id,
-            'user_id' => Auth::user()->id,
-            'setting_id' => $request->setting_id
-        ];
+        $data = $request->only([
+            'name',
+            'slug',
+            'description',
+            'description_seo',
+            'keyword_seo',
+            'title_seo',
+            'content',
+            'image_path',
+            'banner_path',
+            'active',
+            'hot',
+            'order',
+        ]);
+
+        $data['user_id'] = Auth::id();
 
         $post = Post::create($data);
 
-        if ($post) {
-            PostCate::create([
-                'post_id' => $post->id,
-                'category_id' => $request->category_id
-            ]);
+        if ($request->has('category_id')) {
+            $post->categories()->sync($request->category_id);
         }
 
         return true;

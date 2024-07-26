@@ -41,6 +41,7 @@ class PostController extends Controller
     {
         try {
             DB::beginTransaction();
+            $this->postService->createPost($request);
             DB::commit();
 
             $redirectUrl = $request->parent_id ?

@@ -40,10 +40,10 @@ class PostRequest extends FormRequest
             'keyword_seo' => 'nullable|string|max:255',
             'title_seo' => 'nullable|string|max:255',
             'language' => 'nullable|string|max:50',
-            'active' => 'nullable|boolean',
-            'hot' => 'nullable|boolean',
+            'active' => 'nullable|integer',
+            'hot' => 'nullable|integer',
             'order' => 'nullable|integer',
-            'category_id' => 'required|exists:App\Models\CategoryPost,id',
+            'category_id' => 'nullable',
         ];
     }
 
