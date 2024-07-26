@@ -100,4 +100,10 @@ return [
     'create_post_success' => 'Thêm tin tức thành công',
     'update_post_success' => 'Sửa tin tức thành công',
     'delete_post_success' => 'Xóa tin tức thành công',
+
+    //setting
+    'confirm_delete_setting' => 'Bạn có muốn xoá nội dung này không',
+    'create_setting_success' => 'Thêm nội dung thành công',
+    'update_setting_success' => 'Sửa nội dung thành công',
+    'delete_setting_success' => 'Xóa nội dung thành công',
 ];

@@ -33,6 +33,7 @@ class CustomerRepository
             'customer_status.name as status_name',
             'customers.active',
         )->leftjoin('customer_status', 'customer_status.id', 'customers.status');
+
         if ($request->name != null) {
             $customers = $customers->where('customers.name', 'LIKE', "%{$request->name}%");
         }

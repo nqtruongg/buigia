@@ -229,7 +229,7 @@ return [
         'order' => 'Số thứ tự',
         'description' => 'Mô tả',
         'image_path' => 'Hình ảnh',
-        'parent_id' => 'Danh mục cha'
+        'parent_id' => 'Chọn danh mục'
     ],
 
 
@@ -251,7 +251,7 @@ return [
         'keyword_seo' => 'Từ khóa seo',
         'image_path' => 'Hình ảnh',
         'banner_path' => 'Ảnh bìa',
-        'parent_id' => 'Danh mục cha'
+        'parent_id' => 'Chọn danh mục'
     ],
 
     // categoryPost
@@ -272,7 +272,7 @@ return [
         'keyword_seo' => 'Từ khóa seo',
         'image_path' => 'Hình ảnh',
         'banner_path' => 'Ảnh bìa',
-        'parent_id' => 'Danh mục cha'
+        'parent_id' => 'Chọn danh mục'
     ],
 
 
@@ -312,7 +312,7 @@ return [
         'active' => 'Trạng thái',
         'hot' => 'Nổi bật',
         'order' => 'Thứ tự',
-        'parent_id' => 'Danh mục cha',
+        'parent_id' => 'Chọn danh mục',
         'slug' => 'Slug',
         'district_id' => 'Quận/Huyện',
         'commune_id' => 'Phường/Xã',
@@ -333,7 +333,7 @@ return [
         'hot' => 'Nổi bật',
         'content' => 'Nội dung',
         'order' => 'Thứ tự',
-        'parent_id' => 'Danh mục cha',
+        'parent_id' => 'Chọn danh mục',
         'slug' => 'Slug',
         'description' => 'Mô tả',
         'description_seo' => 'Mô tả seo',
@@ -341,4 +341,25 @@ return [
         'keyword_seo' => 'Từ khóa seo',
     ],
 
+    'setting' => [
+        'title' => 'Trang thông tin',
+        'name' => 'Tên',
+        'add' => 'Thêm nội dung',
+        'value' => 'Giá trị',
+        'edit' => 'Chỉnh sửa tin tức',
+        'list' => 'Trang thông tin',
+        'image_path' => 'Hình ảnh',
+        'banner_path' => 'Ảnh bìa',
+        'address' => 'Địa chỉ cụ thể',
+        'active' => 'Trạng thái',
+        'hot' => 'Nổi bật',
+        'content' => 'Nội dung',
+        'order' => 'Thứ tự',
+        'parent_id' => 'Chọn danh mục',
+        'slug' => 'Slug',
+        'description' => 'Mô tả',
+        'description_seo' => 'Mô tả seo',
+        'title_seo' => 'Tiêu đề seo',
+        'keyword_seo' => 'Từ khóa seo',
+    ]
 ];

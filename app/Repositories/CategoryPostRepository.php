@@ -148,6 +148,10 @@ class CategoryPostRepository
             return false;
         }
 
+        foreach ($categoryPost->childs as $child) {
+            $this->deleteCategoryPost($child->id);
+        }
+
         if ($categoryPost->image_path) {
             $imagePath = 'public/categoryPosts/' . basename($categoryPost->image_path);
             if (Storage::exists($imagePath)) {

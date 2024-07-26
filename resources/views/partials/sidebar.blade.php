@@ -115,6 +115,25 @@
                     </ul>
                 </li>
 
+                {{-- Setting --}}
+                <li class="nav-item">
+                    <a href="{{ route('setting.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            {{ trans('language.setting.title') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('setting.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-columns"></i>
+                                <p>{{ trans('language.setting.list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- banner --}}
                 <li class="nav-item">
                     <a href="{{ route('banner.index') }}" class="nav-link">

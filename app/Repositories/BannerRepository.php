@@ -110,6 +110,10 @@ class BannerRepository
     public function deleteBanner($id){
         $banner = Banner::find($id);
 
+        foreach ($banner->childs as $child) {
+            $this->deleteBanner($child->id);
+        }
+
         if ($banner->image_path) {
             $imagePath = 'public/banners/' . basename($banner->image_path);
             if (Storage::exists($imagePath)) {
