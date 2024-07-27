@@ -13,14 +13,6 @@
     ])
 
     @php
-        $serviceTabHasErrors =
-            $errors->has('services.*') ||
-            $errors->has('time.*') ||
-            $errors->has('start.*') ||
-            $errors->has('end.*') ||
-            $errors->has('view_total.*') ||
-            $errors->has('note.*') ||
-            $errors->has('supplier.*');
         $infoTabHasErrors =
             $errors->has('name') ||
             $errors->has('responsible_person') ||
