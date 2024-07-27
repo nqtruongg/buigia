@@ -74,6 +74,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">Folder</th>
                                         <th class="text-center">{{ trans('language.categoryService.name') }}</th>
                                         <th class="text-center">{{ trans('language.categoryService.description') }}</th>
                                         <th class="text-center">{{ trans('language.categoryService.active') }}</th>
@@ -88,6 +89,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($listCategoryServiceByCate->currentPage() - 1) * $listCategoryServiceByCate->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a
@@ -146,6 +150,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($categoryServices->currentPage() - 1) * $categoryServices->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a

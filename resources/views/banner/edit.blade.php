@@ -36,6 +36,32 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label>{{ trans('language.banner.slug') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="slug"
+                                                   value="{{ old('slug') ?? $banner->slug }}"
+                                                   placeholder="{{ trans('language.banner.slug') }}">
+                                            @if ($errors->first('slug'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('slug') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.banner.image_path') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" id="image_path" name="image_path">
+                                            <div class="form-group mt-3 mb-3">
+                                                <img id="img" style="{{ !empty($banner->image_path) ? 'with: 200px; height: 200px; object-fit: cover' : '' }}" src="{{ asset($banner->image_path) }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{ trans('language.banner.link') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="link"
@@ -46,22 +72,6 @@
                                                     {{ $errors->first('link') }}
                                                 </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>{{ trans('language.banner.image_path') }}<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="file" class="form-control" id="image_path" name="image_path">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <img id="img" style="{{ !empty($banner->image_path) ? 'with: 200px; height: 200px; object-fit: cover' : '' }}" src="{{ asset($banner->image_path) }}" alt="">
                                         </div>
                                     </div>
                                 </div>

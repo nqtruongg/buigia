@@ -238,6 +238,7 @@ return [
         'title' => 'Banner',
         'sidebarTitle' => 'Quản lí banner',
         'add' => 'Thêm banner',
+        'slug' => 'Slug',
         'edit' => 'Sửa banner',
         'list' => 'Danh sách banner',
         'name' => 'Tên banner',
