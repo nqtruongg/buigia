@@ -27,7 +27,13 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return view('service.create');
+        $listArea = $this->serviceService->getAllArea();
+
+        $listHouseHoulder = $this->serviceService->getListHouseHolder();
+
+        $listCategoryService = $this->serviceService->getListCategoryService();
+
+        return view('service.create', compact('listArea', 'listHouseHoulder', 'listCategoryService'));
     }
 
     public function store(ServiceRequest $request)
@@ -51,7 +57,16 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = $this->serviceService->getServiceById($id);
-        return view('service.edit', compact('service'));
+
+        $listArea = $this->serviceService->getAllArea();
+
+        $listHouseHoulder = $this->serviceService->getListHouseHolder();
+
+        $listCategoryService = $this->serviceService->getListCategoryService();
+
+        $selectedCategoryIds = $service->categories->pluck('id')->toArray();
+
+        return view('service.edit', compact('service', 'selectedCategoryIds', 'listArea', 'listHouseHoulder', 'listCategoryService'));
     }
 
     public function update(ServiceRequest $request, $id)
@@ -76,18 +91,35 @@ class ServiceController extends Controller
     public function delete($id)
     {
         try {
-            $service = Service::find($id);
-            if ($service) {
-                DB::beginTransaction();
-                $service->delete();
-                DB::commit();
-                return [
-                    'status' => 200,
-                    'msg' => [
-                        'text' => trans('message.success'),
-                    ],
-                ];
-            }
+            DB::beginTransaction();
+            $this->serviceService->delete($id);
+            DB::commit();
+            return [
+                'status' => 200,
+                'msg' => [
+                    'text' => trans('message.success'),
+                ],
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("File: " . $e->getFile() . '---Line: ' . $e->getLine() . "---Message: " . $e->getMessage());
+            return response()->json([
+                'code' => 500,
+                'message' => trans('message.server_error')
+            ], 500);
+        }
+    }
+
+    public function destroyImage($id)
+    {
+        try {
+            DB::beginTransaction();
+            $this->serviceService->destroyImage($id);
+            DB::commit();
+            return response()->json([
+                'delete' => true,
+                'message' => 'Xóa ảnh thành công'
+            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("File: " . $e->getFile() . '---Line: ' . $e->getLine() . "---Message: " . $e->getMessage());

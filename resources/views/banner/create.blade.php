@@ -70,7 +70,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.hot') }}<span class="text-danger">*</span></label><br>
                                             Có <input type="radio" name="hot" value="1">
-                                            không <input type="radio" name="hot" value="0">
+                                            không <input type="radio" name="hot" value="0" checked>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -119,7 +119,7 @@
                                             <label>{{ trans('language.banner.order') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="order"
-                                                   value="{{ old('order') ?? '' }}"
+                                                   value="{{ old('order') ?? 0 }}"
                                                    placeholder="{{ trans('language.banner.order') }}">
                                         </div>
                                     </div>
