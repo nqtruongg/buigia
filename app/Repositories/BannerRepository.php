@@ -18,15 +18,24 @@ class BannerRepository
     public function getListBannerIndex($request)
     {
         $banner = Banner::select(
-            'id',
-            'name',
-            'hot',
-            'active',
-            'order',
-            'image_path'
+            'banners.id',
+            'banners.name',
+            'banners.slug',
+            'banners.hot',
+            'banners.active',
+            'banners.order',
+            'banners.parent_id',
+            'banners.description',
+            DB::raw('COUNT(child.id) as child_count')
         )
-            ->where('parent_id', 0)
-            ->orderBy('id', 'DESC')
+            ->where('banners.parent_id', 0)
+            ->whereNull('banners.deleted_at')
+            ->leftJoin('banners as child', function($join) {
+                $join->on('banners.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('banners.id')
+            ->orderBy('banners.id', 'DESC')
             ->paginate(self::PAGINATE);
         return $banner;
     }
@@ -47,7 +56,25 @@ class BannerRepository
 
     public function getBannerByIdCate($id)
     {
-        $banner = Banner::where('parent_id', $id)
+        $banner = Banner::select(
+            'banners.id',
+            'banners.name',
+            'banners.slug',
+            'banners.hot',
+            'banners.active',
+            'banners.order',
+            'banners.parent_id',
+            'banners.description',
+            DB::raw('COUNT(child.id) as child_count')
+        )
+            ->where('banners.parent_id', $id)
+            ->whereNull('banners.deleted_at')
+            ->leftJoin('banners as child', function($join) {
+                $join->on('banners.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('banners.id')
+            ->orderBy('banners.id', 'DESC')
             ->paginate(self::PAGINATE);
         return $banner;
     }
@@ -57,6 +84,7 @@ class BannerRepository
 
         $banner = new Banner();
         $banner->name = $request->name;
+        $banner->slug = $request->slug;
         $banner->link = $request->link;
         $banner->hot = $request->hot;
         $banner->active = $request->active;
@@ -82,6 +110,7 @@ class BannerRepository
 
         $banner->name = $request->name;
         $banner->share_id = $request->share_id;
+        $banner->slug = $request->slug;
         $banner->language = $request->language;
         $banner->link = $request->link;
         $banner->hot = $request->hot;

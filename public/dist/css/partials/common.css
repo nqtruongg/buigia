@@ -75,3 +75,11 @@
     width: 40px;
     height: 40px;
 }
+
+.fa-folder-open {
+    color: #dad722 !important;
+}
+
+.fa-file {
+    color: #f783ac !important;
+}

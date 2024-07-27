@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\CategoryPost;
 use App\Models\PostCate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryPostRepository
@@ -16,25 +17,52 @@ class CategoryPostRepository
     public function getListCategoryPost()
     {
         $categoryPost = CategoryPost::select(
-            'id',
-            'name',
-            'slug',
-            'hot',
-            'active',
-            'order',
-            'parent_id',
-            'description',
-            'content',
+            'category_posts.id',
+            'category_posts.name',
+            'category_posts.slug',
+            'category_posts.hot',
+            'category_posts.active',
+            'category_posts.order',
+            'category_posts.parent_id',
+            'category_posts.description',
+            'category_posts.content',
+            DB::raw('COUNT(child.id) as child_count')
         )
-            ->where('parent_id', 0)
-            ->orderBy('id', 'DESC')
+            ->where('category_posts.parent_id', 0)
+            ->whereNull('category_posts.deleted_at')
+            ->leftJoin('category_posts as child', function($join) {
+                $join->on('category_posts.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('category_posts.id')
+            ->orderBy('category_posts.id', 'DESC')
             ->paginate(self::PAGINATE);
+
         return $categoryPost;
     }
 
     public function getCategoryPostByIdCate($id)
     {
-        $categoryPost = CategoryPost::where('parent_id', $id)
+        $categoryPost = CategoryPost::select(
+            'category_posts.id',
+            'category_posts.name',
+            'category_posts.slug',
+            'category_posts.hot',
+            'category_posts.active',
+            'category_posts.order',
+            'category_posts.parent_id',
+            'category_posts.description',
+            'category_posts.content',
+            DB::raw('COUNT(child.id) as child_count')
+        )
+            ->where('category_posts.parent_id', $id)
+            ->whereNull('category_posts.deleted_at')
+            ->leftJoin('category_posts as child', function($join) {
+                $join->on('category_posts.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('category_posts.id')
+            ->orderBy('category_posts.id', 'DESC')
             ->paginate(self::PAGINATE);
         return $categoryPost;
     }

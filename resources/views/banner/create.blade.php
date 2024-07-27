@@ -24,7 +24,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.name') }}<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="name"
+                                            <input type="text" class="form-control" id="name" name="name"
                                                    value="{{ old('name') ?? '' }}"
                                                    placeholder="{{ trans('language.banner.name') }}">
                                             @if ($errors->first('name'))
@@ -32,6 +32,32 @@
                                                     {{ $errors->first('name') }}
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.banner.slug') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="slug" name="slug"
+                                                   value="{{ old('slug') ?? '' }}"
+                                                   placeholder="{{ trans('language.banner.slug') }}">
+                                            @if ($errors->first('link'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('link') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.banner.image_path') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" id="image_path" name="image_path">
+                                            <div class="form-group mt-3 mb-3">
+                                                <img id="img" src="" alt="">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -46,22 +72,6 @@
                                                     {{ $errors->first('link') }}
                                                 </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>{{ trans('language.banner.image_path') }}<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="file" class="form-control" id="image_path" name="image_path">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <img id="img" src="" alt="">
                                         </div>
                                     </div>
                                 </div>

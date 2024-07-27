@@ -70,6 +70,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">#</th>
+                                    <th class="text-center">Folder</th>
                                     <th class="text-center">{{ trans('language.banner.name') }}</th>
                                     <th class="text-center">{{ trans('language.banner.active') }}</th>
                                     <th class="text-center">{{ trans('language.banner.hot') }}</th>
@@ -83,6 +84,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($listBannerByCate->currentPage() - 1) * $listBannerByCate->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
@@ -137,6 +141,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($listBanner->currentPage() - 1) * $listBanner->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('banner.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
