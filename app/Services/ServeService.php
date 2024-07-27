@@ -18,6 +18,21 @@ class ServeService
         return $this->serviceRepository->getListService($request);
     }
 
+    public function getAllArea()
+    {
+        return $this->serviceRepository->getAllArea();
+    }
+
+    public function getListCategoryService()
+    {
+        return $this->serviceRepository->getListCategoryService();
+    }
+
+    public function getListHouseHolder()
+    {
+        return $this->serviceRepository->getListHouseHolder();
+    }
+
     public function createService($request)
     {
         return $this->serviceRepository->createService($request);
@@ -31,5 +46,15 @@ class ServeService
     public function updateService($request, $id)
     {
         return $this->serviceRepository->updateService($request, $id);
+    }
+
+    public function delete($id)
+    {
+        return $this->serviceRepository->delete($id);
+    }
+
+    public function destroyImage($id)
+    {
+        return $this->serviceRepository->destroyImage($id);
     }
 }

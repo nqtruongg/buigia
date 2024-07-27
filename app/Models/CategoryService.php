@@ -23,4 +23,9 @@ class CategoryService extends Model
         return $this->childs()->with('childrenRecursive');
     }
 
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'service_and_categoryservices', 'categoryService_id', 'service_id');
+    }
+
 }
