@@ -23,6 +23,8 @@ use App\Http\Controllers\Banner\BannerController;
 use App\Http\Controllers\HouseHolder\HouseHolderController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\CategoryPost\CategoryPostController;
+use App\Http\Controllers\Filter\FilterController;
+use App\Http\Controllers\Filter\FilterTypeController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Service\CategoryServiceController;
@@ -341,10 +343,42 @@ Route::middleware(['auth'])->group(function () {
         });
 
 
-    // post
+    // setting
     Route::prefix('setting')
         ->controller(SettingController::class)
         ->name('setting.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'destroy')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+        //filter type
+
+        Route::prefix('filter_type')
+        ->controller(FilterTypeController::class)
+        ->name('filter_type.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::delete('/delete/{id}', 'destroy')->name('delete');
+            Route::post('/change-active', 'changeActive')->name('changeActive');
+            Route::post('/change-hot', 'changeHot')->name('changeHot');
+        });
+
+
+        //filter
+        Route::prefix('filter')
+        ->controller(FilterController::class)
+        ->name('filter.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
