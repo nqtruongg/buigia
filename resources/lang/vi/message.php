@@ -59,6 +59,16 @@ return [
     'update_service_success' => 'Sửa dịch vụ thành công',
     'confirm_delete_service' => 'Bạn có muốn xoá dịch vụ',
 
+    //filer type
+    'create_filter_type_success' => 'Thêm danh mục lọc thành công',
+    'update_filter_type_success' => 'Sửa danh mục lọc thành công',
+    'confirm_delete_filter_type' => 'Bạn có muốn xoá danh mục lọc',
+
+    //filer type
+    'create_filter_success' => 'Thêm lọc thành công',
+    'update_filter_success' => 'Sửa lọc thành công',
+    'confirm_delete_filter' => 'Bạn có muốn xoá lọc',
+
     // receivable
     'update_receivable_success' => 'Chỉnh sửa công nợ thành công',
     'create_receivable_success' => 'Tạo mới công nợ thành công',
