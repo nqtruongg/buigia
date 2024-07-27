@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('category_services', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::create('service_and_categoryServices', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('categoryService_id');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('category_services', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('service_and_categoryServices');
     }
 };

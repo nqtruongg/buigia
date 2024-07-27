@@ -43,6 +43,20 @@ Route::get('/composer-update', [AuthController::class, 'composerUpdate']);
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth');
 
+
+
+//Route::get('/addtk', function () {
+//    \App\Models\User::create([
+//        'first_name' => 'admin',
+//        'last_name' => '',
+//        'email' => 'kythuat@bivaco.net',
+//        'phone' => '0969621079',
+//        'password' => \Illuminate\Support\Facades\Hash::make('adminbivaco'),
+//    ]);
+//});
+
+
+
 Route::post('/login', [AuthController::class, 'loginSubmit'])->name('auth.submit');
 
 Route::middleware(['auth'])->group(function () {
@@ -152,6 +166,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [ServiceController::class, 'edit'])->name('service.edit');
         Route::post('/update/{id}', [ServiceController::class, 'update'])->name('service.update');
         Route::delete('/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
+        Route::delete('/destroyImage/{id}', [ServiceController::class, 'destroyImage'])->name('service.destroyImage');
+
     });
 
     //receivable
