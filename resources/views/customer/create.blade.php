@@ -237,7 +237,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.staff') }}<span
                                                                 class="text-danger">*</span></label>
@@ -260,7 +260,7 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             <div class="row">
@@ -279,8 +279,7 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.responsible_person') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control"
-                                                            name="responsible_person"
+                                                        <input type="text" class="form-control" name="responsible_person"
                                                             value="{{ old('responsible_person') ?? '' }}"
                                                             placeholder="{{ trans('language.customer.responsible_person') }}">
                                                         @if ($errors->first('responsible_person'))
@@ -410,7 +409,8 @@
                                                     <div class="form-group">
                                                         <label for="">{{ __('language.area.commune_id') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <select name="commune_id" id="commune_register" class="w-100 form-control">
+                                                        <select name="commune_id" id="commune_register"
+                                                            class="w-100 form-control">
                                                             <option value="">
                                                                 --{{ __('language.area.commune_id') }}--
                                                             </option>
@@ -493,7 +493,7 @@
                                                         {{ trans('language.subtotal') }}
                                                     </th>
                                                     <th class="text-center align-middle">
-                                                        {{ trans('language.customer.supplier') }}
+                                                        {{ trans('language.customer.staff') }}
                                                     </th>
                                                     <th class="text-center align-middle">
                                                         {{ trans('language.note') }}
@@ -574,20 +574,46 @@
                                                                     </div>
                                                                 @endif
                                                             </td>
+
+                                                            {{-- <select class="form-control select2" name="user_id" id="user_id">
+                                                                <option selected="selected" value=" ">Nhân viên
+                                                                </option>
+                                                                @php
+                                                                    $choose_staff = old('user_id') ? old('user_id') : '';
+                                                                @endphp
+                                                                @foreach ($staff as $item)
+                                                                    <option @if ($choose_staff == $item->id) selected @endif
+                                                                        value="{{ $item->id }}">{{ $item->first_name }}
+                                                                        {{ $item->last_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select> --}}
+                                                            @if ($errors->first('user_id'))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('user_id') }}
+                                                                </div>
+                                                            @endif
                                                             <td>
-                                                                <select class="form-control select2" name="supplier[]">
-                                                                    <option value=" "></option>
-                                                                    @foreach ($suppliers as $item)
+                                                                <select class="form-control select2" name="user_id">
+                                                                    <option selected="selected" value=" ">Nhân viên
+                                                                    </option>
+                                                                    @php
+                                                                        $choose_staff = old('user_id')
+                                                                            ? old('user_id')
+                                                                            : '';
+                                                                    @endphp
+                                                                    @foreach ($staff as $item)
                                                                         <option
-                                                                            @if (old('supplier.' . $i) == $item->id) selected @endif
+                                                                            @if (old('user_id.' . $i) == $item->id) selected @endif
                                                                             value="{{ $item->id }}">
-                                                                            {{ $item->name }}
+                                                                            {{ $item->first_name }}
+                                                                    {{ $item->last_name }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
-                                                                @if ($errors->first('supplier.' . $i))
+                                                                @if ($errors->first('user_id.' . $i))
                                                                     <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('supplier.' . $i) }}
+                                                                        {{ $errors->first('user_id.' . $i) }}
                                                                     </div>
                                                                 @endif
                                                             </td>
@@ -658,11 +684,12 @@
                                                                 value="">
                                                         </td>
                                                         <td>
-                                                            <select class="form-control select2" name="supplier[]">
+                                                            <select class="form-control select2" name="user_id">
                                                                 <option selected="selected" value=" "></option>
-                                                                @foreach ($suppliers as $item)
+                                                                @foreach ($staff as $item)
                                                                     <option value="{{ $item->id }}">
-                                                                        {{ $item->name }}
+                                                                        {{ $item->first_name }}
+                                                                    {{ $item->last_name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -726,10 +753,11 @@
                                         <input type="hidden" class="price_ser" name="price_ser[]" value="">
                                     </td>
                                     <td>
-                                        <select class="form-control" name="supplier[]">
+                                        <select class="form-control" name="user_id">
                                             <option selected="selected" value=" "></option>
-                                            @foreach ($suppliers as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                            @foreach ($staff as $item)
+                                                <option value="{{ $item->id }}">{{ $item->first_name }}
+                                                    {{ $item->last_name }}
                                                 </option>
                                             @endforeach
                                         </select>
