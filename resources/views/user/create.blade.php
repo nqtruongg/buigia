@@ -22,8 +22,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.user.first_name') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.user.first_name') }}<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="first_name"
                                                 value="{{ old('first_name') ?? '' }}"
                                                 placeholder="{{ trans('language.user.first_name') }}">
@@ -33,7 +32,6 @@
                                                 </div>
                                             @endif
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -140,6 +138,22 @@
                                                     {{ $errors->first('password') }}
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.commission_id') }}</label>
+                                            <select name="commission_id" class="form-control" id="commission_id">
+                                                <option disabled selected>--chọn--</option>
+                                                @if($commissions)
+                                                    @foreach ($commissions as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->percent }}%</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

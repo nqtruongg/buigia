@@ -49,6 +49,7 @@ return [
     'describe' => 'Mô tả',
     'expire_date' => 'Ngày hết hạn',
     'content' => 'Nội dung',
+    'commission_id' => 'Phần trăm hoa hồng',
 
     //department
     'department' => [
