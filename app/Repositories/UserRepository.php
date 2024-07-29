@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Commission;
 use App\Models\Department;
 use App\Models\Role;
 use App\Models\User;
@@ -72,6 +73,31 @@ class UserRepository
         return $roles;
     }
 
+    public function getAllCommissionByPercent()
+    {
+        $commissions = Commission::select('id', 'percent')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $commissions;
+    }
+
+    public function createUser($request)
+    {
+        User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'commission_id' => $request->commission_id,
+            'department_id' => $request->department_id,
+            'role_id' => $request->role_id,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return true;
+    }
+
     public function updateUser($request, $id)
     {
         $user = User::find($id);
@@ -85,29 +111,12 @@ class UserRepository
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'commission_id' => $request->commission_id,
             'department_id' => $request->department_id,
             'role_id' => $request->role_id,
             'address' => $request->address,
             'password' => $password,
         ]);
-
-        return true;
-    }
-
-    public function createUser($request)
-    {
-        User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'department_id' => $request->department_id,
-            'role_id' => $request->role_id,
-            'address' => $request->address,
-            'password' => Hash::make($request->password),
-        ]);
-
-
 
         return true;
     }

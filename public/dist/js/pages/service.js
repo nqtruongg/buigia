@@ -126,7 +126,7 @@ $(function () {
                             data.message
                         );
 
-                        var $fileInputWrapper = $button.closest('.file-input-wrapper');
+                        var $fileInputWrapper = $button.closest('.variantColor');
                         $fileInputWrapper.remove();
 
                         if ($('#variantContainer .file-input-wrapper').length === 0) {
