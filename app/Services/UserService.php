@@ -53,4 +53,9 @@ class UserService
     {
         return $this->userRepository->getListRoleAll();
     }
+
+    public function getAllCommissionByPercent()
+    {
+        return $this->userRepository->getAllCommissionByPercent();
+    }
 }

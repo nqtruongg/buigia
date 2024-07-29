@@ -143,6 +143,22 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.commission_id') }}</label>
+                                            <select name="commission_id" class="form-control" id="commission_id">
+                                                <option disabled selected>--chọn--</option>
+                                                @if($commissions)
+                                                    @foreach ($commissions as $item)
+                                                        <option {{ $item->id === $user->commission_id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->percent }}%</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="card-footer d-flex justify-content-end">

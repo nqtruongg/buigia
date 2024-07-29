@@ -30,7 +30,8 @@ class UserController extends Controller
     public function create()
     {
         $departments = $this->userService->getListDepartment();
-        return view('user.create', compact('departments'));
+        $commissions = $this->userService->getAllCommissionByPercent();
+        return view('user.create', compact('departments', 'commissions'));
     }
 
     public function store(UserRequest $request)
@@ -55,7 +56,8 @@ class UserController extends Controller
     {
         $user = $this->userService->getUserbyId($id);
         $departments = $this->userService->getListDepartment();
-        return view('user.edit', compact('user', 'departments'));
+        $commissions = $this->userService->getAllCommissionByPercent();
+        return view('user.edit', compact('user', 'departments', 'commissions'));
     }
 
     public function update(UserRequest $request, $id)

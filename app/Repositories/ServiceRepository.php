@@ -257,6 +257,7 @@ class ServiceRepository
         }
 
         $imagePath = 'public/services/' . basename($image->related_photo);
+        
         if (Storage::exists($imagePath)) {
             Storage::delete($imagePath);
         }
