@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('direction')->nullable();
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('householder_id');
-            $table->unsignedBigInteger('category_id');
             $table->string('order')->default(0)->nullable();
             $table->text('content')->nullable();
             $table->integer('active')->default(1);
