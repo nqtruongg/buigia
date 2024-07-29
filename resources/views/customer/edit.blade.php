@@ -20,7 +20,7 @@
             $errors->has('end.*') ||
             $errors->has('view_total.*') ||
             $errors->has('note.*') ||
-            $errors->has('supplier.*');
+            $errors->has('user_id.*');
         $infoTabHasErrors =
             $errors->has('name') ||
             $errors->has('responsible_person') ||
@@ -238,7 +238,7 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.staff') }}<span
                                                                 class="text-danger">*</span></label>
@@ -263,7 +263,7 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             <div class="row">
@@ -500,7 +500,7 @@
                                                         {{ trans('language.subtotal') }}
                                                     </th>
                                                     <th class="text-center align-middle">
-                                                        {{ trans('language.customer.supplier') }}
+                                                        {{ trans('language.customer.staff') }}
                                                     </th>
                                                     <th class="text-center align-middle">
                                                         {{ trans('language.note') }}
@@ -582,19 +582,20 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <select class="form-control select2" name="supplier[]">
-                                                                    <option value=" "></option>
-                                                                    @foreach ($suppliers as $item)
+                                                                <select class="form-control select2" name="user_id">
+                                                                    <option value="">--Chọn--</option>
+                                                                    @foreach ($staff as $item)
                                                                         <option
-                                                                            @if (old('supplier.' . $i) == $item->id) selected @endif
+                                                                            @if (old('user_id.' . $i) == $item->id) selected @endif
                                                                             value="{{ $item->id }}">
-                                                                            {{ $item->name }}
+                                                                            {{ $item->first_name }}
+                                                                        {{ $item->last_name }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
-                                                                @if ($errors->first('supplier.' . $i))
+                                                                @if ($errors->first('user_id.' . $i))
                                                                     <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('supplier.' . $i) }}
+                                                                        {{ $errors->first('user_id.' . $i) }}
                                                                     </div>
                                                                 @endif
                                                             </td>
@@ -624,7 +625,7 @@
                                                 @else
                                                     @foreach ($service_saves as $key => $value)
                                                         <tr>
-                                                            <td class="text-center align-middle">1</td>
+                                                            <td class="text-center align-middle">Đã hủy</td>
                                                             <td class="text-center align-middle">
                                                                 <select class="form-control select2 service_change"
                                                                     name="services[]">
@@ -672,13 +673,14 @@
                                                                     name="price_ser[]" value="{{ $value->price }}">
                                                             </td>
                                                             <td>
-                                                                <select class="form-control select2" name="supplier[]">
-                                                                    <option selected="selected" value=" "></option>
-                                                                    @foreach ($suppliers as $item)
+                                                                <select class="form-control select2" name="user_id">
+                                                                    <option selected="selected" value="" disabled>--Chọn--</option>
+                                                                    @foreach ($staff as $item)
                                                                         <option
-                                                                            @if ($item->id == $value->supplier) selected @endif
+                                                                            @if ($item->id == $value->user_id) selected @endif
                                                                             value="{{ $item->id }}">
-                                                                            {{ $item->name }}
+                                                                            {{ $item->first_name }}
+                                                                        {{ $item->last_name }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
@@ -752,10 +754,11 @@
                                         <input type="hidden" class="price_ser" name="price_ser[]" value="">
                                     </td>
                                     <td>
-                                        <select class="form-control select2 service_change" name="supplier[]">
+                                        <select class="form-control select2 service_change" name="user_id">
                                             <option selected="selected" value=" "></option>
-                                            @foreach ($suppliers as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                            @foreach ($staff as $item)
+                                                <option value="{{ $item->id }}">{{ $item->first_name }}
+                                                    {{ $item->last_name }}
                                                 </option>
                                             @endforeach
                                         </select>

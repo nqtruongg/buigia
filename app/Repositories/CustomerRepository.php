@@ -167,12 +167,14 @@ class CustomerRepository
             'address' => $request->address,
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
-            'user_id' => $request->user_id,
+            // 'user_id' => $request->user_id ?? null,
             'type' => $request->type ?? 0,
             'image_path' => $request->image_path,
             'city_id' => $request->city_id ?? null,
             'district_id' => $request->district_id ?? null,
             'commune_id' => $request->commune_id ?? null,
+            'created_by' => auth()->user()->id ?? null,
+            'update_by' => auth()->user()->id ?? null,
         ];
 
         $customer = Customer::create($params);
@@ -201,7 +203,8 @@ class CustomerRepository
                     'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
-                    'supplier' => $request->supplier[$key],
+                    // 'supplier' => $request->supplier[$key],
+                    'user_id' => $request->user_id ?? null,
                 ]);
             }
         }
@@ -242,12 +245,14 @@ class CustomerRepository
             'address' => $request->address,
             'invoice_address' => $request->invoice_address,
             'career' => $request->career,
-            'user_id' => $request->user_id,
+            // 'user_id' => $request->user_id,
             'type' => $request->type ?? 0,
             'image_path' => $imagePath,
             'city_id' => $request->city_id ?? null,
             'district_id' => $request->district_id ?? null,
             'commune_id' => $request->commune_id ?? null,
+            'created_by' => $customer->created_by ?? null,
+            'update_by' => auth()->user()->id ?? null,
         ];
 
 
@@ -297,7 +302,7 @@ class CustomerRepository
                     'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
-                    'supplier' => $request->supplier[$key],
+                    'user_id' => $request->user_id ?? null,
 
                 ]);
             }
@@ -336,7 +341,7 @@ class CustomerRepository
             'customer_service.started_at',
             'customer_service.ended_at',
             'customer_service.note',
-            'customer_service.supplier',
+            'customer_service.user_id',
             'services.price'
         )
             ->leftjoin('services', 'services.id', 'customer_service.service_id')
@@ -489,7 +494,7 @@ class CustomerRepository
             'customer_service.started_at',
             'customer_service.ended_at',
             'customer_service.note',
-            'customer_service.supplier',
+            'customer_service.user_id',
             'services.name as service_name'
         )
             ->leftjoin('services', 'services.id', 'customer_service.service_id')
@@ -525,6 +530,7 @@ class CustomerRepository
                         'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                         'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                         'note' => $note[$key] ?? null,
+                        'user_id' => $request->user_id ?? null,
                     ]);
                 }
             }

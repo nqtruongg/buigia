@@ -49,7 +49,6 @@ class CustomerRequest extends FormRequest
             'address' => 'nullable|string|max:255',
             'invoice_address' => 'nullable|string|max:255',
             'career' => 'nullable|string|max:255',
-            'user_id' => 'required|exists:users,id',
             'city_id' => 'nullable|exists:cities,id',
             'district_id' => 'nullable|exists:districts,id',
             'commune_id' => 'nullable|exists:communes,id',
@@ -67,8 +66,9 @@ class CustomerRequest extends FormRequest
                 'view_total.*' => 'required',
                 'note' => 'nullable|array|max:100',
                 'note.*' => 'nullable|string|max:100',
-                'supplier' => 'nullable|array|max:100',
-                'supplier.*' => 'nullable|string|max:100',
+                // 'supplier' => 'nullable|array|max:100',
+                // 'supplier.*' => 'nullable|string|max:100',
+                'user_id' => 'nullable|exists:users,id',
             ];
         }
 
@@ -142,17 +142,16 @@ class CustomerRequest extends FormRequest
             'note.max' => 'Ghi chú không được vượt quá :max ký tự.',
             'note.*.max' => 'Ghi chú không được vượt quá :max ký tự.',
 
-            'supplier.nullable' => 'Nhà cung cấp có thể là null.',
-            'supplier.*.nullable' => 'Nhà cung cấp có thể là null.',
-            'supplier.string' => 'Nhà cung cấp là một chuỗi ký tự.',
-            'supplier.*.string' => 'Nhà cung cấp phải là một chuỗi ký tự.',
-            'supplier.max' => 'Nhà cung cấp không được vượt quá :max ký tự.',
-            'supplier.*.max' => 'Nhà cung cấp không được vượt quá :max ký tự.',
-            'user_id.required' => 'Nhân viên tư vấn là bắt buộc.',
-            'user_id.exists' => 'Người dùng không tồn tại.',
+            // 'supplier.nullable' => 'Nhà cung cấp có thể là null.',
+            // 'supplier.*.nullable' => 'Nhà cung cấp có thể là null.',
+            // 'supplier.string' => 'Nhà cung cấp là một chuỗi ký tự.',
+            // 'supplier.*.string' => 'Nhà cung cấp phải là một chuỗi ký tự.',
+            // 'supplier.max' => 'Nhà cung cấp không được vượt quá :max ký tự.',
+            // 'supplier.*.max' => 'Nhà cung cấp không được vượt quá :max ký tự.',
             'city_id.exists' => 'Thành phố không tồn tại.',
             'district_id.exists' => 'Quận huyện không tồn tại.',
             'commune_id.exists' => 'Xã phường không tồn tại.',
+            'user_id.exists' => 'Người dùng không tồn tại.',
         ];
     }
 }

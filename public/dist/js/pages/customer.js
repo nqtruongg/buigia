@@ -142,7 +142,7 @@ $(function () {
         newRow.find('select[name="services[]"]').select2({
             width: "100%",
         });
-        newRow.find('select[name="supplier[]"]').select2({
+        newRow.find('select[name="user_id"]').select2({
             width: "100%",
         });
 
