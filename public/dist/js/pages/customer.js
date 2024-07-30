@@ -26,6 +26,19 @@ $(function () {
                         .datepicker("option", "maxDate", selectedDate);
                 },
             });
+
+        $(this)
+            .closest("tr")
+            .find(".datepicker_contract_date")
+            .datepicker({
+                dateFormat: "dd/mm/yy",
+                onSelect: function (selectedDate) {
+                    $(this)
+                        .closest("tr")
+                        .find(".datepicker_contract_date")
+                        .datepicker("option", "maxDate", selectedDate);
+                },
+            });
     });
 
     const dropzone = new Dropzone("#customerDropzone", {

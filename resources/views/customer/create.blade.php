@@ -675,9 +675,13 @@
                                                             </div>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         <input type="text" disabled class="form-control contractDateDisabled">
-                                                        <input type="date" class="form-control contractDateInput" name="contract_date[]">
+{{--                                                        <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
+{{--                                                        <input name="contract_date[]" type="text"--}}
+{{--                                                               class="datepicker_contract form-control text-center contractDateInput">--}}
+                                                        <input name="contract_date[]" type="text"
+                                                               class="datepicker_start form-control text-center contractDateInput">
 {{--                                                        <input name="time_view[]"--}}
 {{--                                                               class="form-control form-control-border number-hidden-input text-center input-time"--}}
 {{--                                                               type="number" min="1" max="10000"--}}
@@ -758,7 +762,9 @@
                                 </td>
                                 <td class="">
                                     <input type="text" disabled class="form-control contractDateDisabled">
-                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">
+{{--                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
+                                    <input name="contract_date[]" type="text"
+                                           class="datepicker_start form-control text-center contractDateInput">
 {{--                                    <input name="time_view[]"--}}
 {{--                                           class="form-control form-control-border number-hidden-input text-center input-time"--}}
 {{--                                           type="number" min="1" max="10000" value="" disabled>--}}

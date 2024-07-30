@@ -103,9 +103,15 @@ class ServiceRepository
         }
 
         $relatedPhotos = [];
-        foreach ($request->file('relatedPhotos') as $file) {
-            $path = $file->storePublicly('public/services');
-            $relatedPhotos[] = ['related_photo' => Storage::url($path)];
+
+        if ($request->hasFile('relatedPhotos')) {
+            foreach ($request->file('relatedPhotos') as $file) {
+                $path = $file->store('public/services');
+                $relatedPhotos[] = [
+                    'image_path' => Storage::url($path),
+                    'service_id' => $service->id
+                ];
+            }
         }
 
         $service->serviceImages()->createMany($relatedPhotos);
@@ -257,7 +263,7 @@ class ServiceRepository
         }
 
         $imagePath = 'public/services/' . basename($image->related_photo);
-        
+
         if (Storage::exists($imagePath)) {
             Storage::delete($imagePath);
         }

@@ -48,7 +48,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>{{ trans('language.order.contract_date') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="contract_date"
+                                                <input type="date" class="form-control form-control-sm" name="contract_date"
                                                        value="{{ request()->contract_date ?? '' }}"
                                                        placeholder="{{ trans('language.order.contract_date') }}">
                                             </div>
@@ -66,9 +66,12 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>{{ trans('language.order.type') }}</label>
-                                                <input type="text" class="form-control form-control-sm" name="type"
-                                                       value="{{ request()->type ?? '' }}"
-                                                       placeholder="{{ trans('language.order.type') }}">
+                                                <select name="type" class="form-control form-control-sm">
+                                                    <option value="1">Giữ chỗ</option>
+                                                    <option value="2">Đã cọc</option>
+                                                    <option value="3">Đã thuê</option>
+                                                    <option value="4">Đã hủy</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -190,46 +193,5 @@
 @endsection
 
 @section('js')
-    <script>
-        $(document).ready(function () {
-            $('#typeOrder').on('change', function(e) {
-                var type = $(this).val();
-                var id = $(this).data('id');
-                var url = $(this).data('url');
-                var method = $(this).data('method');
-                Swal.fire({
-                    title: 'Bạn muốn thay đổi trạng thái đơn này?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Đồng ý',
-                    cancelButtonText: 'Hủy'
-                }).then(function (result) {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: url,
-                            type: method,
-                            data: {
-                                id: id,
-                                type: type
-                            },
-                            success: function(data) {
-                                Swal.fire(
-                                    data.message
-                                );
-                            },
-                            error: function (xhr, status, error) {
-                                Swal.fire(
-                                    'Lỗi!',
-                                    'Có lỗi xảy ra trong quá trình cập nhật.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{{ asset('dist/js/pages/service.js') }}"></script>
 @endsection
