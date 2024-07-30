@@ -1,12 +1,197 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Domain Default page</title>
-    <meta name="copyright" content="Copyright 1999-2022. Plesk International GmbH. All rights reserved.">
-    <script src="https://assets.plesk.com/static/default-website-content/public/default-website-index.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .contractDateContent,
+        .contractDateInput {
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    This is a default webpage generated for <script>document.write(location.hostname)</script> by Plesk.
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th class="contractDateContent">Ngày Thuê</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="trElementTbody">
+                <td>1</td>
+                <td class="d-flex justify-content-center align-items-center contractDateInput">
+                    <input type="date" name="contract_date[]" class="contract_date">
+                </td>
+                <td>
+                    <select class="form-control status-dell" name="type[]">
+                        <option selected disabled>--Chọn--</option>
+                        <option value="0">Đã giữ chỗ</option>
+                        <option value="1">Đã cọc</option>
+                        <option value="2">Đã thuê</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="btnAddTr">Thêm</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
+
+<script>
+    function changeBoxBlock(event) {
+        const selectElement = event.target;
+
+        const trElement = $(selectElement).closest('tr');
+        const contractDateInput = trElement.find('.contractDateInput');
+
+        const thead = $('thead');
+        const contractDateContent = thead.find('.contractDateContent');
+
+        if ($(selectElement).val() == "2") {
+            if (contractDateContent.length) {
+                contractDateContent.css('display', 'table-cell');
+            }
+
+            if (contractDateInput.length) {
+                contractDateInput.css('display', 'flex');
+            }
+        } else {
+            const tbody = $('tbody');
+            const allSelects = tbody.find('select.status-dell');
+            let showContractDateContent = false;
+
+            allSelects.each(function () {
+                if ($(this).val() == "2") {
+                    showContractDateContent = true;
+                }
+            });
+
+            if (!showContractDateContent && contractDateContent.length) {
+                contractDateContent.css('display', 'none');
+            }
+
+            if (contractDateInput.length) {
+                contractDateInput.css('display', 'none');
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        function addChangeEvent(select) {
+            $(select).on('change', changeBoxBlock);
+        }
+
+        const selects = $('.status-dell');
+        selects.each(function () {
+            addChangeEvent(this);
+        });
+
+        const btnAddTr = $('.btnAddTr');
+        btnAddTr.on('click', function () {
+            const tbody = $('tbody');
+            const tr = tbody.find('tr:last-child');
+            const clonedTr = tr.clone();
+            tbody.append(clonedTr);
+
+            const newInputs = clonedTr.find('input');
+            newInputs.each(function () {
+                $(this).val('');
+                if ($(this).attr('type') === 'date') {
+                    $(this).closest('.contractDateInput').css('display', 'none');
+                }
+            });
+
+            const newSelects = clonedTr.find('select');
+            newSelects.each(function () {
+                $(this).val('--Chọn--');
+                addChangeEvent(this);
+            });
+        });
+    });
+</script>
+<!-- <script>
+    function changeBoxBlock(event) {
+        const selectElement = event.target;
+
+        const trElement = selectElement.closest('tr');
+        const contractDateInput = trElement.querySelector('.contractDateInput');
+
+        const thead = document.querySelector('thead');
+        const contractDateContent = thead.querySelector('.contractDateContent');
+
+        if (selectElement.value == "2") {
+            if (contractDateContent) {
+                contractDateContent.style.display = 'table-cell';
+            }
+
+            if (contractDateInput) {
+                contractDateInput.style.display = 'flex';
+            }
+        } else {
+            const tbody = document.querySelector('tbody');
+            const allSelects = tbody.querySelectorAll('select.status-dell');
+            let showContractDateContent = false;
+
+            allSelects.forEach(select => {
+                if (select.value == "2") {
+                    showContractDateContent = true;
+                }
+            });
+
+            if (!showContractDateContent && contractDateContent) {
+                contractDateContent.style.display = 'none';
+            }
+
+            if (contractDateInput) {
+                contractDateInput.style.display = 'none';
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        function addChangeEvent(select) {
+            select.addEventListener('change', changeBoxBlock);
+        }
+
+        const selects = document.querySelectorAll('.status-dell');
+        selects.forEach(select => addChangeEvent(select));
+
+        const btnAddTr = document.querySelector('.btnAddTr');
+        btnAddTr.addEventListener('click', function () {
+            const tbody = document.querySelector('tbody');
+            const tr = tbody.querySelector('tr:last-child');
+            const clonedTr = tr.cloneNode(true);
+            tbody.appendChild(clonedTr);
+
+            const newInputs = clonedTr.querySelectorAll('input');
+            newInputs.forEach(input => {
+                input.value = '';
+                if (input.type === 'date') {
+                    input.closest('.contractDateInput').style.display = 'none';
+                }
+            });
+
+            const newSelects = clonedTr.querySelectorAll('select');
+            newSelects.forEach(select => {
+                select.value = '--Chọn--';
+                addChangeEvent(select);
+            });
+        });
+    });
+</script> -->
+
 </html>
+
+
+
+

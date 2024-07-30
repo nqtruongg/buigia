@@ -87,7 +87,7 @@
                 --bc: var(--border);
             }
 
-            .checkbox-wrapper-14 input[type=checkbox]:disabled+label {
+            .checkbox-wrapper-14 input[type=checkbox]:disabled + label {
                 cursor: not-allowed;
             }
 
@@ -111,7 +111,7 @@
                 --o: 1;
             }
 
-            .checkbox-wrapper-14 input[type=checkbox]+label {
+            .checkbox-wrapper-14 input[type=checkbox] + label {
                 display: inline-block;
                 vertical-align: middle;
                 cursor: pointer;
@@ -170,6 +170,11 @@
         .checkbox-wrapper-14 *:after {
             box-sizing: inherit;
         }
+
+        .contractDateInput {
+            display: none;
+        }
+
     </style>
 
     <section class="content">
@@ -177,7 +182,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <form action="{{ route('customer.update', ['id' => $customer->id]) }}" method="post"
-                        enctype="multipart/form-data">
+                          enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="url_previous" value="{{ url()->previous() }}">
                         <div class="card card-primary card-outline card-outline-tabs">
@@ -185,9 +190,9 @@
                                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-home" role="tab"
-                                            aria-controls="custom-tabs-four-home"
-                                            aria-selected="true">{{ trans('language.customer.info') }}
+                                           href="#custom-tabs-four-home" role="tab"
+                                           aria-controls="custom-tabs-four-home"
+                                           aria-selected="true">{{ trans('language.customer.info') }}
                                             @if ($infoTabHasErrors)
                                                 <i class="fas fa-circle text-red"></i>
                                             @endif
@@ -195,16 +200,16 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-profile" role="tab"
-                                            aria-controls="custom-tabs-four-profile"
-                                            aria-selected="false">{{ trans('language.customer.document') }}</a>
+                                           href="#custom-tabs-four-profile" role="tab"
+                                           aria-controls="custom-tabs-four-profile"
+                                           aria-selected="false">{{ trans('language.customer.document') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ $serviceTabHasErrors || $service_saves->count() > 0 ? '' : 'd-none' }}"
-                                            id="custom-tabs-four-messages-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-messages" role="tab"
-                                            aria-controls="custom-tabs-four-messages"
-                                            aria-selected="false">{{ trans('language.service.title') }}
+                                           id="custom-tabs-four-messages-tab" data-toggle="pill"
+                                           href="#custom-tabs-four-messages" role="tab"
+                                           aria-controls="custom-tabs-four-messages"
+                                           aria-selected="false">{{ trans('language.service.title') }}
                                             @if ($serviceTabHasErrors)
                                                 <i class="fas fa-circle text-red"></i>
                                             @endif
@@ -215,11 +220,11 @@
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
                                     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-home-tab">
+                                         aria-labelledby="custom-tabs-four-home-tab">
                                         <div class="card-body">
                                             <div class="checkbox-wrapper-14">
                                                 <input id="s1-14" type="checkbox" class="switch" name="type"
-                                                    value="{{ old('type') ?? $customer->type }}"
+                                                       value="{{ old('type') ?? $customer->type }}"
                                                     {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
                                                 <label for="s1-14">Công ty/Tổ chức</label>
                                             </div>
@@ -229,8 +234,8 @@
                                                         <label>{{ trans('language.customer.name') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="name"
-                                                            value="{{ old('name') ?? $customer->name }}"
-                                                            placeholder="{{ trans('language.customer.name') }}">
+                                                               value="{{ old('name') ?? $customer->name }}"
+                                                               placeholder="{{ trans('language.customer.name') }}">
                                                         @if ($errors->first('name'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('name') }}
@@ -272,12 +277,12 @@
                                                         <label>{{ trans('language.banner.image_path') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="file" class="form-control" id="image_path"
-                                                            name="image_path">
+                                                               name="image_path">
                                                     </div>
                                                     <div class="form-group">
                                                         <img id="img"
-                                                            style="{{ !empty($customer->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}"
-                                                            src="{{ asset($customer->image_path) }}" alt="">
+                                                             style="{{ !empty($customer->image_path) ? 'with: 200px; height: 200px; object-fit: cover;' : '' }}"
+                                                             src="{{ asset($customer->image_path) }}" alt="">
                                                     </div>
                                                 </div>
 
@@ -286,9 +291,9 @@
                                                         <label>{{ trans('language.customer.responsible_person') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" class="form-control"
-                                                            name="responsible_person"
-                                                            value="{{ old('responsible_person') ?? $customer->responsible_person }}"
-                                                            placeholder="{{ trans('language.customer.responsible_person') }}">
+                                                               name="responsible_person"
+                                                               value="{{ old('responsible_person') ?? $customer->responsible_person }}"
+                                                               placeholder="{{ trans('language.customer.responsible_person') }}">
                                                         @if ($errors->first('responsible_person'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('responsible_person') }}
@@ -302,8 +307,8 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.tax_code') }}</label>
                                                         <input type="text" class="form-control" name="tax_code"
-                                                            value="{{ old('tax_code') ?? $customer->tax_code }}"
-                                                            placeholder="{{ trans('language.customer.tax_code') }}">
+                                                               value="{{ old('tax_code') ?? $customer->tax_code }}"
+                                                               placeholder="{{ trans('language.customer.tax_code') }}">
                                                         @if ($errors->first('tax_code'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('tax_code') }}
@@ -317,7 +322,7 @@
                                                         <label>{{ trans('language.customer.status') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select class="form-control select2" name="status"
-                                                            id="status">
+                                                                id="status">
                                                             <option selected="selected" value=" ">Tình trạng
                                                             </option>
                                                             @php
@@ -326,8 +331,9 @@
                                                                     : $customer->status;
                                                             @endphp
                                                             @foreach ($status as $item)
-                                                                <option @if ($choose_status == $item->id) selected @endif
-                                                                    value="{{ $item->id }}">{{ $item->name }}
+                                                                <option @if ($choose_status == $item->id) selected
+                                                                        @endif
+                                                                        value="{{ $item->id }}">{{ $item->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -346,8 +352,8 @@
                                                         <label>{{ trans('language.email') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="email"
-                                                            value="{{ old('email') ?? $customer->email }}"
-                                                            placeholder="{{ trans('language.email') }}">
+                                                               value="{{ old('email') ?? $customer->email }}"
+                                                               placeholder="{{ trans('language.email') }}">
                                                         @if ($errors->first('email'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('email') }}
@@ -360,8 +366,8 @@
                                                         <label>{{ trans('language.phone') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="phone"
-                                                            value="{{ old('phone') ?? $customer->phone }}"
-                                                            placeholder="{{ trans('language.phone') }}">
+                                                               value="{{ old('phone') ?? $customer->phone }}"
+                                                               placeholder="{{ trans('language.phone') }}">
                                                         @if ($errors->first('phone'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('phone') }}
@@ -377,8 +383,8 @@
                                                         <label for="">{{ __('language.area.city_id') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select name="city_id" id="city_register"
-                                                            data-url="{{ route('ajax.address.districts') }}"
-                                                            class="form-control">
+                                                                data-url="{{ route('ajax.address.districts') }}"
+                                                                class="form-control">
                                                             <!-- Removed the initial option with $area->city_id value -->
                                                             <option value="">--{{ __('language.area.city_id') }}--
                                                             </option>
@@ -401,8 +407,8 @@
                                                         <label for="">{{ __('language.area.district_id') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select name="district_id" id="district_register"
-                                                            class="form-control"
-                                                            data-url="{{ route('ajax.address.communes') }}">
+                                                                class="form-control"
+                                                                data-url="{{ route('ajax.address.communes') }}">
                                                             <option value="{{ $customer->district_id }}">
                                                                 {{ $customer->district->name ?? ''}}</option>
                                                             <option value="">
@@ -421,7 +427,7 @@
                                                         <label for="">{{ __('language.area.commune_id') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select name="commune_id" id="commune_register"
-                                                            class="w-100 form-control">
+                                                                class="w-100 form-control">
                                                             <option value="{{ $customer->commune_id }}">
                                                                 {{ $customer->commune->name ?? '' }}</option>
                                                             <option value="">
@@ -442,8 +448,8 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.address') }}</label>
                                                         <input type="text" class="form-control" name="address"
-                                                            value="{{ old('address') ?? $customer->address }}"
-                                                            placeholder="{{ trans('language.customer.address') }}">
+                                                               value="{{ old('address') ?? $customer->address }}"
+                                                               placeholder="{{ trans('language.customer.address') }}">
                                                         @if ($errors->first('address'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('address') }}
@@ -455,8 +461,8 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.invoice_address') }}</label>
                                                         <input type="text" class="form-control" name="invoice_address"
-                                                            value="{{ old('invoice_address') ?? $customer->invoice_address }}"
-                                                            placeholder="{{ trans('language.customer.invoice_address') }}">
+                                                               value="{{ old('invoice_address') ?? $customer->invoice_address }}"
+                                                               placeholder="{{ trans('language.customer.invoice_address') }}">
                                                         @if ($errors->first('invoice_address'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('invoice_address') }}
@@ -468,11 +474,11 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-profile-tab">
+                                         aria-labelledby="custom-tabs-four-profile-tab">
 
                                         <div class="dropzone" id="customerDropzone">
                                             <div class="fallback">
-                                                <input type="file" name="file" multiple />
+                                                <input type="file" name="file" multiple/>
                                             </div>
                                             <div class="dz-message">
                                                 <span>Tải lên file khách hàng</span>
@@ -480,234 +486,256 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-messages-tab">
+                                         aria-labelledby="custom-tabs-four-messages-tab">
                                         <table class="table table-bordered" id="table_service">
                                             <thead>
-                                                <tr>
-                                                    <th class="text-center align-middle">#</th>
-                                                    <th class="text-center align-middle w-20">
-                                                        {{ trans('language.service.title') }}
-                                                    </th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.time') }}
-                                                    </th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.started_at') }}
-                                                    </th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.ended_at') }}</th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.subtotal') }}
-                                                    </th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.customer.staff') }}
-                                                    </th>
-                                                    <th class="text-center align-middle">
-                                                        {{ trans('language.note') }}
-                                                    </th>
-                                                    <th class="text-center align-middle"></th>
-                                                </tr>
+                                            <tr>
+                                                <th class="text-center align-middle">#</th>
+                                                <th class="text-center align-middle w-15">
+                                                    {{ trans('language.service.title') }}
+                                                </th>
+                                                <th class="text-center align-middle">
+                                                    {{ trans('language.time') }}
+                                                </th>
+                                                <th class="text-center align-middle">
+                                                    {{ trans('language.started_at') }}
+                                                </th>
+                                                <th class="text-center align-middle">
+                                                    {{ trans('language.ended_at') }}</th>
+                                                <th class="text-center align-middle th-time-dell">
+                                                    {{ trans('language.subtotal') }}
+                                                </th>
+                                                <th class="text-center align-middle w-15">
+                                                    {{ trans('language.customer.staff') }}
+                                                </th>
+                                                <th class="text-center align-middle w-10">
+                                                    {{ trans('language.type') }}
+                                                </th>
+                                                <th class="text-center align-middle">
+                                                    {{ trans('language.note') }}
+                                                </th>
+                                                <th class="text-center align-middle"></th>
+                                            </tr>
                                             </thead>
 
                                             <tbody>
-                                                @if (request()->old())
-                                                    @for ($i = 0; $i < count(old('services', [])); $i++)
-                                                        <tr>
-                                                            <td class="text-center align-middle">1</td>
-                                                            <td class="text-center align-middle">
-                                                                <select class="form-control select2 service_change"
+                                            @if (request()->old())
+                                                @for ($i = 0; $i < count(old('services', [])); $i++)
+                                                    <tr>
+                                                        <td class="text-center align-middle">1</td>
+                                                        <td class="text-center align-middle">
+                                                            <select class="form-control select2 service_change"
                                                                     name="services[]">
-                                                                    <option value=" ">Dịch vụ</option>
-                                                                    @foreach ($services as $item)
-                                                                        <option
-                                                                            @if (old('services.' . $i) == $item->id) selected @endif
-                                                                            value="{{ $item->id }}">
-                                                                            {{ $item->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                @if ($errors->first('services.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('services.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td class="d-flex justify-content-center align-items-center">
-                                                                <input name="time_view[]"
-                                                                    class="form-control form-control-border number-hidden-input text-center input-time"
-                                                                    type="number" min="1" max="10000"
-                                                                    value="{{ old('time.' . $i) }}"
-                                                                    @if (old('time.' . $i) == null) disabled @endif>
-                                                                <input type="hidden" name="time[]"
-                                                                    value="{{ old('time.' . $i) }}">
-                                                                @if ($errors->first('time.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('time.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input name="start[]" type="text"
-                                                                    class="datepicker_start form-control text-center"
-                                                                    value="{{ old('start.' . $i) }}">
-                                                                @if ($errors->first('start.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('start.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input name="end[]" type="text"
-                                                                    class="datepicker_end form-control text-center"
-                                                                    value="{{ old('end.' . $i) }}">
-                                                                @if ($errors->first('end.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('end.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <input type="text" name="view_total[]"
-                                                                    class="form-control view-total"
-                                                                    value="{{ old('view_total.' . $i) }}">
-                                                                <input type="hidden" name="subtotal[]"
-                                                                    value="{{ old('subtotal.' . $i) }}">
-                                                                <input type="hidden" class="price_ser"
-                                                                    name="price_ser[]"
-                                                                    value="{{ old('price_ser.' . $i) }}">
-                                                                @if ($errors->first('view_total.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('view_total.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <select class="form-control select2" name="user_id">
-                                                                    <option value="">--Chọn--</option>
-                                                                    @foreach ($staff as $item)
-                                                                        <option
-                                                                            @if (old('user_id.' . $i) == $item->id) selected @endif
-                                                                            value="{{ $item->id }}">
-                                                                            {{ $item->first_name }}
-                                                                        {{ $item->last_name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                @if ($errors->first('user_id.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('user_id.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="note[]" class="form-control"
-                                                                    value="{{ old('note.' . $i) }}">
-                                                                @if ($errors->first('note.' . $i))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('note.' . $i) }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if ($i == 0)
-                                                                    <button style="border-radius:50%" type="button"
-                                                                        id="plus_record" class="btn btn-success btn-sm"><i
-                                                                            class="fas fa-plus"></i>
-                                                                    </button>
-                                                                @else
-                                                                    <button style="border-radius:50%" type="button"
-                                                                        class="btn btn-danger btn-sm minus_record"><i
-                                                                            class="fas fa-minus"></i></button>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endfor
-                                                @else
-                                                    @foreach ($service_saves as $key => $value)
-                                                        <tr>
-                                                            <td class="text-center align-middle">Đã hủy</td>
-                                                            <td class="text-center align-middle">
-                                                                <select class="form-control select2 service_change"
-                                                                    name="services[]">
-                                                                    <option selected="selected" value=" ">Dịch vụ
+                                                                <option value=" ">Dịch vụ</option>
+                                                                @foreach ($services as $item)
+                                                                    <option
+                                                                        @if (old('services.' . $i) == $item->id) selected
+                                                                        @endif
+                                                                        value="{{ $item->id }}">
+                                                                        {{ $item->name }}
                                                                     </option>
-                                                                    @foreach ($services as $item)
-                                                                        <option
-                                                                            @if ($value->service_id == $item->id) selected @endif
-                                                                            value="{{ $item->id }}">
-                                                                            {{ $item->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                @if ($errors->first('services[]'))
-                                                                    <div class="invalid-alert text-danger">
-                                                                        {{ $errors->first('services[]') }}
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                            <td class="d-flex justify-content-center align-items-center">
-                                                                <input name="time_view[]"
-                                                                    class="form-control form-control-border number-hidden-input text-center input-time"
-                                                                    type="number" min="1" max="10000"
-                                                                    value="{{ $value->time }}"
-                                                                    {{ $value->time == null ? 'disabled' : '' }}>
-                                                                <input type="hidden" name="time[]"
-                                                                    value="{{ $value->time }}">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input name="start[]" type="text"
-                                                                    class="datepicker_start form-control text-center"
-                                                                    value="{{ date('d/m/Y', strtotime($value->started_at)) }}">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input name="end[]" type="text"
-                                                                    class="datepicker_end form-control text-center"
-                                                                    value="{{ date('d/m/Y', strtotime($value->ended_at)) }}">
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <input type="text" name="view_total[]"
-                                                                    class="form-control view-total"
-                                                                    value="{{ number_format($value->subtotal) }}">
-                                                                <input type="hidden" name="subtotal[]" value="">
-                                                                <input type="hidden" class="price_ser"
-                                                                    name="price_ser[]" value="{{ $value->price }}">
-                                                            </td>
-                                                            <td>
-                                                                <select class="form-control select2" name="user_id">
-                                                                    <option selected="selected" value="" disabled>--Chọn--</option>
-                                                                    @foreach ($staff as $item)
-                                                                        <option
-                                                                            @if ($item->id == $value->user_id) selected @endif
-                                                                            value="{{ $item->id }}">
-                                                                            {{ $item->first_name }}
+                                                                @endforeach
+                                                            </select>
+                                                            @if ($errors->first('services.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('services.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td class="d-flex justify-content-center align-items-center">
+                                                            <input name="time_view[]"
+                                                                   class="form-control form-control-border number-hidden-input text-center input-time"
+                                                                   type="number" min="1" max="10000"
+                                                                   value="{{ old('time.' . $i) }}"
+                                                                   @if (old('time.' . $i) == null) disabled @endif>
+                                                            <input type="hidden" name="time[]"
+                                                                   value="{{ old('time.' . $i) }}">
+                                                            @if ($errors->first('time.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('time.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <input name="start[]" type="text"
+                                                                   class="datepicker_start form-control text-center"
+                                                                   value="{{ old('start.' . $i) }}">
+                                                            @if ($errors->first('start.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('start.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <input name="end[]" type="text"
+                                                                   class="datepicker_end form-control text-center"
+                                                                   value="{{ old('end.' . $i) }}">
+                                                            @if ($errors->first('end.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('end.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center align-middle">
+                                                            <input type="text" name="view_total[]"
+                                                                   class="form-control view-total"
+                                                                   value="{{ old('view_total.' . $i) }}">
+                                                            <input type="hidden" name="subtotal[]"
+                                                                   value="{{ old('subtotal.' . $i) }}">
+                                                            <input type="hidden" class="price_ser"
+                                                                   name="price_ser[]"
+                                                                   value="{{ old('price_ser.' . $i) }}">
+                                                            @if ($errors->first('view_total.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('view_total.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control select2" name="user_id[]">
+                                                                <option value="">--Chọn--</option>
+                                                                @foreach ($staff as $item)
+                                                                    <option
+                                                                        @if (old('user_id.' . $i) == $item->id) selected
+                                                                        @endif
+                                                                        value="{{ $item->id }}">
+                                                                        {{ $item->first_name }}
                                                                         {{ $item->last_name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="note[]" class="form-control"
-                                                                    value="{{ $value->note }}">
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                {{-- <button style="border-radius:50%" type="button"
-                                                                    id="plus_record" class="btn btn-success btn-sm">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </button> --}}
-                                                                @if ($key == 0)
-                                                                    <button style="border-radius:50%" type="button"
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @if ($errors->first('user_id.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('user_id.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="note[]" class="form-control"
+                                                                   value="{{ old('note.' . $i) }}">
+                                                            @if ($errors->first('note.' . $i))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('note.' . $i) }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($i == 0)
+                                                                <button style="border-radius:50%" type="button"
                                                                         id="plus_record" class="btn btn-success btn-sm">
-                                                                        <i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                @else
-                                                                    <button style="border-radius:50%" type="button"
+                                                                    <i
+                                                                        class="fas fa-plus"></i>
+                                                                </button>
+                                                            @else
+                                                                <button style="border-radius:50%" type="button"
+                                                                        class="btn btn-danger btn-sm minus_record"><i
+                                                                        class="fas fa-minus"></i></button>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endfor
+                                            @else
+                                                @foreach ($service_saves as $key => $value)
+                                                    <tr>
+                                                        <td class="text-center align-middle">{{ $key + 1 }}</td>
+                                                        <td class="text-center align-middle">
+                                                            <select class="form-control select2 service_change"
+                                                                    name="services[]">
+                                                                <option selected="selected" value=" ">Dịch vụ
+                                                                </option>
+                                                                @foreach($services as $service)
+                                                                    <option value="{{ $service->id }}" {{ in_array($service->id, $customerServices->pluck('service_id')->toArray()) ? 'selected' : '' }}>
+                                                                        {{ $service->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @if ($errors->first('services[]'))
+                                                                <div class="invalid-alert text-danger">
+                                                                    {{ $errors->first('services[]') }}
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                        <td class="d-flex justify-content-center align-items-center">
+{{--                                                                <input name="time_view[]"--}}
+{{--                                                                    class="form-control form-control-border number-hidden-input text-center input-time"--}}
+{{--                                                                    type="number" min="1" max="10000"--}}
+{{--                                                                    value="{{ $value->time }}"--}}
+{{--                                                                    {{ $value->time == null ? 'disabled' : '' }}>--}}
+{{--                                                                <input type="hidden" name="time[]"--}}
+{{--                                                                    value="{{ $value->time }}">--}}
+                                                            @if(!empty($value->contract_date))
+                                                                <input type="date" value="{{ date('Y-m-d', strtotime($value->contract_date)) }}" class="form-control contractDateInput"
+                                                                       name="contract_date[]" style="display: table-cell;">
+                                                            @else
+                                                                <input type="text" disabled class="form-control contractDateDisabled">
+                                                                <input type="date" class="form-control contractDateInput" name="contract_date[]">
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <input name="start[]" type="text"
+                                                                   class="datepicker_start form-control text-center"
+                                                                   value="{{ date('d/m/Y', strtotime($value->started_at)) }}">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <input name="end[]" type="text"
+                                                                   class="datepicker_end form-control text-center"
+                                                                   value="{{ date('d/m/Y', strtotime($value->ended_at)) }}">
+                                                        </td>
+                                                        <td class="text-center align-middle">
+                                                            <input type="text" name="view_total[]"
+                                                                   class="form-control view-total"
+                                                                   value="{{ number_format($value->subtotal) }}">
+                                                            <input type="hidden" name="subtotal[]" value="">
+                                                            <input type="hidden" class="price_ser"
+                                                                   name="price_ser[]" value="{{ $value->price }}">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control select2" name="user_id[]">
+                                                                <option selected disabled>--Chọn--
+                                                                </option>
+                                                                @foreach ($staff as $item)
+                                                                    <option
+                                                                        {{ $item->id == $value->user_id ? 'selected' : '' }}
+                                                                        value="{{ $item->id }}">
+                                                                        {{ $item->first_name }}
+                                                                        {{ $item->last_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control select2 status-dell"
+                                                                    name="typeCustomerService[]">
+                                                                <option selected disabled>--Chọn--</option>
+                                                                <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>Đã giữ chỗ</option>
+                                                                <option value="2" {{ $value->type == 2 ? 'selected' : '' }}>Đã cọc</option>
+                                                                <option value="3" {{ $value->type == 3 ? 'selected' : '' }}>Đã thuê</option>
+                                                                <option value="4" {{ $value->type == 4 ? 'selected' : '' }}>Đã hủy</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="note[]" class="form-control"
+                                                                   value="{{ $value->note }}">
+                                                        </td>
+                                                        <td class="text-center align-middle">
+                                                            {{-- <button style="border-radius:50%" type="button"
+                                                                id="plus_record" class="btn btn-success btn-sm">
+                                                                <i class="fas fa-plus"></i>
+                                                            </button> --}}
+                                                            @if ($key == 0)
+                                                                <button style="border-radius:50%" type="button"
+                                                                        id="plus_record" class="btn btn-success btn-sm">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                            @else
+                                                                <button style="border-radius:50%" type="button"
                                                                         class="btn btn-danger btn-sm minus_record">
-                                                                        <i class="fas fa-minus"></i></button>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
+                                                                    <i class="fas fa-minus"></i></button>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -722,56 +750,72 @@
                     <div class="d-none" id="clone_tr">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td class="text-center align-middle">1</td>
-                                    <td class="text-center align-middle">
-                                        <select class="form-control service_change" name="services[]">
-                                            <option selected="selected" value=" ">Dịch vụ</option>
-                                            @foreach ($services as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td class="d-flex justify-content-center align-items-center">
-                                        <input name="time_view[]"
-                                            class="form-control form-control-border number-hidden-input text-center input-time"
-                                            type="number" min="1" max="10000" value="" disabled>
-                                        <input type="hidden" name="time[]">
-                                    </td>
-                                    <td class="text-center">
-                                        <input name="start[]" type="text"
-                                            class="datepicker_start form-control text-center">
-                                    </td>
-                                    <td class="text-center">
-                                        <input name="end[]" type="text"
-                                            class="datepicker_end form-control text-center">
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <input type="text" name="view_total[]" class="form-control view-total"
-                                            value="">
-                                        <input type="hidden" name="subtotal[]" value="">
-                                        <input type="hidden" class="price_ser" name="price_ser[]" value="">
-                                    </td>
-                                    <td>
-                                        <select class="form-control select2 service_change" name="user_id">
-                                            <option selected="selected" value=" "></option>
-                                            @foreach ($staff as $item)
-                                                <option value="{{ $item->id }}">{{ $item->first_name }}
-                                                    {{ $item->last_name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="note[]" class="form-control">
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <button style="border-radius:50%" type="button"
+                            <tr>
+                                <td class="text-center align-middle">1</td>
+                                <td class="text-center align-middle">
+                                    <select class="form-control service_change" name="services[]">
+                                        <option selected="selected" value=" ">Dịch vụ</option>
+                                        @foreach ($getListServiceByType0 as $item)
+                                            <option value="{{ $item->id }}">
+                                                {{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td class="d-flex justify-content-center align-items-center">
+{{--                                        <input name="time_view[]"--}}
+{{--                                            class="form-control form-control-border number-hidden-input text-center input-time"--}}
+{{--                                            type="number" min="1" max="10000" value="" disabled>--}}
+{{--                                        <input type="hidden" name="time[]">--}}
+                                    <input type="text" disabled class="form-control contractDateDisabled">
+                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">
+                                </td>
+                                <td class="text-center">
+                                    <input name="start[]" type="text"
+                                           class="datepicker_start form-control text-center">
+                                </td>
+                                <td class="text-center">
+                                    <input name="end[]" type="text"
+                                           class="datepicker_end form-control text-center">
+                                </td>
+                                <td class="text-center align-middle">
+                                    <input type="text" name="view_total[]" class="form-control view-total"
+                                           value="">
+                                    <input type="hidden" name="subtotal[]" value="">
+                                    <input type="hidden" class="price_ser" name="price_ser[]" value="">
+                                </td>
+                                <td>
+                                    <select class="form-control" name="user_id[]">
+                                        <option selected disabled value="">--Chọn--
+                                        </option>
+                                        @foreach ($staff as $item)
+                                            <option
+                                                value="{{ $item->id }}">
+                                                {{ $item->first_name }}
+                                                {{ $item->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control status-dell"
+                                            name="typeCustomerService[]">
+                                        <option selected disabled>--Chọn--</option>
+                                        <option value="1">Đã giữ chỗ</option>
+                                        <option value="2">Đã cọc</option>
+                                        <option value="3">Đã thuê</option>
+                                        <option value="4">Đã hủy</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="note[]" class="form-control">
+                                </td>
+                                <td class="text-center align-middle">
+                                    <button style="border-radius:50%" type="button"
                                             class="btn btn-danger btn-sm minus_record"><i class="fas fa-minus"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    </button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

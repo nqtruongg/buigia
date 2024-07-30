@@ -50,6 +50,7 @@ return [
     'expire_date' => 'Ngày hết hạn',
     'content' => 'Nội dung',
     'commission_id' => 'Phần trăm hoa hồng',
+    'type' => 'Trạng thái',
 
     //department
     'department' => [
@@ -109,7 +110,9 @@ return [
         'relatedPhotos' => 'Ảnh liên quan',
         'type' => 'Tình trạng',
         'extend' => 'Đã cho thuê',
-        'deposited' => 'Đã đặt cọc',
+        'cancelled' => 'Đã hủy',
+        'reserve' => 'Đã giữ chỗ',
+        'staked' => 'Đã cọc',
         'not_extend' => 'Chưa cho thuê',
         'expire' => 'Dịch vụ sắp hết hạn',
         'percent' => 'Phần trăm hoa hồng',

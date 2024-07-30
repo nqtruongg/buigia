@@ -26,4 +26,9 @@ class Customer extends Model
     {
         return $this->belongsTo(Commune::class, 'commune_id');
     }
+
+    public function customerServices()
+    {
+        return $this->hasMany(CustomerService::class, 'customer_id');
+    }
 }

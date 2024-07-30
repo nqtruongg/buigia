@@ -135,19 +135,47 @@ $(function () {
         return imageExtensions.includes(extension);
     }
 
+
+    $(document).on('change', '.status-dell', function () {
+        var selectedValue = $(this).val();
+        var currentRow = $(this).closest('tr');
+
+        var contractDateDisabled = currentRow.find('.contractDateDisabled');
+        var contractDateInput = currentRow.find('.contractDateInput');
+
+        if (selectedValue == '3') {
+            contractDateDisabled.hide();
+            contractDateInput.show();
+        } else {
+            contractDateDisabled.show();
+            contractDateInput.hide();
+            contractDateInput.val('');
+        }
+    });
+
     $(document).on("click", "#plus_record", function () {
+
         var newRow = $("#clone_tr tr").clone();
 
+        newRow.find('.contractDateInput  .contractDateDisabled').show();
+        newRow.find('.contractDateInput input[name="contract_date[]"]').hide();
+
         $("#table_service").append(newRow);
+
         newRow.find('select[name="services[]"]').select2({
             width: "100%",
         });
         newRow.find('select[name="user_id"]').select2({
             width: "100%",
         });
+        newRow.find('.status-dell').select2({
+            width: "100%",
+        });
 
         updateRowNumbers();
     });
+
+
 
     function updateRowNumbers() {
         $("#table_service tr:gt(0)").each(function (index) {

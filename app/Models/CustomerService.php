@@ -12,4 +12,15 @@ class CustomerService extends Model
     protected $table = 'customer_service';
 
     protected $guarded = [];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
 }

@@ -204,8 +204,9 @@
                                             <select class="form-control" name="type" id="">
                                                 {{-- <option selected="selected" value=" ">Dạng dịch vụ</option> --}}
                                                 <option selected="selected" value="0">Đang trống</option>
-                                                <option value="1">Đã đặt cọc</option>
-                                                <option value="2">Đã đươc thuê</option>
+                                                <option value="1">Đã giữ chỗ</option>
+                                                <option value="2">Đã đặt cọc</option>
+                                                <option value="3">Đã đươc thuê</option>
                                             </select>
                                             @if ($errors->first('type'))
                                                 <div class="invalid-alert text-danger">
