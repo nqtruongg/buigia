@@ -69,6 +69,7 @@ class CustomerRepository
     public function getCustomerById($id)
     {
         $customer = Customer::find($id);
+
         return $customer;
     }
 
@@ -84,9 +85,25 @@ class CustomerRepository
         return $staff;
     }
 
-    public function getListService()
+    public function getListService($customerId = null)
+    {
+        $servicesQuery = Service::select('id', 'name')->where('type', 0);
+
+        if ($customerId) {
+            $selectedServices = CustomerService::where('customer_id', $customerId)
+                ->pluck('service_id')
+                ->toArray();
+
+            $servicesQuery->whereNotIn('id', $selectedServices);
+        }
+
+        return $servicesQuery->paginate(self::PAGINATE);
+    }
+
+    public function getListServiceByType0()
     {
         $services = Service::select('id', 'name')->where('type', 0)->get();
+
         return $services;
     }
 
@@ -144,6 +161,7 @@ class CustomerRepository
 
     public function createCustomer($request)
     {
+
         $services = $request->services;
         $services = array_filter($services, function ($value) {
             return $value !== null;
@@ -194,20 +212,28 @@ class CustomerRepository
             $start = $request->start;
             $end = $request->end;
             $note = $request->note;
+            $contract_date = $request->contract_date;
+            $user_id = $request->user_id;
+            $typeCustomerService = $request->typeCustomerService;
             foreach ($services as $key => $service) {
-                CustomerService::create([
+                $customerService = CustomerService::create([
                     'customer_id' => $customer->id,
                     'service_id' => $service,
-                    'time' => $times[$key],
+                    'time' => 1,
                     'subtotal' => str_replace(',', '', $view_total[$key]),
                     'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
-                    // 'supplier' => $request->supplier[$key],
-                    'user_id' => $request->user_id ?? null,
+                    'user_id' => $user_id[$key] ?? null,
+                    'contract_date' => $contract_date[$key] ?? null,
+                    'type' => $typeCustomerService[$key] ?? 0,
                 ]);
+
+                Service::where('id', $service)->update(['type' => $customerService->type]);
+
             }
         }
+
         return true;
     }
 
@@ -235,6 +261,8 @@ class CustomerRepository
             $imagePath = $customer->image_path;
         }
 
+        $typeCustomerService = $request->typeCustomerService;
+
         $params = [
             'name' => $request->name,
             'responsible_person' => $request->responsible_person ?? '',
@@ -256,9 +284,8 @@ class CustomerRepository
         ];
 
 
-
-
         $customer->update($params);
+
 
         $file_ids = CustomerDocument::where('customer_id', $id)->pluck('id')->toArray();
 
@@ -286,27 +313,53 @@ class CustomerRepository
             }
         }
 
+        $customerServices = CustomerService::where('customer_id', $id)->get();
+
+        $createdAtValues = $customerServices->pluck('created_at', 'service_id')->toArray();
+
         CustomerService::where('customer_id', $id)->delete();
+
         if (!empty($services)) {
             $times = $request->time;
             $view_total = $request->view_total;
             $start = $request->start;
             $end = $request->end;
             $note = $request->note;
+            $contract_date = $request->contract_date;
+            $user_id = $request->user_id;
+            $typeCustomerService = $request->typeCustomerService;
+
             foreach ($services as $key => $service) {
                 CustomerService::create([
                     'customer_id' => $customer->id,
                     'service_id' => $service,
-                    'time' => $times[$key],
+                    'time' => 1,
                     'subtotal' => str_replace(',', '', $view_total[$key]),
                     'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
-                    'user_id' => $request->user_id ?? null,
-
+                    'user_id' => $user_id[$key] ?? null,
+                    'contract_date' => $contract_date[$key] ?? null,
+                    'type' => $typeCustomerService[$key] ?? 0,
+                    'created_at' => $createdAtValues[$service] ?? now(),
                 ]);
             }
         }
+
+        $serviceIds = CustomerService::where('customer_id', $id)->pluck('service_id');
+        foreach ($serviceIds as $serviceId) {
+            $customerServiceType = CustomerService::where('customer_id', $id)
+                ->where('service_id', $serviceId)
+                ->pluck('type')
+                ->first();
+            if ($customerServiceType == 4) {
+                Service::where('id', $serviceId)->update(['type' => 0]);
+            } else {
+                Service::where('id', $serviceId)->update(['type' => $customerServiceType]);
+            }
+
+        }
+
         return true;
     }
 
@@ -341,8 +394,10 @@ class CustomerRepository
             'customer_service.started_at',
             'customer_service.ended_at',
             'customer_service.note',
+            'customer_service.contract_date',
             'customer_service.user_id',
-            'services.price'
+            'customer_service.type',
+            'services.price',
         )
             ->leftjoin('services', 'services.id', 'customer_service.service_id')
             ->where('customer_id', $id)->get();
@@ -512,15 +567,18 @@ class CustomerRepository
             $services = $request->services;
 
             CustomerService::where('customer_id', $id)->delete();
+
             if (!empty($services)) {
                 $services = array_filter($services, function ($value) {
                     return $value !== null;
                 });
+
                 $times = $request->time;
                 $view_total = $request->view_total;
                 $start = $request->start;
                 $end = $request->end;
                 $note = $request->note;
+
                 foreach ($services as $key => $service) {
                     CustomerService::create([
                         'customer_id' => $customer->id,

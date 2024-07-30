@@ -219,11 +219,14 @@
                                                     class="text-danger">*</span></label>
                                             <select class="form-control" name="type" id="">
                                                 {{-- <option selected="selected" value=" ">Dạng dịch vụ</option> --}}
-                                                <option @if($service->type == 0) selected @endif value="0">Đang trống
+                                                <option @if($service->type == 0) selected @endif value="0">
+                                                    Đang trống
                                                 </option>
-                                                <option @if($service->type == 1) selected @endif value="1">Đã đặt cọc
+                                                <option @if($service->type == 1) selected @endif value="1">
+                                                    Đã đặt cọc
                                                 </option>
-                                                <option @if($service->type == 2) selected @endif value="1">Đã đươc
+                                                <option @if($service->type == 2) selected @endif value="1">
+                                                    Đã đươc
                                                     thuê
                                                 </option>
                                             </select>

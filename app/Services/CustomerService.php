@@ -42,9 +42,14 @@ class CustomerService
         return $this->customerRepository->getStaff();
     }
 
-    public function getListService()
+    public function getListService($id)
     {
-        return $this->customerRepository->getListService();
+        return $this->customerRepository->getListService($id);
+    }
+
+    public function getListServiceByType0()
+    {
+        return $this->customerRepository->getListServiceByType0();
     }
 
     public function getListSupplier()

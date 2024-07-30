@@ -33,13 +33,17 @@ $(function () {
         });
 
         updateRowNumbers();
+
     });
+
+
 
     function updateRowNumbers() {
         $("#table_service tr:gt(0)").each(function (index) {
             $(this).find("td:first").text(index + 1);
         });
     }
+
 
     $(document).on('click', '.minus_record', function () {
         $(this).closest('tr').remove();

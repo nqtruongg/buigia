@@ -138,7 +138,7 @@
                                                 <td class="text-center">
                                                     <button
                                                         class="toggle-active-btn @if ($item->active == 1) btn btn-success @else btn btn-danger @endif text-white"
-                                                        data-id="{{ $item->id }}" data-status="{{ $item->active }}">
+                                                        data-id="{{ $item->id }}" data-url="{{ route('customer.toggleStatus') }}" data-status="{{ $item->active }}">
                                                         {{ $item->active == 1 ? 'Đã kích hoạt' : 'Chưa kích hoạt' }}
                                                     </button>
                                                 </td>

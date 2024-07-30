@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Service extends Model
 {
     const DANG_TRONG = 0;
-    const DA_DAT_COC = 1;
-    const DA_DUOC_THUE = 2;
+    const DA_GIU_CHO = 1;
+    const DA_COC = 2;
+    const DA_CHO_THUE = 3;
+    const DA_HUY = 4;
 
     use HasFactory, SoftDeletes;
 
@@ -25,11 +27,17 @@ class Service extends Model
             case self::DANG_TRONG:
                 $html .= "<span>" . trans('language.service.not_extend') . "</span>";
                 break;
-            case self::DA_DAT_COC:
-                $html .= "<span>" . trans('language.service.deposited') . "</span>";
+            case self::DA_GIU_CHO:
+                $html .= "<span>" . trans('language.service.reserve') . "</span>";
                 break;
-            case self::DA_DUOC_THUE:
+            case self::DA_COC:
+                $html .= "<span>" . trans('language.service.staked') . "</span>";
+                break;
+            case self::DA_CHO_THUE:
                 $html .= "<span>" . trans('language.service.extend') . "</span>";
+                break;
+            case self::DA_HUY:
+                $html .= "<span>" . trans('language.service.cancelled') . "</span>";
                 break;
             default:
                 $html .= "<span>" . trans('language.valuable') . "</span>";
