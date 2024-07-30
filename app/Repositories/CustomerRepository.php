@@ -225,7 +225,7 @@ class CustomerRepository
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
                     'user_id' => $user_id[$key] ?? null,
-                    'contract_date' => $contract_date[$key] ?? null,
+                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : $contract_date[$key],
                     'type' => $typeCustomerService[$key] ?? 0,
                 ]);
 
@@ -339,7 +339,7 @@ class CustomerRepository
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
                     'user_id' => $user_id[$key] ?? null,
-                    'contract_date' => $contract_date[$key] ?? null,
+                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : $contract_date[$key],
                     'type' => $typeCustomerService[$key] ?? 0,
                     'created_at' => $createdAtValues[$service] ?? now(),
                 ]);

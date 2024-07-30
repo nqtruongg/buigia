@@ -12,11 +12,44 @@ class OrderRepository
 
     const PAGINATE_FILE = 5;
 
-    public function getListOrder()
+    public function getListOrder($request)
     {
-        $orders = CustomerService::with(['service', 'customer'])
-            ->latest('id')
-            ->paginate(self::PAGINATE);
+        $orders = CustomerService::with(['service', 'customer']);
+
+        if($request->name != null){
+            $orders = $orders->whereHas('customer', function($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->name}%");
+            });
+        }
+
+        if($request->service_name != null){
+            $orders = $orders->whereHas('service', function($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->service_name}%");
+            });
+        }
+
+        if($request->contract_date != null){
+            $orders = $orders->where('contract_date', 'LIKE', "%{$request->contract_date}%");
+        }
+
+        if($request->price != null){
+            $price = str_replace(',', '', $request->price);
+            $orders = $orders->where('subtotal', 'LIKE', "%{$price}%");
+        }
+
+        if($request->type != null){
+            $orders = $orders->where('type', $request->type);
+        }
+
+        if($request->start_date != null){
+            $orders = $orders->where('started_at', 'LIKE', "%{$request->start_date}%");
+        }
+
+        if($request->end_date != null){
+            $orders = $orders->where('ended_at', 'LIKE', "%{$request->end_date}%");
+        }
+
+        $orders = $orders->latest('id')->paginate(self::PAGINATE);
         return $orders;
     }
 

@@ -664,11 +664,14 @@
 {{--                                                                <input type="hidden" name="time[]"--}}
 {{--                                                                    value="{{ $value->time }}">--}}
                                                             @if(!empty($value->contract_date))
-                                                                <input type="date" value="{{ date('Y-m-d', strtotime($value->contract_date)) }}" class="form-control contractDateInput"
-                                                                       name="contract_date[]" style="display: table-cell;">
+{{--                                                                <input type="date" value="{{ date('Y-m-d', strtotime($value->contract_date)) }}" class="form-control contractDateInput"--}}
+{{--                                                                       name="contract_date[]" style="display: table-cell;">--}}
+                                                                <input name="contract_date[]" value="{{ date('d/m/Y', strtotime($value->contract_date)) }}" type="text"
+                                                                       class="datepicker_start form-control text-center contractDateInput" style="display: table-cell;">
                                                             @else
                                                                 <input type="text" disabled class="form-control contractDateDisabled">
-                                                                <input type="date" class="form-control contractDateInput" name="contract_date[]">
+                                                                <input name="contract_date[]" type="text"
+                                                                       class="datepicker_start form-control text-center contractDateInput">
                                                             @endif
                                                         </td>
                                                         <td class="text-center">
@@ -768,7 +771,9 @@
 {{--                                            type="number" min="1" max="10000" value="" disabled>--}}
 {{--                                        <input type="hidden" name="time[]">--}}
                                     <input type="text" disabled class="form-control contractDateDisabled">
-                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">
+{{--                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
+                                    <input name="contract_date[]" type="text"
+                                           class="datepicker_start form-control text-center contractDateInput">
                                 </td>
                                 <td class="text-center">
                                     <input name="start[]" type="text"

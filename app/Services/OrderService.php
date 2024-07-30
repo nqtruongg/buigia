@@ -13,9 +13,9 @@ class OrderService
         $this->orderRepository = $orderRepository;
     }
 
-    public function getListOrder()
+    public function getListOrder($request)
     {
-        return $this->orderRepository->getListOrder();
+        return $this->orderRepository->getListOrder($request);
     }
 
     public function update($request, $id)

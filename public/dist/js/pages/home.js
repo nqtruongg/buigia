@@ -127,5 +127,13 @@ $(function () {
                     "maxDate", selectedDate);
             }
         });
+
+        $(this).closest('.col-md-12').find('.datepicker_contract_date').datepicker({
+            dateFormat: 'dd/mm/yy',
+            onSelect: function (selectedDate) {
+                $(this).closest('.col-md-12').find(".datepicker_contract_date").datepicker("option",
+                    "maxDate", selectedDate);
+            }
+        });
     })
 })

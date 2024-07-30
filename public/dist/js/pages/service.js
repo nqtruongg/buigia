@@ -17,7 +17,7 @@ $(function () {
         value = formatNumberWithCommas(value);
         $('input[name="price"]').val(value);
     })
-    
+
     function attachFileInputListener(fileInput) {
         $(fileInput).on('change', function (event) {
             const files = event.target.files;
@@ -152,6 +152,45 @@ $(function () {
                         Swal.fire(
                             'Lỗi!',
                             'Có lỗi xảy ra trong quá trình xóa ảnh.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    });
+
+    $('select[name="typeOrder"]').on('change', function(e) {
+        var type = $(this).val();
+        var id = $(this).data('id');
+        var url = $(this).data('url');
+        var method = $(this).data('method');
+        Swal.fire({
+            title: 'Bạn muốn thay đổi trạng thái đơn này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy'
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: method,
+                    data: {
+                        id: id,
+                        type: type
+                    },
+                    success: function(data) {
+                        Swal.fire(
+                            data.message
+                        );
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra trong quá trình cập nhật.',
                             'error'
                         );
                     }
