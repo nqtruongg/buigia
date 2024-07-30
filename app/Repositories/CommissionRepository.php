@@ -30,8 +30,8 @@ class CommissionRepository{
     public function createCommission($request){
         $commission = new Commission();
         $commission->name = $request->name;
-        $commission->min_price = $request->min_price;
-        $commission->max_price = $request->max_price;
+        // $commission->min_price = $request->min_price;
+        // $commission->max_price = $request->max_price;
         $commission->percent = $request->percent;
         $commission->save();
         return true;
@@ -40,8 +40,8 @@ class CommissionRepository{
     public function updateCommission($request, $id){
         $commission = Commission::find($id);
         $commission->name = $request->name;
-        $commission->min_price = $request->min_price;
-        $commission->max_price = $request->max_price;
+        // $commission->min_price = $request->min_price;
+        // $commission->max_price = $request->max_price;
         $commission->percent = $request->percent;
         $commission->save();
         return true;

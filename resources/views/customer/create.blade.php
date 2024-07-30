@@ -713,7 +713,7 @@
                                                     <td>
                                                         <select class="form-control select2 status-dell" name="typeCustomerService[]">
                                                             <option selected disabled>--Chọn--</option>
-                                                            <option value="1">Đã giữ chỗ</option>
+                                                            <option value="1">Giữ chỗ</option>
                                                             <option value="2">Đã cọc</option>
                                                             <option value="3">Đã thuê</option>
                                                         </select>

@@ -707,7 +707,7 @@
                                                             <select class="form-control select2 status-dell"
                                                                     name="typeCustomerService[]">
                                                                 <option selected disabled>--Chọn--</option>
-                                                                <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>Đã giữ chỗ</option>
+                                                                <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>Giữ chỗ</option>
                                                                 <option value="2" {{ $value->type == 2 ? 'selected' : '' }}>Đã cọc</option>
                                                                 <option value="3" {{ $value->type == 3 ? 'selected' : '' }}>Đã thuê</option>
                                                                 <option value="4" {{ $value->type == 4 ? 'selected' : '' }}>Đã hủy</option>

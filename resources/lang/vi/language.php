@@ -111,7 +111,7 @@ return [
         'type' => 'Tình trạng',
         'extend' => 'Đã cho thuê',
         'cancelled' => 'Đã hủy',
-        'reserve' => 'Đã giữ chỗ',
+        'reserve' => 'Giữ chỗ',
         'staked' => 'Đã cọc',
         'not_extend' => 'Chưa cho thuê',
         'expire' => 'Dịch vụ sắp hết hạn',

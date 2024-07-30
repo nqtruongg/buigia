@@ -49,4 +49,13 @@ class User extends Authenticatable
     {
         return $this->roles->contains('name', $role);
     }
+
+    public function commissionBonus()
+    {
+        return $this->hasMany(CommissionBonus::class, 'user_id');
+    }
+    public function commission()
+    {
+        return $this->hasOne(Commission::class, 'id');
+    }
 }
