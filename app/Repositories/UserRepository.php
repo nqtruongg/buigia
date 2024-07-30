@@ -83,7 +83,7 @@ class UserRepository
 
     public function createUser($request)
     {
-        User::create([
+        $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -94,7 +94,7 @@ class UserRepository
             'address' => $request->address,
             'password' => Hash::make($request->password),
         ]);
-
+        $user->roles()->attach($request->role_id);
         return true;
     }
 
@@ -117,6 +117,10 @@ class UserRepository
             'address' => $request->address,
             'password' => $password,
         ]);
+
+        if ($request->role_id != null) {
+            $user->roles()->sync([$request->role_id]);
+        }
 
         return true;
     }

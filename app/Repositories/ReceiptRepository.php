@@ -71,13 +71,13 @@ class ReceiptRepository
         ->leftjoin('customers', 'customers.id', 'receipts.customer_id')
         ->where('receipts.id', $id)
         ->first();
-        
+
         return $data;
     }
 
     public function getListCustomer()
     {
-        $customers = Customer::select('id', 'name')->get();
+        $customers = Customer::select('id', 'name', 'code')->get();
         return $customers;
     }
 

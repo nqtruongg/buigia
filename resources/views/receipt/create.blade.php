@@ -163,7 +163,7 @@
                                             <select class="form-control select2" name="customer" id="">
                                                 <option value="">{{ trans('language.customer.title') }}</option>
                                                 @foreach ($customers as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->name }} {{ $item->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

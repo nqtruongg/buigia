@@ -116,8 +116,8 @@ class ReceivableRepository
             $advance_value_2 = str_replace(',', '', $request->advance_value_2[$key]);
             $advance_value_3 = str_replace(',', '', $request->advance_value_3[$key]);
 
-            $amount_owed = (int)$contract_value - ((int)$advance_value_1 + (int)$advance_value_2 + (int)$advance_value_3);
-
+            $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
+            $user_id = CustomerService::select('user_id')->where('id', $item)->first();
             $params = [
                 'customer_id' => $request->customer,
                 'contract_value' => $contract_value,
@@ -136,8 +136,8 @@ class ReceivableRepository
                 'reason_1' => $request->reason_1[$key],
                 'reason_2' => $request->reason_2[$key],
                 'reason_3' => $request->reason_3[$key],
+                'user_id' => $user_id->user_id ?? null,
             ];
-
             $data = Receivable::create($params);
 
             $customer = Customer::select('id', 'address')->where('id', $request->customer)->first();
@@ -150,7 +150,8 @@ class ReceivableRepository
                     'reason' => $request->reason_1[$key],
                     'receivable_id' => $data->id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_1
+                    'type' => self::RECEPT_1,
+                    'user_id' => $user_id->user_id ?? null,
                 ]);
             }
 
@@ -162,7 +163,8 @@ class ReceivableRepository
                     'reason' => $request->reason_2[$key],
                     'receivable_id' => $data->id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_2
+                    'type' => self::RECEPT_2,
+                    'user_id' => $user_id->user_id ?? null,
                 ]);
             }
 
@@ -174,7 +176,8 @@ class ReceivableRepository
                     'reason' => $request->reason_3[$key],
                     'receivable_id' => $data->id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_3
+                    'type' => self::RECEPT_3,
+                    'user_id' => $user_id->user_id ?? null,
                 ]);
             }
         }
@@ -190,7 +193,7 @@ class ReceivableRepository
         $advance_value_2 = str_replace(',', '', $request->advance_value_2);
         $advance_value_3 = str_replace(',', '', $request->advance_value_3);
 
-        $amount_owed = (int)$contract_value - ((int)$advance_value_1 + (int)$advance_value_2 + (int)$advance_value_3);
+        $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
 
         $params = [
             'advance_date_1' => isset($request->advance_date_1) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1) : $request->advance_date_1,
@@ -204,6 +207,7 @@ class ReceivableRepository
             'reason_1' => $request->reason_1,
             'reason_2' => $request->reason_2,
             'reason_3' => $request->reason_3,
+            'user_id' => $receivable->user_id ?? null,
         ];
 
         $receivable->update($params);
@@ -220,7 +224,8 @@ class ReceivableRepository
                     'reason' => $request->reason_1,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_1
+                    'type' => self::RECEPT_1,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
@@ -236,7 +241,8 @@ class ReceivableRepository
                     'reason' => $request->reason_2,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_2
+                    'type' => self::RECEPT_2,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
@@ -252,7 +258,8 @@ class ReceivableRepository
                     'reason' => $request->reason_3,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_3
+                    'type' => self::RECEPT_3,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
@@ -287,7 +294,8 @@ class ReceivableRepository
             $advance_value_2 = str_replace(',', '', $request->advance_value_2[$key]);
             $advance_value_3 = str_replace(',', '', $request->advance_value_3[$key]);
 
-            $amount_owed = (int)$contract_value - ((int)$advance_value_1 + (int)$advance_value_2 + (int)$advance_value_3);
+            $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
+            $user_id = CustomerService::select('user_id')->where('id', $item)->first();
 
             $params = [
                 'customer_id' => $request->customer,
@@ -304,6 +312,7 @@ class ReceivableRepository
                 'customer_service_id' => $request->customer_service_id[$key],
                 'type' => self::CNGH,
                 'ended_at' => isset($request->ended_at[$key]) ? Carbon::createFromFormat('d/m/Y', $request->ended_at[$key]) : $request->ended_at[$key],
+                'user_id' => $user_id->user_id ?? null,
             ];
 
             CustomerService::where('id', $item)->update([
@@ -319,6 +328,7 @@ class ReceivableRepository
                     'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
                     'reason' => $request->reason_1[$key],
                     'receivable_id' => $data->id,
+                    'user_id' => $user_id->user_id ?? null,
                     'type' => self::RECEPT_1
                 ]);
             }
@@ -329,6 +339,7 @@ class ReceivableRepository
                     'price' => $request->advance_value_2[$key],
                     'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
                     'reason' => $request->reason_2[$key],
+                    'user_id' => $user_id->user_id ?? null,
                     'receivable_id' => $data->id,
                     'type' => self::RECEPT_2
                 ]);
@@ -340,6 +351,7 @@ class ReceivableRepository
                     'price' => $request->advance_value_3[$key],
                     'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
                     'reason' => $request->reason_3[$key],
+                    'user_id' => $user_id->user_id ?? null,
                     'receivable_id' => $data->id,
                     'type' => self::RECEPT_3
                 ]);
@@ -357,7 +369,7 @@ class ReceivableRepository
         $advance_value_2 = str_replace(',', '', $request->advance_value_2);
         $advance_value_3 = str_replace(',', '', $request->advance_value_3);
 
-        $amount_owed = (int)$contract_value - ((int)$advance_value_1 + (int)$advance_value_2 + (int)$advance_value_3);
+        $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
 
         $params = [
             'contract_value' => $contract_value,
@@ -373,6 +385,7 @@ class ReceivableRepository
             'reason_1' => $request->reason_1,
             'reason_2' => $request->reason_2,
             'reason_3' => $request->reason_3,
+            'user_id' => $receivable->user_id ?? null,
         ];
 
         $receivable->update($params);
@@ -393,7 +406,8 @@ class ReceivableRepository
                     'reason' => $request->reason_1,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_1
+                    'type' => self::RECEPT_1,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
@@ -409,7 +423,8 @@ class ReceivableRepository
                     'reason' => $request->reason_2,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_2
+                    'type' => self::RECEPT_2,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
@@ -425,7 +440,8 @@ class ReceivableRepository
                     'reason' => $request->reason_3,
                     'receivable_id' => $id,
                     'address' => $customer->address,
-                    'type' => self::RECEPT_3
+                    'type' => self::RECEPT_3,
+                    'user_id' => $receivable->user_id ?? null,
                 ]
             );
         }
