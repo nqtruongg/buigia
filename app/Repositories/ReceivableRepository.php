@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\CommissionBonus;
 use App\Models\Customer;
 use App\Models\CustomerService;
 use App\Models\Receipt;
 use App\Models\Receivable;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -118,6 +120,7 @@ class ReceivableRepository
 
             $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
             $user_id = CustomerService::select('user_id')->where('id', $item)->first();
+            $user = User::findOrFail($user_id->user_id);
             $params = [
                 'customer_id' => $request->customer,
                 'contract_value' => $contract_value,
@@ -143,7 +146,7 @@ class ReceivableRepository
             $customer = Customer::select('id', 'address')->where('id', $request->customer)->first();
 
             if ($request->advance_value_1[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_1[$key],
                     'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
@@ -153,10 +156,18 @@ class ReceivableRepository
                     'type' => self::RECEPT_1,
                     'user_id' => $user_id->user_id ?? null,
                 ]);
+
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_1[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
+                ]);
             }
 
             if ($request->advance_value_2[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_2[$key],
                     'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
@@ -166,10 +177,17 @@ class ReceivableRepository
                     'type' => self::RECEPT_2,
                     'user_id' => $user_id->user_id ?? null,
                 ]);
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_2[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
+                ]);
             }
 
             if ($request->advance_value_3[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_3[$key],
                     'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
@@ -178,6 +196,13 @@ class ReceivableRepository
                     'address' => $customer->address,
                     'type' => self::RECEPT_3,
                     'user_id' => $user_id->user_id ?? null,
+                ]);
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_3[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
                 ]);
             }
         }
@@ -192,7 +217,7 @@ class ReceivableRepository
         $advance_value_1 = str_replace(',', '', $request->advance_value_1);
         $advance_value_2 = str_replace(',', '', $request->advance_value_2);
         $advance_value_3 = str_replace(',', '', $request->advance_value_3);
-
+        $user = User::findOrFail($receivable->user_id);
         $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
 
         $params = [
@@ -215,7 +240,7 @@ class ReceivableRepository
         $customer = Customer::select('id', 'address')->where('id', $receivable->customer_id)->first();
 
         if ($request->advance_value_1 != null) {
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt1],
                 [
                     'customer_id' => $customer->id,
@@ -228,11 +253,20 @@ class ReceivableRepository
                     'user_id' => $receivable->user_id ?? null,
                 ]
             );
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_1)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_1) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1) : $request->advance_date_1,
+                ]
+            );
+
         }
 
         if ($request->advance_value_2 != null) {
-
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt2],
                 [
                     'customer_id' => $customer->id,
@@ -245,11 +279,21 @@ class ReceivableRepository
                     'user_id' => $receivable->user_id ?? null,
                 ]
             );
+
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_2)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_2) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2) : $request->advance_date_2,
+                ]
+            );
         }
 
         if ($request->advance_value_3 != null) {
 
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt3],
                 [
                     'customer_id' => $customer->id,
@@ -260,6 +304,15 @@ class ReceivableRepository
                     'address' => $customer->address,
                     'type' => self::RECEPT_3,
                     'user_id' => $receivable->user_id ?? null,
+                ]
+            );
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_3)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_3) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3) : $request->advance_date_3,
                 ]
             );
         }
@@ -296,7 +349,7 @@ class ReceivableRepository
 
             $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
             $user_id = CustomerService::select('user_id')->where('id', $item)->first();
-
+            $user = User::findOrFail($user_id->user_id);
             $params = [
                 'customer_id' => $request->customer,
                 'contract_value' => $contract_value,
@@ -322,7 +375,7 @@ class ReceivableRepository
             $data = Receivable::create($params);
 
             if ($request->advance_value_1[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_1[$key],
                     'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
@@ -331,10 +384,17 @@ class ReceivableRepository
                     'user_id' => $user_id->user_id ?? null,
                     'type' => self::RECEPT_1
                 ]);
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_1[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
+                ]);
             }
 
             if ($request->advance_value_2[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_2[$key],
                     'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
@@ -343,10 +403,17 @@ class ReceivableRepository
                     'receivable_id' => $data->id,
                     'type' => self::RECEPT_2
                 ]);
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_2[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
+                ]);
             }
 
             if ($request->advance_value_3[$key] != null) {
-                Receipt::create([
+                $receipt = Receipt::create([
                     'customer_id' => $request->customer,
                     'price' => $request->advance_value_3[$key],
                     'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
@@ -354,6 +421,13 @@ class ReceivableRepository
                     'user_id' => $user_id->user_id ?? null,
                     'receivable_id' => $data->id,
                     'type' => self::RECEPT_3
+                ]);
+                $commissionBonus = CommissionBonus::create([
+                    'customer_service_id' => $request->customer_service_id[$key],
+                    'user_id' => $user_id->user_id ?? null,
+                    'receipt_id' => $receipt->id,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_3[$key])) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
                 ]);
             }
         }
@@ -368,7 +442,7 @@ class ReceivableRepository
         $advance_value_1 = str_replace(',', '', $request->advance_value_1);
         $advance_value_2 = str_replace(',', '', $request->advance_value_2);
         $advance_value_3 = str_replace(',', '', $request->advance_value_3);
-
+        $user = User::findOrFail($receivable->user_id);
         $amount_owed = (int) $contract_value - ((int) $advance_value_1 + (int) $advance_value_2 + (int) $advance_value_3);
 
         $params = [
@@ -397,7 +471,7 @@ class ReceivableRepository
         $customer = Customer::select('id', 'address')->where('id', $receivable->customer_id)->first();
 
         if ($request->advance_value_1 != null) {
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt1],
                 [
                     'customer_id' => $customer->id,
@@ -410,11 +484,20 @@ class ReceivableRepository
                     'user_id' => $receivable->user_id ?? null,
                 ]
             );
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_1)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_1) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1) : $request->advance_date_1,
+                ]
+            );
         }
 
         if ($request->advance_value_2 != null) {
 
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt2],
                 [
                     'customer_id' => $customer->id,
@@ -427,11 +510,20 @@ class ReceivableRepository
                     'user_id' => $receivable->user_id ?? null,
                 ]
             );
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_2)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_2) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2) : $request->advance_date_2,
+                ]
+            );
         }
 
         if ($request->advance_value_3 != null) {
 
-            Receipt::updateOrCreate(
+            $receipt = Receipt::updateOrCreate(
                 ['id' => $request->receipt3],
                 [
                     'customer_id' => $customer->id,
@@ -442,6 +534,15 @@ class ReceivableRepository
                     'address' => $customer->address,
                     'type' => self::RECEPT_3,
                     'user_id' => $receivable->user_id ?? null,
+                ]
+            );
+            CommissionBonus::updateOrCreate(
+                ['receipt_id' => $receipt->id],
+                [
+                    'customer_service_id' => $receivable->customer_service_id,
+                    'user_id' => $receivable->user_id ?? null,
+                    'price' => (floatval(str_replace(',', '', $request->advance_value_3)) * floatval($user->commission->percent)) / 100,
+                    'date' => isset($request->advance_date_3) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3) : $request->advance_date_3,
                 ]
             );
         }

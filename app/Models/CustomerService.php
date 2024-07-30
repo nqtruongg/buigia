@@ -23,4 +23,9 @@ class CustomerService extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
+    public function commissionBonus()
+    {
+        return $this->hasMany(CommissionBonus::class, 'customer_service_id');
+    }
+
 }

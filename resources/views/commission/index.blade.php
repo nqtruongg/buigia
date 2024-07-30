@@ -63,8 +63,8 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">{{ trans('language.commission.name') }}</th>
-                                        <th class="text-center">{{ trans('language.commission.min_price') }}</th>
-                                        <th class="text-center">{{ trans('language.commission.min_price') }}</th>
+                                        {{-- <th class="text-center">{{ trans('language.commission.min_price') }}</th>
+                                        <th class="text-center">{{ trans('language.commission.min_price') }}</th> --}}
                                         <th class="text-center">{{ trans('language.commission.percent') }}</th>
                                         <th class="text-center">{{ trans('language.action') }}</th>
                                     </tr>
@@ -77,8 +77,8 @@
                                                     {{ $key + 1 + ($commissions->currentPage() - 1) * $commissions->perPage() }}
                                                 </td>
                                                 <td>{{ $item->name }}</td>
-                                                <td class="text-center">{{ $item->min_price }}</td>
-                                                <td class="text-center">{{ $item->max_price }}</td>
+                                                {{-- <td class="text-center">{{ $item->min_price }}</td>
+                                                <td class="text-center">{{ $item->max_price }}</td> --}}
                                                 <td class="text-center">{{ $item->percent }}%</td>
                                                 <td class="text-center">
                                                     <div class="flex justify-center items-center">

@@ -94,7 +94,7 @@ $infoTabHasErrors =
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.commission.min_price') }}<span
@@ -123,7 +123,7 @@ $infoTabHasErrors =
                                                         @endif
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

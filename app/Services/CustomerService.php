@@ -42,7 +42,7 @@ class CustomerService
         return $this->customerRepository->getStaff();
     }
 
-    public function getListService($id)
+    public function getListService($id = null)
     {
         return $this->customerRepository->getListService($id);
     }
