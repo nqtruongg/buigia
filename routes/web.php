@@ -110,12 +110,12 @@ Route::middleware(['auth'])->group(function () {
 
     //role
     Route::group(['prefix' => 'role'], function () {
-        Route::get('/', [RoleController::class, 'index'])->name('role.index');
-        Route::get('/create', [RoleController::class, 'create'])->name('role.create');
-        Route::post('/store', [RoleController::class, 'store'])->name('role.store');
-        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit');
-        Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
-        Route::delete('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
+        Route::get('/', [RoleController::class, 'index'])->name('role.index')->middleware('permission:manager,view');
+        Route::get('/create', [RoleController::class, 'create'])->name('role.create')->middleware('permission:manager,add');
+        Route::post('/store', [RoleController::class, 'store'])->name('role.store')->middleware('permission:manager,add');
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('role.edit')->middleware('permission:manager,edit');
+        Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update')->middleware('permission:manager,edit');
+        Route::delete('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete')->middleware('permission:manager,delete');
     });
 
     //project
