@@ -43,6 +43,7 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
+//        dd($request->all());
         try {
             DB::beginTransaction();
             $this->customerService->createCustomer($request);
@@ -62,13 +63,20 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer = $this->customerService->getCustomerById($id);
+        $customerServices = $customer->customerServices;
         $files = json_encode($this->customerService->getFileCustomerEdit($id));
         $status = $this->customerService->getCustomerStatus();
-        $services = $this->customerService->getListService();
+        $services = $this->customerService->getListService($id);
         $service_saves = $this->customerService->getListServiceSave($id);
         $suppliers = $this->customerService->getListSupplier();
         $staff = $this->customerService->getStaff();
-        return view('customer.edit', compact('files', 'customer', 'status', 'services', 'service_saves', 'suppliers', 'staff'));
+        $getListServiceByType0 = $this->customerService->getListServiceByType0();
+
+        foreach ($customerServices as $customerService) {
+            $services->push($customerService->service);
+        }
+
+        return view('customer.edit', compact('getListServiceByType0','files', 'customer', 'status', 'services', 'service_saves', 'suppliers', 'staff', 'customerServices'));
     }
 
     public function update(CustomerRequest $request, $id)

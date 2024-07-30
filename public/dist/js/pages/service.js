@@ -17,7 +17,7 @@ $(function () {
         value = formatNumberWithCommas(value);
         $('input[name="price"]').val(value);
     })
-
+    
     function attachFileInputListener(fileInput) {
         $(fileInput).on('change', function (event) {
             const files = event.target.files;
