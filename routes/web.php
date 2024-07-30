@@ -28,6 +28,7 @@ use App\Http\Controllers\Filter\FilterTypeController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\Service\CategoryServiceController;
+use App\Http\Controllers\Order\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -160,6 +161,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upfile-detail/{id}', [CustomerController::class, 'uploadDetail'])->name('customer.uploadDetail');
     });
 
+    // order
+    Route::prefix('order')
+        ->controller(OrderController::class)
+        ->name('order.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/update-type/{id}', 'update')->name('updateType');
+        });
+
     //service
     Route::group(['prefix' => 'service'], function () {
         Route::get('/', [ServiceController::class, 'index'])->name('service.index');
@@ -169,7 +179,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [ServiceController::class, 'update'])->name('service.update');
         Route::delete('/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
         Route::delete('/destroyImage/{id}', [ServiceController::class, 'destroyImage'])->name('service.destroyImage');
-
     });
 
     //receivable
