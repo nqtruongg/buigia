@@ -107,6 +107,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('commission.commissionBonus') }}" class="nav-link">
+                                <i class="nav-icon far fa-plus-square"></i>
+                                <p>{{ trans('language.commission.list_commission') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('commission.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-plus-square"></i>
                                 <p>{{ trans('language.commission.title') }}</p>

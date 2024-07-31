@@ -17,6 +17,11 @@ class CommissionService
         return $this->commissionRepository->getListCommission($request);
     }
 
+    public function getListCommissionBonus($request)
+    {
+        return $this->commissionRepository->getListCommissionBonus($request);
+    }
+
     public function getCommissionById($id)
     {
         return $this->commissionRepository->getCommissionById($id);

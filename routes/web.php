@@ -318,7 +318,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
+            Route::get('/commissionBonus', 'listCommissionBonus')->name('commissionBonus');
         });
+
 
     // area
     Route::prefix('area')

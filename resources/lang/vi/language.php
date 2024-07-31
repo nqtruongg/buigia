@@ -353,6 +353,13 @@ return [
         'detail' => 'Chi tiết chủ nhà',
         'dialog' => 'Cuộc trò chuyện',
         'active' => 'Kích hoạt',
+        'user_id' => 'Nhân viên',
+        'phone' => 'Số điện thoại',
+        'customer_service' => 'Bất động sản',
+        'price' => 'Tiền hoa hồng',
+        'date' => 'Ngày khách chuyển tiền',
+        'list_commission' => 'Danh sách hoa hồng',
+        'reason' => 'Lý do',
     ],
 
     'area' => [
