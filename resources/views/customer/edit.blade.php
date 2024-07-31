@@ -171,9 +171,9 @@
             box-sizing: inherit;
         }
 
-        .contractDateInput {
-            display: none;
-        }
+        /*.contractDateInput {*/
+        /*    display: none;*/
+        /*}*/
 
     </style>
 
@@ -636,7 +636,7 @@
                                                 @endfor
                                             @else
                                                 @foreach ($service_saves as $key => $value)
-                                                    <tr>
+                                                    <tr class="booking-box" data-booking-id="{{ $value->id }}">
                                                         <td class="text-center align-middle">{{ $key + 1 }}</td>
                                                         <td class="text-center align-middle">
                                                             <select class="form-control select2 service_change"
@@ -644,7 +644,7 @@
                                                                 <option selected="selected" value=" ">Dịch vụ
                                                                 </option>
                                                                 @foreach($services as $service)
-                                                                    <option value="{{ $service->id }}" {{ in_array($service->id, $customerServices->pluck('service_id')->toArray()) ? 'selected' : '' }}>
+                                                                    <option value="{{ $service->id }}" @if($value->service_id == $service->id) selected @endif>
                                                                         {{ $service->name }}
                                                                     </option>
                                                                 @endforeach
@@ -669,19 +669,19 @@
                                                                 <input name="contract_date[]" value="{{ date('d/m/Y', strtotime($value->contract_date)) }}" type="text"
                                                                        class="datepicker_start form-control text-center contractDateInput" style="display: table-cell;">
                                                             @else
-                                                                <input type="text" disabled class="form-control contractDateDisabled">
+{{--                                                                <input type="text" disabled class="form-control contractDateDisabled">--}}
                                                                 <input name="contract_date[]" type="text"
                                                                        class="datepicker_start form-control text-center contractDateInput">
                                                             @endif
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="start[]" type="text"
-                                                                   class="datepicker_start form-control text-center"
+                                                                   class="datepicker_start started_date form-control text-center"
                                                                    value="{{ date('d/m/Y', strtotime($value->started_at)) }}">
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="end[]" type="text"
-                                                                   class="datepicker_end form-control text-center"
+                                                                   class="datepicker_end ended_date form-control text-center"
                                                                    value="{{ date('d/m/Y', strtotime($value->ended_at)) }}">
                                                         </td>
                                                         <td class="text-center align-middle">
@@ -694,7 +694,8 @@
                                                         </td>
                                                         <td>
                                                             <select class="form-control select2" name="user_id[]">
-                                                                <option selected disabled>--Chọn--
+                                                                <option selected disabled>
+                                                                    --Chọn--
                                                                 </option>
                                                                 @foreach ($staff as $item)
                                                                     <option
@@ -707,7 +708,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-control select2 status-dell"
+                                                            <select class="form-control typeOrder select2 status-dell"
                                                                     name="typeCustomerService[]">
                                                                 <option selected disabled>--Chọn--</option>
                                                                 <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>Giữ chỗ</option>
@@ -746,7 +747,11 @@
                             </div>
                             <!-- /.card -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">{{ trans('language.save') }}</button>
+                                <button type="submit"
+                                        data-url="{{ route('customer.checkDateAndTypeByService') }}"
+                                        data-method="POST"
+                                        data-id="{{ $customer->id }}"
+                                        class="btn btn-primary btnSave" id="btnSave">{{ trans('language.save') }}</button>
                             </div>
                         </div>
                     </form>
@@ -770,18 +775,18 @@
 {{--                                            class="form-control form-control-border number-hidden-input text-center input-time"--}}
 {{--                                            type="number" min="1" max="10000" value="" disabled>--}}
 {{--                                        <input type="hidden" name="time[]">--}}
-                                    <input type="text" disabled class="form-control contractDateDisabled">
+{{--                                    <input type="text" disabled class="form-control contractDateDisabled">--}}
 {{--                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
                                     <input name="contract_date[]" type="text"
                                            class="datepicker_start form-control text-center contractDateInput">
                                 </td>
                                 <td class="text-center">
                                     <input name="start[]" type="text"
-                                           class="datepicker_start form-control text-center">
+                                           class="datepicker_start started_date form-control text-center">
                                 </td>
                                 <td class="text-center">
                                     <input name="end[]" type="text"
-                                           class="datepicker_end form-control text-center">
+                                           class="datepicker_end ended_date form-control text-center">
                                 </td>
                                 <td class="text-center align-middle">
                                     <input type="text" name="view_total[]" class="form-control view-total"
@@ -803,13 +808,13 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-control status-dell"
+                                    <select class="form-control typeOrder status-dell"
                                             name="typeCustomerService[]">
                                         <option selected disabled>--Chọn--</option>
                                         <option value="1">Đã giữ chỗ</option>
                                         <option value="2">Đã cọc</option>
                                         <option value="3">Đã thuê</option>
-                                        <option value="4">Đã hủy</option>
+{{--                                        <option value="4">Đã hủy</option>--}}
                                     </select>
                                 </td>
                                 <td>
@@ -835,4 +840,73 @@
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/customer.js') }}"></script>
+    <script>
+        function formatDate(dateStr) {
+            var parts = dateStr.split('/');
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        $('#btnSave').on('click', function (e) {
+            e.preventDefault();
+            let url = $(this).data('url');
+            let method = $(this).data('method');
+            let form = $(this).closest('form');
+
+            let formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+
+            let bookings = [];
+            $('.booking-box').each(function(index) {
+                let serviceId = $(this).find('.service_change').val();
+                let startDate = formatDate($(this).find('.started_date').val());
+                let endDate = formatDate($(this).find('.ended_date').val());
+                // let type = $(this).find('.typeOrder').val();
+                let currentBookingId = $(this).data('booking-id');
+
+                // console.log('ID:', currentBookingId);
+                // console.log('Service ID:', serviceId);
+                // console.log('Start Date:', startDate);
+                // console.log('End Date:', endDate);
+                // console.log('Type:', type);
+
+                if (serviceId && startDate && endDate) {
+                    bookings.push({
+                        id: currentBookingId,
+                        service_id: serviceId,
+                        started_at: startDate,
+                        ended_at: endDate,
+                        // type: type
+                    });
+                } else {
+                    console.error('Một hoặc nhiều giá trị thiếu hoặc không hợp lệ.');
+                }
+            });
+
+            formData.append('bookings', JSON.stringify(bookings));
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // console.log(response);
+                    if(response.bookingError == false) {
+                        Swal.fire(
+                            response.message
+                        );
+                    } else {
+                        form.submit();
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire(
+                        xhr.message
+                    );
+                    // console.log(xhr.responseText);
+                }
+            });
+        });
+    </script>
 @endsection

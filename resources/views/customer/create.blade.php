@@ -170,10 +170,10 @@
             box-sizing: inherit;
         }
 
-        .contractDateContent,
-        .contractDateInput {
-            display: none;
-        }
+        /*.contractDateContent,*/
+        /*.contractDateInput {*/
+        /*    display: none;*/
+        /*}*/
 
     </style>
 
@@ -655,17 +655,17 @@
                                                 @endfor
 
                                             @else
-                                                <tr>
+                                                <tr class="booking-box">
                                                     <td class="text-center align-middle">1</td>
                                                     <td class="text-center align-middle">
-                                                        <select class="form-control select2 service_change"
+                                                        <select class="form-control select2 service_change services_id"
                                                                 name="services[]">
                                                             <option selected="selected" value=" ">Dịch vụ
                                                             </option>
                                                             @foreach ($services as $item)
                                                                 <option
                                                                     @if ($choose_status == $item->id) selected @endif
-                                                                value="{{ $item->id }}">{{ $item->name }}
+                                                                    value="{{ $item->id }}">{{ $item->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -676,25 +676,17 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-center">
-                                                        <input type="text" disabled class="form-control contractDateDisabled">
-{{--                                                        <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
-{{--                                                        <input name="contract_date[]" type="text"--}}
-{{--                                                               class="datepicker_contract form-control text-center contractDateInput">--}}
+{{--                                                        <input type="text" disabled class="form-control contractDateDisabled">--}}
                                                         <input name="contract_date[]" type="text"
                                                                class="datepicker_start form-control text-center contractDateInput">
-{{--                                                        <input name="time_view[]"--}}
-{{--                                                               class="form-control form-control-border number-hidden-input text-center input-time"--}}
-{{--                                                               type="number" min="1" max="10000"--}}
-{{--                                                               value="" disabled>--}}
-{{--                                                        <input type="hidden" name="time[]">--}}
                                                     </td>
                                                     <td class="text-center">
                                                         <input name="start[]" type="text"
-                                                               class="datepicker_start form-control text-center">
+                                                               class="datepicker_start started_date form-control text-center">
                                                     </td>
                                                     <td class="text-center">
                                                         <input name="end[]" type="text"
-                                                               class="datepicker_end form-control text-center">
+                                                               class="datepicker_end ended_date form-control text-center">
                                                     </td>
                                                     <td class="text-center align-middle">
                                                         <input type="text" name="view_total[]"
@@ -715,7 +707,7 @@
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control select2 status-dell" name="typeCustomerService[]">
+                                                        <select class="form-control select2 status-dell typeOrder" name="typeCustomerService[]">
                                                             <option selected disabled>--Chọn--</option>
                                                             <option value="1">Giữ chỗ</option>
                                                             <option value="2">Đã cọc</option>
@@ -733,7 +725,6 @@
                                                     </td>
                                                 </tr>
                                             @endif
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -741,76 +732,74 @@
                             </div>
                             <!-- /.card -->
                             <div class="card-footer d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">{{ trans('language.save') }}</button>
+                                <button type="submit"
+                                        data-url="{{ route('customer.checkDateAndTypeByService') }}"
+                                        data-method="POST"
+                                        class="btn btn-primary btnSave" id="btnSave">{{ trans('language.save') }}</button>
                             </div>
                         </div>
                     </form>
                     <div class="d-none" id="clone_tr">
                         <table>
                             <tbody>
-                            <tr>
-                                <td class="text-center align-middle">1</td>
-                                <td class="text-center align-middle">
-                                    <select class="form-control service_change" name="services[]">
-                                        <option selected="selected" value=" ">Dịch vụ</option>
-                                        @foreach ($services as $item)
-                                            <option @if ($choose_status == $item->id) selected @endif
-                                            value="{{ $item->id }}">{{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td class="">
-                                    <input type="text" disabled class="form-control contractDateDisabled">
-{{--                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
-                                    <input name="contract_date[]" type="text"
-                                           class="datepicker_start form-control text-center contractDateInput">
-{{--                                    <input name="time_view[]"--}}
-{{--                                           class="form-control form-control-border number-hidden-input text-center input-time"--}}
-{{--                                           type="number" min="1" max="10000" value="" disabled>--}}
-{{--                                    <input type="hidden" name="time[]">--}}
-                                </td>
-                                <td class="text-center">
-                                    <input name="start[]" type="text"
-                                           class="datepicker_start form-control text-center">
-                                </td>
-                                <td class="text-center">
-                                    <input name="end[]" type="text"
-                                           class="datepicker_end form-control text-center">
-                                </td>
-                                <td class="text-center align-middle">
-                                    <input type="text" name="view_total[]" class="form-control view-total"
-                                           value="">
-                                    <input type="hidden" name="subtotal[]" value="">
-                                    <input type="hidden" class="price_ser" name="price_ser[]" value="">
-                                </td>
-                                <td>
-                                    <select class="form-control" name="user_id[]">
-                                        <option selected disabled>--Chọn--</option>
-                                        @foreach ($staff as $item)
-                                            <option value="{{ $item->id }}">{{ $item->first_name }}
-                                                {{ $item->last_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select class="form-control status-dell" name="typeCustomerService[]">
-                                        <option selected disabled>--Chọn--</option>
-                                        <option value="1">Đã giữ chỗ</option>
-                                        <option value="2">Đã cọc</option>
-                                        <option value="3">Đã thuê</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" name="note[]" class="form-control">
-                                </td>
-                                <td class="text-center align-middle">
-                                    <button style="border-radius:50%" type="button"
-                                            class="btn btn-danger btn-sm minus_record"><i class="fas fa-minus"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center align-middle">1</td>
+                                    <td class="text-center align-middle">
+                                        <select class="form-control service_change services_id" name="services[]">
+                                            <option selected="selected" value=" ">Dịch vụ</option>
+                                            @foreach ($services as $item)
+                                                <option @if ($choose_status == $item->id) selected @endif
+                                                value="{{ $item->id }}">{{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td class="">
+{{--                                        <input type="text" disabled class="form-control contractDateDisabled">--}}
+                                        <input name="contract_date[]" type="text"
+                                               class="datepicker_start form-control text-center contractDateInput">
+                                    </td>
+                                    <td class="text-center">
+                                        <input name="start[]" type="text"
+                                               class="datepicker_start started_date form-control text-center">
+                                    </td>
+                                    <td class="text-center">
+                                        <input name="end[]" type="text"
+                                               class="datepicker_end ended_date form-control text-center">
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <input type="text" name="view_total[]" class="form-control view-total"
+                                               value="">
+                                        <input type="hidden" name="subtotal[]" value="">
+                                        <input type="hidden" class="price_ser" name="price_ser[]" value="">
+                                    </td>
+                                    <td>
+                                        <select class="form-control" name="user_id[]">
+                                            <option selected disabled>--Chọn--</option>
+                                            @foreach ($staff as $item)
+                                                <option value="{{ $item->id }}">{{ $item->first_name }}
+                                                    {{ $item->last_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control status-dell typeOrder" name="typeCustomerService[]">
+                                            <option selected disabled>--Chọn--</option>
+                                            <option value="1">Đã giữ chỗ</option>
+                                            <option value="2">Đã cọc</option>
+                                            <option value="3">Đã thuê</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="note[]" class="form-control">
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <button style="border-radius:50%" type="button"
+                                                class="btn btn-danger btn-sm minus_record"><i class="fas fa-minus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -824,4 +813,71 @@
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/customer.js') }}"></script>
+
+    <script>
+        function formatDate(dateStr) {
+            var parts = dateStr.split('/');
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        $('#btnSave').on('click', function (e) {
+            e.preventDefault();
+
+            let url = $(this).data('url');
+            let method = $(this).data('method');
+            let form = $(this).closest('form');
+
+            let formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+
+            let bookings = [];
+            $('.booking-box').each(function(index) {
+                let serviceId = $(this).find('.service_change').val();
+                let startDate = formatDate($(this).find('.started_date').val());
+                let endDate = formatDate($(this).find('.ended_date').val());
+                let type = $(this).find('.typeOrder').val();
+
+                console.log('Service ID:', serviceId);
+                console.log('Start Date:', startDate);
+                console.log('End Date:', endDate);
+                console.log('Type:', type);
+
+                if (serviceId && startDate && endDate && type) {
+                    bookings.push({
+                        service_id: serviceId,
+                        started_at: startDate,
+                        ended_at: endDate,
+                        type: type
+                    });
+                } else {
+                    console.error('Một hoặc nhiều giá trị thiếu hoặc không hợp lệ.');
+                }
+            });
+
+            formData.append('bookings', JSON.stringify(bookings));
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if(response.bookingError == false) {
+                        Swal.fire(
+                            response.message
+                        );
+                    } else {
+                        form.submit();
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire(
+                        xhr.message
+                    );
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    </script>
 @endsection
