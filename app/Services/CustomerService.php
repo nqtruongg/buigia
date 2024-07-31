@@ -47,6 +47,11 @@ class CustomerService
         return $this->customerRepository->getListService($id);
     }
 
+    public function checkDateAndTypeByService($currentBookingId, $serviceId, $startDate, $endDate)
+    {
+        return $this->customerRepository->checkDateAndTypeByService($currentBookingId, $serviceId, $startDate, $endDate);
+    }
+
     public function getListServiceByType0()
     {
         return $this->customerRepository->getListServiceByType0();

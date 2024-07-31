@@ -192,6 +192,26 @@
 
 </html>
 
-
+//                    $overlappingReservations = CustomerServiceModel::where('service_id', $serviceId)
+//                        ->where('type', '<>', 4)
+//                        ->where(function($query) use ($startDate, $endDate) {
+//                            $query->where(function($subQuery) use ($startDate, $endDate) {
+//                                $subQuery->whereBetween('started_at', [$startDate, $endDate])
+//                                    ->orWhereBetween('ended_at', [$startDate, $endDate]);
+//                            })
+//                                ->orWhere(function($subQuery) use ($startDate, $endDate) {
+//                                    $subQuery->where('started_at', '<=', $startDate)
+//                                        ->where('ended_at', '>=', $endDate);
+//                                });
+//                        })
+//                        ->lockForUpdate()
+//                        ->count();
+//
+//                    if ($overlappingReservations > 0) {
+//                        return response()->json([
+//                            'bookingError' => false,
+//                            'message' => 'Phòng không khả dụng trong khoảng thời gian này'
+//                        ]);
+//                    }
 
 

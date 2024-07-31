@@ -9,6 +9,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use App\Models\CustomerDocument;
 use App\Services\CustomerService;
+use App\Models\CustomerService as CustomerServiceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -117,10 +118,84 @@ class CustomerController extends Controller
         }
     }
 
+
+
+    public function checkDateAndTypeByService(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $bookings = json_decode($request->bookings, true);
+            if (!is_array($bookings)) {
+                return response()->json([
+                    'bookingError' => true,
+                    'message' => 'Dữ liệu đặt không hợp lệ.'
+                ], 400);
+            }
+
+            $anyChanges = false;
+
+            foreach ($bookings as $booking) {
+                $serviceId = $booking['service_id'] ?? null;
+                $startDate = $booking['started_at'] ?? null;
+                $endDate = $booking['ended_at'] ?? null;
+                $currentBookingId = $booking['id'] ?? null;
+
+                if (empty($serviceId) || empty($startDate) || empty($endDate)) {
+                    return response()->json([
+                        'bookingError' => true,
+                        'message' => 'Một hoặc nhiều giá trị nhập vào không hợp lệ.'
+                    ], 422);
+                }
+
+                $existingBooking = CustomerServiceModel::find($currentBookingId);
+
+                if ($existingBooking) {
+                    $existingServiceId = $existingBooking->service_id;
+                    $existingStartDate = $existingBooking->started_at;
+                    $existingEndDate = $existingBooking->ended_at;
+
+                    if ($serviceId != $existingServiceId || $startDate != $existingStartDate || $endDate != $existingEndDate) {
+                        $anyChanges = true;
+                    }
+                } else {
+                    $anyChanges = true;
+                }
+
+                if ($anyChanges) {
+                    try {
+                        $check = $this->customerService->checkDateAndTypeByService($currentBookingId, $serviceId, $startDate, $endDate);
+                        if (!$check) {
+                            return response()->json([
+                                'bookingError' => false,
+                                'message' => 'Dịch vụ bất động sản không khả dụng trong khoảng thời gian này'
+                            ]);
+                        }
+                    } catch (\Exception $e) {
+                        return response()->json([
+                            'bookingError' => false,
+                            'message' => 'Lỗi hệ thống: ' . $e->getMessage()
+                        ], 500);
+                    }
+                }
+            }
+
+            return response()->json([
+                'bookingError' => true,
+                'message' => 'Thành công'
+            ], 201);
+        }
+
+        return response()->json([
+            'bookingError' => false,
+            'message' => 'Yêu cầu không hợp lệ.'
+        ], 400);
+    }
+
+
+
     public function delete($id)
     {
         try {
-
             DB::beginTransaction();
             $this->customerService->deleteCustomer($id);
             DB::commit();

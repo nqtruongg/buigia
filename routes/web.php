@@ -159,6 +159,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update-service/{id}', [CustomerController::class, 'updateService'])->name('customer.updateService');
 
         Route::post('/upfile-detail/{id}', [CustomerController::class, 'uploadDetail'])->name('customer.uploadDetail');
+
+        Route::post('/check-date-and-type', [CustomerController::class, 'checkDateAndTypeByService'])->name('customer.checkDateAndTypeByService');
     });
 
     // order

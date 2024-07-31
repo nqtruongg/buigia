@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\CategoryService;
 use App\Models\Customer;
 use App\Models\CustomerDialog;
 use App\Models\CustomerDocument;
@@ -87,7 +88,7 @@ class CustomerRepository
 
     public function getListService($customerId = null)
     {
-        $servicesQuery = Service::select('id', 'name')->where('type', 0);
+        $servicesQuery = Service::select('id', 'name');
 
         if ($customerId) {
             $selectedServices = CustomerService::where('customer_id', $customerId)
@@ -102,7 +103,7 @@ class CustomerRepository
 
     public function getListServiceByType0()
     {
-        $services = Service::select('id', 'name')->where('type', 0)->get();
+        $services = Service::select('id', 'name')->get();
 
         return $services;
     }
@@ -112,6 +113,32 @@ class CustomerRepository
         $supplier = Supplier::select('id', 'name')->get();
         return $supplier;
     }
+
+    public function checkDateAndTypeByService($currentBookingId, $serviceId, $startDate, $endDate)
+    {
+        $query = CustomerService::where('service_id', $serviceId)
+            ->where('type', '<>', 4)
+            ->where(function($query) use ($startDate, $endDate, $currentBookingId) {
+                $query->where(function($subQuery) use ($startDate, $endDate) {
+                    $subQuery->whereBetween('started_at', [$startDate, $endDate])
+                        ->orWhereBetween('ended_at', [$startDate, $endDate]);
+                })
+                    ->orWhere(function($subQuery) use ($startDate, $endDate) {
+                        $subQuery->where('started_at', '<=', $startDate)
+                            ->where('ended_at', '>=', $endDate);
+                    });
+
+                if ($currentBookingId) {
+                    $query->where('id', '<>', $currentBookingId);
+                }
+            });
+
+        $overlappingReservations = $query->count();
+
+        return $overlappingReservations === 0;
+    }
+
+
 
     public function getPriceService($id_service)
     {
@@ -283,9 +310,7 @@ class CustomerRepository
             'update_by' => auth()->user()->id ?? null,
         ];
 
-
         $customer->update($params);
-
 
         $file_ids = CustomerDocument::where('customer_id', $id)->pluck('id')->toArray();
 
@@ -347,6 +372,7 @@ class CustomerRepository
         }
 
         $serviceIds = CustomerService::where('customer_id', $id)->pluck('service_id');
+
         foreach ($serviceIds as $serviceId) {
             $customerServiceType = CustomerService::where('customer_id', $id)
                 ->where('service_id', $serviceId)
