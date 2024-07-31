@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Commission;
+use App\Models\CommissionBonus;
 use App\Models\Commissions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -20,6 +21,15 @@ class CommissionRepository{
         }
         $commission = $commission->orderBy('id', 'desc')->paginate(self::PAGINATE);
         return $commission;
+    }
+
+    public function getListCommissionBonus($request){
+        $commissionBonus = CommissionBonus::query();
+        if($request->name != null){
+            $commissionBonus = $commissionBonus->where('name', 'LIKE', "%{$request->name}%");
+        }
+        $commissionBonus = $commissionBonus->orderBy('id', 'desc')->paginate(self::PAGINATE);
+        return $commissionBonus;
     }
 
     public function getCommissionById($id){

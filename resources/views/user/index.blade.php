@@ -111,12 +111,27 @@
                                         <th class="text-center">{{ trans('language.email') }}</th>
                                         <th class="text-center">{{ trans('language.department.title') }}</th>
                                         <th class="text-center">{{ trans('language.role.title') }}</th>
+                                        <th class="text-center">Hoa hồng tháng này</th>
+                                        <th class="text-center">Tổng tiền hoa hồng</th>
                                         <th class="text-center">{{ trans('language.action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if ($users->count() > 0)
                                         @foreach ($users as $key => $item)
+                                            @php
+                                                $total_commission_month = \App\Models\CommissionBonus::where(
+                                                    'user_id',
+                                                    $item->id,
+                                                )
+                                                    ->whereMonth('created_at', date('m'))
+                                                    ->sum('price');
+
+                                                $total_commssion = \App\Models\CommissionBonus::where(
+                                                    'user_id',
+                                                    $item->id,
+                                                )->sum('price');
+                                            @endphp
                                             <tr>
                                                 <td class="text-center">
                                                     {{ $key + 1 + ($users->currentPage() - 1) * $users->perPage() }}
@@ -126,6 +141,8 @@
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->department_name }}</td>
                                                 <td>{{ $item->role_name }}</td>
+                                                <td class="text-center">{{ number_format($total_commission_month) }}đ</td>
+                                                <td class="text-center">{{ number_format($total_commssion) }}đ</td>
                                                 <td class="text-center">
                                                     <div class="flex justify-center items-center">
                                                         <a class="flex items-center mr-3"

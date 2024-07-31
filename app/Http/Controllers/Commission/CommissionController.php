@@ -22,7 +22,13 @@ class CommissionController extends Controller
     public function index(Request $request)
     {
         $commissions = $this->commissionService->getListCommission($request);
-        return view('commission.index', compact('commissions'));
+        return view('commission.config.index', compact('commissions'));
+    }
+
+    public function listCommissionBonus(Request $request)
+    {
+        $commissionBonus = $this->commissionService->getListCommissionBonus($request);
+        return view('commission.list-commission', compact('commissionBonus'));
     }
 
     /**
@@ -30,7 +36,7 @@ class CommissionController extends Controller
      */
     public function create()
     {
-        return view('commission.create');
+        return view('commission.config.create');
     }
 
     /**
@@ -68,7 +74,7 @@ class CommissionController extends Controller
     public function edit($id)
     {
         $commission = $this->commissionService->getCommissionById($id);
-        return view('commission.edit', compact('commission'));
+        return view('commission.config.edit', compact('commission'));
     }
 
     /**

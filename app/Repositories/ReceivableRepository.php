@@ -161,6 +161,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_1[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_1[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
                 ]);
@@ -181,6 +182,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_2[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_2[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
                 ]);
@@ -201,6 +203,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_3[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_3[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
                 ]);
@@ -258,6 +261,7 @@ class ReceivableRepository
                 [
                     'customer_service_id' => $receivable->customer_service_id,
                     'user_id' => $receivable->user_id ?? null,
+                    'reason' => $request->reason_1,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_1)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_1) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1) : $request->advance_date_1,
                 ]
@@ -285,6 +289,7 @@ class ReceivableRepository
                 [
                     'customer_service_id' => $receivable->customer_service_id,
                     'user_id' => $receivable->user_id ?? null,
+                    'reason' => $request->reason_2,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_2)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_2) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2) : $request->advance_date_2,
                 ]
@@ -311,6 +316,7 @@ class ReceivableRepository
                 [
                     'customer_service_id' => $receivable->customer_service_id,
                     'user_id' => $receivable->user_id ?? null,
+                    'reason' => $request->reason_3,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_3)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_3) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3) : $request->advance_date_3,
                 ]
@@ -388,6 +394,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_1[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_1[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_1[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1[$key]) : $request->advance_date_1[$key],
                 ]);
@@ -407,6 +414,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_2[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_2[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_2[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2[$key]) : $request->advance_date_2[$key],
                 ]);
@@ -426,6 +434,7 @@ class ReceivableRepository
                     'customer_service_id' => $request->customer_service_id[$key],
                     'user_id' => $user_id->user_id ?? null,
                     'receipt_id' => $receipt->id,
+                    'reason' => $request->reason_3[$key],
                     'price' => (floatval(str_replace(',', '', $request->advance_value_3[$key])) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_3[$key]) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3[$key]) : $request->advance_date_3[$key],
                 ]);
@@ -489,6 +498,7 @@ class ReceivableRepository
                 [
                     'customer_service_id' => $receivable->customer_service_id,
                     'user_id' => $receivable->user_id ?? null,
+                    'reason' => $request->reason_1,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_1)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_1) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_1) : $request->advance_date_1,
                 ]
@@ -514,6 +524,7 @@ class ReceivableRepository
                 ['receipt_id' => $receipt->id],
                 [
                     'customer_service_id' => $receivable->customer_service_id,
+                    'reason' => $request->reason_2,
                     'user_id' => $receivable->user_id ?? null,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_2)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_2) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_2) : $request->advance_date_2,
@@ -540,6 +551,7 @@ class ReceivableRepository
                 ['receipt_id' => $receipt->id],
                 [
                     'customer_service_id' => $receivable->customer_service_id,
+                    'reason' => $request->reason_3,
                     'user_id' => $receivable->user_id ?? null,
                     'price' => (floatval(str_replace(',', '', $request->advance_value_3)) * floatval($user->commission->percent)) / 100,
                     'date' => isset($request->advance_date_3) ? Carbon::createFromFormat('d/m/Y', $request->advance_date_3) : $request->advance_date_3,
