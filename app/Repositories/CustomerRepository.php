@@ -63,7 +63,11 @@ class CustomerRepository
             $customers = $customers->where('customers.career', 'LIKE', "%{$request->career}%");
         }
 
-        $customers = $customers->orderBy('customers.id', 'desc')->paginate(self::PAGINATE);
+        if(auth()->user()->department_id == 7) {
+            $customers = $customers->orderBy('customers.id', 'desc')->paginate(self::PAGINATE);
+        }else{
+            $customers = $customers->where('customers.user_id', auth()->user()->id)->orderBy('customers.id', 'desc')->paginate(self::PAGINATE);
+        }
         return $customers;
     }
 
