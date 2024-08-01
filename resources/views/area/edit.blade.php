@@ -56,7 +56,7 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.area.name') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="name"
+                                                        <input type="text" class="form-control" id="name" name="name"
                                                             value="{{ old('name') ?? $area->name }}"
                                                             placeholder="{{ trans('language.area.name') }}">
                                                         @if ($errors->first('name'))
@@ -72,7 +72,7 @@
                                                     <div class="form-group">
                                                         <label>{{ trans('language.area.slug') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="slug"
+                                                        <input type="text" class="form-control" id="slug" name="slug"
                                                             value="{{ old('slug') ?? $area->slug }}"
                                                             placeholder="{{ trans('language.area.slug') }}">
                                                         @if ($errors->first('slug'))
@@ -111,7 +111,7 @@
                                                         <select name="district_id" id="district_register"
                                                             class="form-control"
                                                             data-url="{{ route('ajax.address.communes') }}">
-                                                            <option value="{{ $area->district_id }}">{{ $area->district->name }}</option>
+                                                            <option value="{{ $area->district_id }}">{{ $area->district->name ?? null }}</option>
                                                             <option value="">
                                                                 --{{ __('language.area.district_id') }}--
                                                             </option>

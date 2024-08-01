@@ -243,7 +243,7 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-md-6">
+                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.staff') }}<span
                                                                 class="text-danger">*</span></label>
@@ -268,7 +268,7 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                             </div>
 
                                             <div class="row">
