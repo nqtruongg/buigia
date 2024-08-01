@@ -404,6 +404,7 @@ return [
     ],
 
     'setting' => [
+        'title_all' => 'Quản lý website',
         'title' => 'Trang thông tin',
         'name' => 'Tên',
         'add' => 'Thêm nội dung',

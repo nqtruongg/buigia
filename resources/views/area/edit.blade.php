@@ -93,7 +93,7 @@
                                                             <option value="">--{{ __('language.area.city_id') }}--</option>
                                                             @foreach (App\Models\City::all() as $i)
                                                                 <option value="{{ $i->id }}" {{ $i->id == $area->city_id ? 'selected' : '' }}>
-                                                                    {{ $i->name }}
+                                                                    {{ $i->name ?? ''}}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -111,7 +111,7 @@
                                                         <select name="district_id" id="district_register"
                                                             class="form-control"
                                                             data-url="{{ route('ajax.address.communes') }}">
-                                                            <option value="{{ $area->district_id }}">{{ $area->district->name }}</option>
+                                                            <option value="{{ $area->district_id }}">{{ $area->district->name ?? ''}}</option>
                                                             <option value="">
                                                                 --{{ __('language.area.district_id') }}--
                                                             </option>
