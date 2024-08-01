@@ -222,7 +222,8 @@ class CustomerController extends Controller
         $services = $this->customerService->getDetailService($id);
         $list_services = $this->customerService->getListService();
         $suppliers = $this->customerService->getListSupplier();
-        return view('customer.detail', compact('customer', 'documents', 'services', 'list_services', 'suppliers'));
+        $staff = $this->customerService->getStaff();
+        return view('customer.detail', compact('customer', 'documents', 'services', 'list_services', 'suppliers', 'staff'));
     }
 
     public function dialog(Request $request, $id)
@@ -232,7 +233,8 @@ class CustomerController extends Controller
         $services = $this->customerService->getDetailService($id);
         $list_services = $this->customerService->getListService();
         $suppliers = $this->customerService->getListSupplier();
-        return view('customer.dialog', compact('customer', 'dialogs', 'services', 'list_services', 'suppliers'));
+        $staff = $this->customerService->getStaff();
+        return view('customer.dialog', compact('customer', 'dialogs', 'services', 'list_services', 'suppliers', 'staff'));
     }
 
     public function uploadFile(Request $request)

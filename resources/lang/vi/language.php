@@ -51,6 +51,7 @@ return [
     'content' => 'Nội dung',
     'commission_id' => 'Phần trăm hoa hồng',
     'type' => 'Trạng thái',
+    'contract_date' => 'Ngày tạo đơn',
 
     //department
     'department' => [
@@ -165,7 +166,7 @@ return [
         'add' => 'Thêm khách hàng',
         'start_date' => 'Ngày bắt đầu',
         'end_date' => 'Ngày kết thúc',
-        'contract_date' => 'Thời hạn hợp đồng',
+        'contract_date' => 'Ngày tạo đơn',
         'type' => 'Trạng thái',
         'edit' => 'Chỉnh sửa khách hàng',
         'list' => 'Danh sách đơn hàng',

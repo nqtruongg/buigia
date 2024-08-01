@@ -252,7 +252,7 @@ class CustomerRepository
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
                     'user_id' => $user_id[$key] ?? null,
-                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : $contract_date[$key],
+                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : now(),
                     'type' => $typeCustomerService[$key] ?? 0,
                 ]);
 
@@ -364,7 +364,7 @@ class CustomerRepository
                     'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                     'note' => $note[$key] ?? null,
                     'user_id' => $user_id[$key] ?? null,
-                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : $contract_date[$key],
+                    'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : now(),
                     'type' => $typeCustomerService[$key] ?? 0,
                     'created_at' => $createdAtValues[$service] ?? now(),
                 ]);
@@ -574,8 +574,10 @@ class CustomerRepository
             'customer_service.subtotal',
             'customer_service.started_at',
             'customer_service.ended_at',
+            'customer_service.contract_date',
             'customer_service.note',
             'customer_service.user_id',
+            'customer_service.type',
             'services.name as service_name'
         )
             ->leftjoin('services', 'services.id', 'customer_service.service_id')
@@ -604,17 +606,23 @@ class CustomerRepository
                 $start = $request->start;
                 $end = $request->end;
                 $note = $request->note;
+                $contract_date = $request->contract_date;
+                $user_id = $request->user_id;
+                $typeCustomerService = $request->typeCustomerService;
 
                 foreach ($services as $key => $service) {
                     CustomerService::create([
                         'customer_id' => $customer->id,
                         'service_id' => $service,
-                        'time' => $times[$key],
+                        'time' => 1,
                         'subtotal' => str_replace(',', '', $view_total[$key]),
                         'started_at' => isset($start[$key]) ? Carbon::createFromFormat('d/m/Y', $start[$key]) : $start[$key],
                         'ended_at' => isset($end[$key]) ? Carbon::createFromFormat('d/m/Y', $end[$key]) : $end[$key],
                         'note' => $note[$key] ?? null,
-                        'user_id' => $request->user_id ?? null,
+                        'user_id' => $user_id[$key] ?? null,
+                        'contract_date' => isset($contract_date[$key]) ? Carbon::createFromFormat('d/m/Y', $contract_date[$key]) : now(),
+                        'type' => $typeCustomerService[$key] ?? 0,
+                        'created_at' => $createdAtValues[$service] ?? now(),
                     ]);
                 }
             }

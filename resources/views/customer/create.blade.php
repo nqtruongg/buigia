@@ -484,33 +484,33 @@
 
                                         <table class="table table-bordered" id="table_service">
                                             <thead>
-                                            <tr>
-                                                <th class="text-center align-middle">#</th>
-                                                <th class="text-center align-middle w-15">
-                                                    {{ trans('language.service.title') }}
-                                                </th>
-                                                <th class="text-center align-middle">
-                                                    {{ trans('language.time') }}
-                                                </th>
-                                                <th class="text-center align-middle">
-                                                    {{ trans('language.started_at') }}
-                                                </th>
-                                                <th class="text-center align-middle">
-                                                    {{ trans('language.ended_at') }}</th>
-                                                <th class="text-center align-middle th-time-dell">
-                                                    {{ trans('language.subtotal') }}
-                                                </th>
-                                                <th class="text-center align-middle w-15">
-                                                    {{ trans('language.customer.staff') }}
-                                                </th>
-                                                <th class="text-center align-middle w-10">
-                                                    {{ trans('language.type') }}
-                                                </th>
-                                                <th class="text-center align-middle">
-                                                    {{ trans('language.note') }}
-                                                </th>
-                                                <th class="text-center align-middle"></th>
-                                            </tr>
+                                                <tr>
+                                                    <th class="text-center align-middle">#</th>
+                                                    <th class="text-center align-middle w-15">
+                                                        {{ trans('language.service.title') }}
+                                                    </th>
+                                                    <th class="text-center align-middle">
+                                                        {{ trans('language.contract_date') }}
+                                                    </th>
+                                                    <th class="text-center align-middle">
+                                                        {{ trans('language.started_at') }}
+                                                    </th>
+                                                    <th class="text-center align-middle">
+                                                        {{ trans('language.ended_at') }}</th>
+                                                    <th class="text-center align-middle th-time-dell">
+                                                        {{ trans('language.subtotal') }}
+                                                    </th>
+                                                    <th class="text-center align-middle w-15">
+                                                        {{ trans('language.customer.staff') }}
+                                                    </th>
+                                                    <th class="text-center align-middle w-10">
+                                                        {{ trans('language.type') }}
+                                                    </th>
+                                                    <th class="text-center align-middle">
+                                                        {{ trans('language.note') }}
+                                                    </th>
+                                                    <th class="text-center align-middle"></th>
+                                                </tr>
                                             </thead>
                                             <tbody>
 
@@ -524,7 +524,8 @@
                                                                 <option value=" ">Dịch vụ</option>
                                                                 @foreach ($services as $item)
                                                                     <option
-                                                                        @if (old('services.' . $i) == $item->id) selected
+                                                                        @if (old('services.' . $i) == $item->id)
+                                                                            selected
                                                                         @endif
                                                                         value="{{ $item->id }}">
                                                                         {{ $item->name }}
@@ -537,23 +538,13 @@
                                                                 </div>
                                                             @endif
                                                         </td>
-                                                        <td class="contractDateInput">
-                                                            <input name="time_view[]"
-                                                                   class="form-control form-control-border number-hidden-input text-center input-time"
-                                                                   type="number" min="1" max="10000"
-                                                                   value="{{ old('time.' . $i) }}"
-                                                                   @if (old('time.' . $i) == null) disabled @endif>
-                                                            <input type="hidden" name="time[]"
-                                                                   value="{{ old('time.' . $i) }}">
-                                                            @if ($errors->first('time.' . $i))
-                                                                <div class="invalid-alert text-danger">
-                                                                    {{ $errors->first('time.' . $i) }}
-                                                                </div>
-                                                            @endif
+                                                        <td class="text-center">
+                                                            <input name="contract_date[]" type="text" value="{{ old('contract_date.' . $i) }}"
+                                                                   class="datepicker_start form-control text-center contractDateInput">
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="start[]" type="text"
-                                                                   class="datepicker_start form-control text-center"
+                                                                   class="datepicker_start started_date form-control text-center"
                                                                    value="{{ old('start.' . $i) }}">
                                                             @if ($errors->first('start.' . $i))
                                                                 <div class="invalid-alert text-danger">
@@ -563,7 +554,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="end[]" type="text"
-                                                                   class="datepicker_end form-control text-center"
+                                                                   class="datepicker_end ended_date form-control text-center"
                                                                    value="{{ old('end.' . $i) }}">
                                                             @if ($errors->first('end.' . $i))
                                                                 <div class="invalid-alert text-danger">
@@ -586,20 +577,6 @@
                                                                 </div>
                                                             @endif
                                                         </td>
-
-                                                        {{-- <select class="form-control select2" name="user_id" id="user_id">
-                                                            <option selected="selected" value=" ">Nhân viên
-                                                            </option>
-                                                            @php
-                                                                $choose_staff = old('user_id') ? old('user_id') : '';
-                                                            @endphp
-                                                            @foreach ($staff as $item)
-                                                                <option @if ($choose_staff == $item->id) selected @endif
-                                                                    value="{{ $item->id }}">{{ $item->first_name }}
-                                                                    {{ $item->last_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select> --}}
                                                         @if ($errors->first('user_id'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('user_id') }}
@@ -607,7 +584,8 @@
                                                         @endif
                                                         <td>
                                                             <select class="form-control select2" name="user_id">
-                                                                <option selected="selected" value=" ">Nhân viên
+                                                                <option selected="selected" value=" ">
+                                                                    Nhân viên
                                                                 </option>
                                                                 @php
                                                                     $choose_staff = old('user_id')
@@ -629,6 +607,24 @@
                                                                     {{ $errors->first('user_id.' . $i) }}
                                                                 </div>
                                                             @endif
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control select2 status-dell typeOrder"
+                                                                    name="typeCustomerService[]">
+                                                                <option selected disabled>--Chọn--</option>
+                                                                <option
+                                                                    value="1" {{ (collect(old('typeCustomerService.'.$i))->contains(1)) ? 'selected' : '' }}>
+                                                                    Giữ chỗ
+                                                                </option>
+                                                                <option
+                                                                    value="2" {{ (collect(old('typeCustomerService.'.$i))->contains(2)) ? 'selected' : '' }}>
+                                                                    Đã cọc
+                                                                </option>
+                                                                <option
+                                                                    value="3" {{ (collect(old('typeCustomerService.'.$i))->contains(3)) ? 'selected' : '' }}>
+                                                                    Đã thuê
+                                                                </option>
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="note[]" class="form-control"
@@ -676,7 +672,6 @@
                                                         @endif
                                                     </td>
                                                     <td class="text-center">
-{{--                                                        <input type="text" disabled class="form-control contractDateDisabled">--}}
                                                         <input name="contract_date[]" type="text"
                                                                class="datepicker_start form-control text-center contractDateInput">
                                                     </td>
@@ -717,7 +712,7 @@
                                                     <td>
                                                         <input type="text" name="note[]" class="form-control">
                                                     </td>
-                                                    <td class="text-center align-middle">
+                                                    <td>
                                                         <button style="border-radius:50%" type="button"
                                                                 id="plus_record" class="btn btn-success btn-sm">
                                                             <i class="fas fa-plus"></i>
@@ -755,7 +750,6 @@
                                         </select>
                                     </td>
                                     <td class="">
-{{--                                        <input type="text" disabled class="form-control contractDateDisabled">--}}
                                         <input name="contract_date[]" type="text"
                                                class="datepicker_start form-control text-center contractDateInput">
                                     </td>
