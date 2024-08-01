@@ -179,13 +179,28 @@
                                     </div> --}}
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Người nhận tiền</label>
-                                            <input type="text" class="form-control" name="name"
-                                                placeholder="Người nhận tiền"  value="{{ old('name') ?? $data->name }}">
+                                            <label>Nhân viên<span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control select2 customerChange" name="name" id="customerSelect">
+                                                @if(empty($data->name))
+                                                    <option selected disabled>--Chọn--</option>
+                                                @endif
+                                                @if(!empty($customers))
+                                                    @foreach($customers as $customer)
+                                                        <option data-id="{{ $customer->id }}" value="{{ $customer->name }}" {{ $customer->name === $data->name ? 'selected' : '' }}>
+                                                            {{ $customer->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                                @if(!in_array($data->name, $customers->pluck('name')->toArray()))
+                                                    <option value="{{ $data->name }}" selected>{{ $data->name }}</option>
+                                                @endif
+                                            </select>
+                                            <input type="hidden" value="" class="userId_Customer" name="user_id" id="userId_Customer">
                                         </div>
-                                        @if ($errors->first('name'))
+                                        @if ($errors->first('user_id'))
                                             <div class="invalid-alert text-danger">
-                                                {{ $errors->first('name') }}
+                                                {{ $errors->first('user_id') }}
                                             </div>
                                         @endif
                                     </div>
@@ -268,7 +283,7 @@
                                                         ...........................</p>
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="content">
                                                 <div class="form">
                                                     <div class="lable">Họ tên người nhận tiền</div>
@@ -284,12 +299,12 @@
                                                 </div>
                                                 <div class="form">
                                                     <div class="lable">Số tiền</div>
-                                                    <div class="input">: <span class="" id="price_pay"></span>VNĐ</div>
+                                                    <div class="input">: <span class="" id="price_pay">{{ $data->price }}</span> VNĐ</div>
                                                     <input id="price" type="hidden" value="">
                                                 </div>
                                                 <div class="form">
                                                     <div class="lable">Viết bằng chữ</div>
-                                                    <div class="input">: <span class="text-price">{{ $data->price }}</span>VNĐ</div>
+                                                    <div class="input">: <span class="text-price">{{ $data->price }}</span> VNĐ</div>
                                                 </div>
                                                 <div class="form">
                                                     <div class="lable">Kèm theo</div>
@@ -332,4 +347,21 @@
 
 @section('js')
     <script src="{{ asset('dist/js/pages/create_payment.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                tags: true,
+                placeholder: "--Chọn--",
+                allowClear: true,
+                tokenSeparators: [',']
+            });
+
+            $('#customerSelect').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var customerId = selectedOption.data('id');
+                $('#userId_Customer').val(customerId);
+                // console.log(customerId);
+            });
+        });
+    </script>
 @endsection

@@ -62,40 +62,63 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center" style="width: 20px;">Folder</th>
                                         <th class="text-center">{{ trans('language.area.name') }}</th>
-                                        <th class="text-center">{{ trans('language.area.slug') }}</th>
-                                        <th class="text-center">{{ trans('language.area.active') }}</th>
-                                        <th class="text-center">{{ trans('language.area.hot') }}</th>
                                         <th class="text-center">{{ trans('language.action') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(!empty($_GET['parent_id']))
-                                        @if ($listAreaByCate->count() > 0)
-                                            @foreach ($listAreaByCate as $key => $item)
+                                    @if(!empty($_GET['city_id']))
+                                        @if ($districts->count() > 0)
+                                            @foreach ($districts as $key => $item)
                                                 <tr>
                                                     <td class="text-center">
-                                                        {{ $key + 1 + ($listAreaByCate->currentPage() - 1) * $listAreaByCate->perPage() }}
+                                                        {{ $key + 1 + ($districts->currentPage() - 1) * $districts->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('area.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
-                                                    </td>
-                                                    <td class="text-center">{{ $item->slug }}</td>
-                                                    <td class="text-center">
-                                                        <button
-                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                            data-url="{{ route('area.changeActive') }}">
-                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
-                                                        </button>
+                                                        <a href="{{ route('area.index').'?district_id='. $item->id }}">{{ $item->name }}</a>
                                                     </td>
                                                     <td class="text-center">
-                                                        <button
-                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                            data-url="{{ route('area.changeHot') }}">
-                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
-                                                        </button>
+                                                        <div class="flex justify-center items-center">
+                                                            <a class="flex items-center mr-3"
+                                                               href="{{ route('area.edit', ['id' => $item->id]) }}">
+                                                                <i class="fas fa-edit"></i>
+                                                                {{ trans('language.edit') }}
+                                                            </a>
+                                                            <a href="javascript:void(0)"
+                                                               class="flex items-center text-danger deleteTable"
+                                                               data-id="{{ $item->id }}"
+                                                               data-title="{{ trans('message.confirm_delete_area') }}"
+                                                               data-text="<span >{{ $item->name }}</span>"
+                                                               data-url="{{ route('area.delete', ['id' => $item->id]) }}"
+                                                               data-method="DELETE" data-icon="question">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                                {{ trans('language.delete') }}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="9" class="text-center"> {{ trans('language.no-data') }} </td>
+                                            </tr>
+                                        @endif
+                                    @elseif(!empty($_GET['district_id']))
+                                        @if ($communes->count() > 0)
+                                            @foreach ($communes as $key => $item)
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ $key + 1 + ($communes->currentPage() - 1) * $communes->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas fa-file"></i>
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->name }}
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
@@ -124,31 +147,17 @@
                                             </tr>
                                         @endif
                                     @else
-                                        @if ($areas->count() > 0)
-                                            @foreach ($areas as $key => $item)
+                                        @if ($cities->count() > 0)
+                                            @foreach ($cities as $key => $item)
                                                 <tr>
                                                     <td class="text-center">
-                                                        {{ $key + 1 + ($areas->currentPage() - 1) * $areas->perPage() }}
+                                                        {{ $key + 1 + ($cities->currentPage() - 1) * $cities->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('area.index').'?parent_id='. $item->id }}">{{ $item->name }}</a>
-                                                    </td>
-                                                    <td class="text-center">{{ $item->slug }}</td>
-                                                    <td class="text-center">
-                                                        <button
-                                                            class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->active }}"
-                                                            data-url="{{ route('area.changeActive') }}">
-                                                            {{ $item->active == 1 ? 'Hiển thị' : 'Ẩn' }}
-                                                        </button>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <button
-                                                            class="toggle-hot-btn btn {{ $item->hot == 1 ? 'btn-success' : 'btn-danger' }} text-white"
-                                                            data-id="{{ $item->id }}" data-status="{{ $item->hot }}"
-                                                            data-url="{{ route('area.changeHot') }}">
-                                                            {{ $item->hot == 1 ? 'Nổi bật' : 'Ẩn' }}
-                                                        </button>
+                                                        <a href="{{ route('area.index').'?city_id='. $item->id }}">{{ $item->name }}</a>
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="flex justify-center items-center">
@@ -182,7 +191,13 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    {{ $areas->links('pagination::bootstrap-4') }}
+                                    @if(!empty($_GET['district_id']))
+                                        {{ $communes->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @elseif(!empty($_GET['city_id']))
+                                        {{ $districts->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @else
+                                        {{ $cities->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>

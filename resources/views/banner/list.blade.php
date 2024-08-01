@@ -196,7 +196,11 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    {{ $listBanner->links('pagination::bootstrap-4') }}
+                                    @if(!empty($_GET['parent_id']))
+                                        {{ $listBannerByCate->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @else
+                                        {{ $listBanner->links('pagination::bootstrap-4') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>
