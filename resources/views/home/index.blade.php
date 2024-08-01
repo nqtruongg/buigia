@@ -2,6 +2,15 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('plugins/jquery-ui/jquery-ui.min.css') }}">
+    <style>
+        .border-left-primary {
+            border-left: .25rem solid #4e73df !important;
+        }
+
+        .border-left-success {
+            border-left: .25rem solid #1cc88a  !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -11,6 +20,45 @@
     ])
     <section class="content">
         <div class="container-fluid">
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                        Tổng doanh số</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format(\App\Models\Receipt::sum(\DB::raw('CAST(REPLACE(price, \',\', \'\') AS UNSIGNED)')), 0, ',', '.') }}đ</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-md font-weight-bold text-success text-uppercase mb-1">
+                                        Tổng hoa hồng phải chi</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\CommissionBonus::sum('price') ?? 0 }}đ</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
@@ -142,7 +190,9 @@
                                 <label for="">Thống kê khách hàng:</label>
                                 <ul>
                                     @foreach ($customers as $item)
-                                        <li><p>{{$item->name}}: <span>{{$item->total_customers}}</span></p></li>
+                                        <li>
+                                            <p>{{ $item->name }}: <span>{{ $item->total_customers }}</span></p>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -160,7 +210,10 @@
                                 <label for="">Danh sách báo giá:</label>
                                 <ul>
                                     @foreach ($price_quote as $item)
-                                        <li><a href="{{route('priceQuote.detail', ['id' => $item->id])}}">{{$item->name}}</a></p></li>
+                                        <li><a
+                                                href="{{ route('priceQuote.detail', ['id' => $item->id]) }}">{{ $item->name }}</a>
+                                            </p>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>

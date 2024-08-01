@@ -141,7 +141,7 @@
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->department_name }}</td>
                                                 <td>{{ $item->role_name }}</td>
-                                                <td class="text-center">{{ number_format($total_commission_month) }}đ</td>
+                                                <td class="text-center">{{ number_format($total_commission_month) }}đ   </td>
                                                 <td class="text-center">{{ number_format($total_commssion) }}đ</td>
                                                 <td class="text-center">
                                                     <div class="flex justify-center items-center">
