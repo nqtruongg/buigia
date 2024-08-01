@@ -21,13 +21,26 @@ class AreaController extends Controller
         $this->areaService = $areaService;
         $this->areaAddress = $areaAddress;
     }
+
     public function index(Request $request)
     {
-        $areas = $this->areaService->getListArea($request);
+//        $areas = $this->areaService->getListArea($request);
+//
+//        $listAreaByCate = $this->areaService->getAreaByCate($request->query('parent_id'));
 
-        $listAreaByCate = $this->areaService->getAreaByCate($request->query('parent_id'));
+        $cityId = $request->get('city_id');
+        $districtId = $request->get('district_id');
 
-        return view('area.index', compact('areas', 'listAreaByCate'));
+        if (!empty($districtId)) {
+            $communes = $this->areaService->getAllCommunesByCityId($districtId);
+            return view('area.index', compact('communes'));
+        } elseif (!empty($cityId)) {
+            $districts = $this->areaService->getAllDistrictByCityId($cityId);
+            return view('area.index', compact('districts'));
+        } else {
+            $cities = $this->areaService->getAllCities();
+            return view('area.index', compact('cities'));
+        }
     }
 
 

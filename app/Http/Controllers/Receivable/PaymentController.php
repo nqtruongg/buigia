@@ -27,7 +27,8 @@ class PaymentController extends Controller
 
     public function create()
     {
-        return view('payment.create');
+        $customers = $this->paymentService->getListCustomer();
+        return view('payment.create', compact('customers'));
     }
 
     public function store(Request $request)
@@ -56,7 +57,9 @@ class PaymentController extends Controller
 
         $formattedDate = "Ngày " . $date->day . " tháng " . $date->month . " năm " . $date->year;
 
-        return view('payment.edit', compact('data', 'formattedDate'));
+        $customers = $this->paymentService->getListCustomer();
+
+        return view('payment.edit', compact('data', 'formattedDate', 'customers'));
     }
 
     public function update(Request $request, $id)

@@ -4,25 +4,44 @@ namespace App\Repositories;
 
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class SettingRepository
 {
-
     const PAGINATE = 15;
+
     const PAGINATE_FILE = 5;
 
     public function getAllSetting($request)
     {
-        $setting = Setting::query();
+        $setting = Setting::select(
+                'settings.id',
+                'settings.name',
+                'settings.slug',
+                'settings.image_path',
+                'settings.banner_path',
+                'settings.order',
+                'settings.active',
+                'settings.hot',
+                'settings.parent_id',
+                'settings.type',
+                DB::Raw('COUNT(child.id) as child_count')
+            );
 
-        if($request->name != null) {
+        if ($request->name != null) {
             $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
         } else {
-            $setting = $setting->where('parent_id', 0);
+            $setting = $setting->where('settings.parent_id', 0)
+                ->whereNull('settings.deleted_at');
         }
 
-        $setting = $setting->orderBy('id', 'DESC')
+        $setting = $setting->leftJoin('settings as child', function ($join) {
+                $join->on('settings.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('settings.id')
+            ->orderBy('settings.id', 'DESC')
             ->paginate(self::PAGINATE);
 
         return $setting;
@@ -30,7 +49,27 @@ class SettingRepository
 
     public function getSettingByIdCate($id)
     {
-        $setting = Setting::where('parent_id', $id)
+        $setting = Setting::select(
+            'settings.id',
+            'settings.name',
+            'settings.slug',
+            'settings.image_path',
+            'settings.banner_path',
+            'settings.order',
+            'settings.active',
+            'settings.hot',
+            'settings.parent_id',
+            'settings.type',
+            DB::Raw('COUNT(child.id) as child_count')
+        )
+            ->where('settings.parent_id', $id)
+            ->whereNull('settings.deleted_at')
+            ->leftJoin('settings as child', function($join) {
+                $join->on('settings.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('settings.id')
+            ->orderBy('settings.id', 'DESC')
             ->paginate(self::PAGINATE);
         return $setting;
     }

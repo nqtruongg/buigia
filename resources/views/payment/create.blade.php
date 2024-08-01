@@ -176,16 +176,26 @@
                                     </div> --}}
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Người nhận tiền</label>
-                                            <input type="text" class="form-control" name="name"
-                                                placeholder="Người nhận tiền"  value="{{ old('name') ?? '' }}">
+                                            <label>Nhân viên<span class="text-danger">*</span></label>
+                                            <select class="form-control select2 customerChange" name="name" id="customerSelect">
+                                                <option selected disabled>--Chọn--</option>
+                                                @if(!empty($customers))
+                                                    @foreach($customers as $customer)
+                                                        <option data-id="{{ $customer->id }}" value="{{ $customer->name }}">{{ $customer->name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <input type="hidden" value="" class="userId_Customer" name="user_id" id="userId_Customer">
+
+                                            @if ($errors->first('user_id'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('user_id') }}
+                                                </div>
+                                            @endif
                                         </div>
-                                        @if ($errors->first('name'))
-                                            <div class="invalid-alert text-danger">
-                                                {{ $errors->first('name') }}
-                                            </div>
-                                        @endif
                                     </div>
+
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Số tiền<span
@@ -330,4 +340,21 @@
 
 @section('js')
     <script src="{{ asset('dist/js/pages/create_payment.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                tags: true,
+                placeholder: "--Chọn--",
+                allowClear: true,
+                tokenSeparators: [',']
+            });
+
+            $('#customerSelect').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var customerId = selectedOption.data('id');
+                $('#userId_Customer').val(customerId);
+                // console.log(customerId);
+            });
+        });
+    </script>
 @endsection

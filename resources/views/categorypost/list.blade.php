@@ -222,7 +222,11 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    {{ $listCategoryPost->links('pagination::bootstrap-4') }}
+                                    @if(!empty($_GET['parent_id']))
+                                        {{ $listCategoryPostByIdCate->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @else
+                                        {{ $listCategoryPost->links('pagination::bootstrap-4') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>

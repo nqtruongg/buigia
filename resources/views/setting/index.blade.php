@@ -63,6 +63,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center" style="width: 5%;">#</th>
+                                    <th class="text-center" style="width: 20px;">Folder</th>
                                     <th class="text-center" style="width: 20%;">{{ trans('language.setting.name') }}</th>
                                     <th class="text-center" style="width: 30%;">{{ trans('language.setting.value') }}</th>
                                     <th class="text-center" style="width: 10%;">{{ trans('language.setting.active') }}</th>
@@ -77,6 +78,9 @@
                                                 <tr>
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($listSettingByIdCate->currentPage() - 1) * $listSettingByIdCate->perPage() }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td class="text-left">
                                                         <a href="{{ route('setting.index').'?parent_id='.$item->id }}">{{ $item->name }}</a>
@@ -132,6 +136,9 @@
                                                     <td class="text-center">
                                                         {{ $key + 1 + ($listSetting->currentPage() - 1) * $listSetting->perPage() }}
                                                     </td>
+                                                    <td class="text-center">
+                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
+                                                    </td>
                                                     <td class="text-left">
                                                         <a href="{{ route('setting.index').'?parent_id='.$item->id }}">{{ $item->name }}</a>
                                                     </td>
@@ -185,7 +192,11 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    {{ $listSetting->links('pagination::bootstrap-4') }}
+                                    @if(!empty($_GET['parent_id']))
+                                        {{ $listSettingByIdCate->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                    @else
+                                        {{ $listSetting->links('pagination::bootstrap-4') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>

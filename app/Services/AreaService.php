@@ -16,6 +16,21 @@ class AreaService
         return $this->areaRepository->getListParentArea();
     }
 
+    public function getAllCities()
+    {
+        return $this->areaRepository->getAllCities();
+    }
+
+    public function getAllDistrictByCityId($city_id)
+    {
+        return $this->areaRepository->getAllDistrictByCityId($city_id);
+    }
+
+    public function getAllCommunesByCityId($district_id)
+    {
+        return $this->areaRepository->getAllCommunesByCityId($district_id);
+    }
+
     public function getAreaByCate($id)
     {
         return $this->areaRepository->getAreaByCate($id);
