@@ -67,6 +67,7 @@
                                             <div class="form-group">
                                                 <label>{{ trans('language.order.type') }}</label>
                                                 <select name="type" class="form-control form-control-sm">
+                                                    <option selected disabled>--Chọn--</option>
                                                     <option value="1">Giữ chỗ</option>
                                                     <option value="2">Đã cọc</option>
                                                     <option value="3">Đã thuê</option>
@@ -162,6 +163,7 @@
                                                         data-status="{{ $detail->type }}"
                                                         data-method="POST"
                                                         >
+                                                        <option selected disabled>--Chọn--</option>
                                                         <option value="1" {{ $detail->type == 1 ? 'selected' : '' }}>Giữ chỗ</option>
                                                         <option value="2" {{ $detail->type == 2 ? 'selected' : '' }}>Đã cọc</option>
                                                         <option value="3" {{ $detail->type == 3 ? 'selected' : '' }}>Đã thuê</option>

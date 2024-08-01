@@ -88,8 +88,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>{{ trans('language.householder.image_path') }}<span
-                                                                class="text-danger">*</span></label>
+                                                        <label>{{ trans('language.householder.image_path') }}</label>
                                                         <input type="file" class="form-control" id="image_path"
                                                                name="image_path">
                                                     </div>
