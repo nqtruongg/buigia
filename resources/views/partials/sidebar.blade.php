@@ -91,35 +91,37 @@
                 @endpermission
 
                 {{-- user --}}
-                <li class="nav-item">
-                    <a href="{{ route('home.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            {{ trans('language.user.title') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('user.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-columns"></i>
-                                <p>{{ trans('language.user.list') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('commission.commissionBonus') }}" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>{{ trans('language.commission.list_commission') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('commission.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>{{ trans('language.commission.title') }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @permission('manager', 'view')
+                    <li class="nav-item">
+                        <a href="{{ route('home.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-copy"></i>
+                            <p>
+                                {{ trans('language.user.title') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('user.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-columns"></i>
+                                    <p>{{ trans('language.user.list') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('commission.commissionBonus') }}" class="nav-link">
+                                    <i class="nav-icon far fa-plus-square"></i>
+                                    <p>{{ trans('language.commission.list_commission') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('commission.index') }}" class="nav-link">
+                                    <i class="nav-icon far fa-plus-square"></i>
+                                    <p>{{ trans('language.commission.title') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endpermission
 
                 {{-- Order --}}
                 <li class="nav-item">
@@ -145,7 +147,7 @@
                     <a href="{{ route('setting.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            {{ trans('language.setting.title') }}
+                            {{ trans('language.setting.title_all') }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -156,43 +158,12 @@
                                 <p>{{ trans('language.setting.list') }}</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-
-                {{-- banner --}}
-                <li class="nav-item">
-                    <a href="{{ route('banner.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            {{ trans('language.banner.title') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('banner.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
                                 <p>{{ trans('language.banner.list') }}</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('banner.create') }}" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>{{ trans('language.banner.add') }}</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- Tin tức --}}
-                <li class="nav-item">
-                    <a href="{{ route('post.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            {{ trans('language.post.title') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('categoryPost.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-columns"></i>
@@ -272,6 +243,8 @@
                     </ul>
                 </li>
 
+                {{-- @permission('manager', 'view') --}}
+                {{-- product --}}
                 {{-- receivable --}}
                 <li class="nav-item">
                     <a href="{{ route('receivable.index') }}" class="nav-link">
@@ -302,7 +275,7 @@
                         </li>
                     </ul>
                 </li>
-
+                {{-- @endpermission --}}
                 {{-- price quote --}}
                 <li class="nav-item">
                     <a href="{{ route('priceQuote.index') }}" class="nav-link">
