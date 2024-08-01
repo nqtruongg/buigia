@@ -42,7 +42,6 @@
                                     {{ trans('language.note') }}
                                 </th>
                                 <th>
-
                                 </th>
                             </tr>
                             </thead>
@@ -243,9 +242,8 @@
                                         </td>
                                         <td>
                                             <button style="border-radius:50%" type="button"
-                                                    id="plus_record" class="btn btn-success btn-sm">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                                    class="btn btn-danger btn-sm minus_record"><i
+                                                    class="fas fa-minus"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
