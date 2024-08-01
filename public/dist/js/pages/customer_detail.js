@@ -74,9 +74,31 @@ $(function () {
         });
     })
 
+    $(document).on('focus', '.datepicker_end', function () {
+        $(this).datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function (selectedDate) {
+                $(this).closest('.search-file').find(".datepicker_end").datepicker("option", "minDate", selectedDate);
+            }
+        });
+
+        $(this).closest('.search-file').find('.datepicker_end').datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function (selectedDate) {
+                $(this).closest('.search-file').find(".datepicker_start").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    })
+
     //service
     $(document).on('click', '#plus_record', function () {
         var newRow = $("#clone_tr tr").clone();
+
+        newRow.addClass('booking-box');
 
         $("#table_service").append(newRow);
         newRow.find('select[name="services[]"]').select2({

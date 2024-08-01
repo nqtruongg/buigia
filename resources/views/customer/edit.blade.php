@@ -225,14 +225,14 @@
                                             <div class="checkbox-wrapper-14">
                                                 <input id="s1-14" type="checkbox" class="switch" name="type"
                                                        value="{{ old('type') ?? $customer->type }}"
-                                                    {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
+                                                        {{ old('type', $customer->type) == 1 ? 'checked' : '' }}>
                                                 <label for="s1-14">Công ty/Tổ chức</label>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.name') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="name"
                                                                value="{{ old('name') ?? $customer->name }}"
                                                                placeholder="{{ trans('language.customer.name') }}">
@@ -275,7 +275,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.banner.image_path') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <input type="file" class="form-control" id="image_path"
                                                                name="image_path">
                                                     </div>
@@ -289,7 +289,7 @@
                                                 <div class="col-md-6 checkTypeCustomer">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.responsible_person') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <input type="text" class="form-control"
                                                                name="responsible_person"
                                                                value="{{ old('responsible_person') ?? $customer->responsible_person }}"
@@ -320,7 +320,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.status') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <select class="form-control select2" name="status"
                                                                 id="status">
                                                             <option selected="selected" value=" ">Tình trạng
@@ -350,7 +350,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.email') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="email"
                                                                value="{{ old('email') ?? $customer->email }}"
                                                                placeholder="{{ trans('language.email') }}">
@@ -364,7 +364,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.phone') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" name="phone"
                                                                value="{{ old('phone') ?? $customer->phone }}"
                                                                placeholder="{{ trans('language.phone') }}">
@@ -381,7 +381,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">{{ __('language.area.city_id') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <select name="city_id" id="city_register"
                                                                 data-url="{{ route('ajax.address.districts') }}"
                                                                 class="form-control">
@@ -390,7 +390,7 @@
                                                             </option>
                                                             @foreach (App\Models\City::all() as $i)
                                                                 <option value="{{ $i->id }}"
-                                                                    {{ $i->id == $customer->city_id ? 'selected' : '' }}>
+                                                                        {{ $i->id == $customer->city_id ? 'selected' : '' }}>
                                                                     {{ $i->name }}
                                                                 </option>
                                                             @endforeach
@@ -405,7 +405,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">{{ __('language.area.district_id') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <select name="district_id" id="district_register"
                                                                 class="form-control"
                                                                 data-url="{{ route('ajax.address.communes') }}">
@@ -425,7 +425,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="">{{ __('language.area.commune_id') }}<span
-                                                                class="text-danger">*</span></label>
+                                                                    class="text-danger">*</span></label>
                                                         <select name="commune_id" id="commune_register"
                                                                 class="w-100 form-control">
                                                             <option value="{{ $customer->commune_id }}">
@@ -529,9 +529,9 @@
                                                                 <option value=" ">Dịch vụ</option>
                                                                 @foreach ($services as $item)
                                                                     <option
-                                                                        @if (old('services.' . $i) == $item->id) selected
-                                                                        @endif
-                                                                        value="{{ $item->id }}">
+                                                                            @if (old('services.' . $i) == $item->id) selected
+                                                                            @endif
+                                                                            value="{{ $item->id }}">
                                                                         {{ $item->name }}
                                                                     </option>
                                                                 @endforeach
@@ -542,23 +542,13 @@
                                                                 </div>
                                                             @endif
                                                         </td>
-                                                        <td class="d-flex justify-content-center align-items-center">
-                                                            <input name="time_view[]"
-                                                                   class="form-control form-control-border number-hidden-input text-center input-time"
-                                                                   type="number" min="1" max="10000"
-                                                                   value="{{ old('time.' . $i) }}"
-                                                                   @if (old('time.' . $i) == null) disabled @endif>
-                                                            <input type="hidden" name="time[]"
-                                                                   value="{{ old('time.' . $i) }}">
-                                                            @if ($errors->first('time.' . $i))
-                                                                <div class="invalid-alert text-danger">
-                                                                    {{ $errors->first('time.' . $i) }}
-                                                                </div>
-                                                            @endif
+                                                        <td class="text-center">
+                                                            <input name="contract_date[]" type="text" value="{{ old('contract_date.' . $i) }}"
+                                                                   class="datepicker_start form-control text-center contractDateInput">
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="start[]" type="text"
-                                                                   class="datepicker_start form-control text-center"
+                                                                   class="datepicker_start started_date form-control text-center"
                                                                    value="{{ old('start.' . $i) }}">
                                                             @if ($errors->first('start.' . $i))
                                                                 <div class="invalid-alert text-danger">
@@ -568,7 +558,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <input name="end[]" type="text"
-                                                                   class="datepicker_end form-control text-center"
+                                                                   class="datepicker_end ended_date form-control text-center"
                                                                    value="{{ old('end.' . $i) }}">
                                                             @if ($errors->first('end.' . $i))
                                                                 <div class="invalid-alert text-danger">
@@ -596,9 +586,9 @@
                                                                 <option value="">--Chọn--</option>
                                                                 @foreach ($staff as $item)
                                                                     <option
-                                                                        @if (old('user_id.' . $i) == $item->id) selected
-                                                                        @endif
-                                                                        value="{{ $item->id }}">
+                                                                            @if (old('user_id.' . $i) == $item->id) selected
+                                                                            @endif
+                                                                            value="{{ $item->id }}">
                                                                         {{ $item->first_name }}
                                                                         {{ $item->last_name }}
                                                                     </option>
@@ -609,6 +599,24 @@
                                                                     {{ $errors->first('user_id.' . $i) }}
                                                                 </div>
                                                             @endif
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control select2 status-dell typeOrder"
+                                                                    name="typeCustomerService[]">
+                                                                <option selected disabled>--Chọn--</option>
+                                                                <option value="1" {{ (collect(old('typeCustomerService.'.$i))->contains(1)) ? 'selected' : '' }}>
+                                                                    Giữ chỗ
+                                                                </option>
+                                                                <option value="2" {{ (collect(old('typeCustomerService.'.$i))->contains(2)) ? 'selected' : '' }}>
+                                                                    Đã cọc
+                                                                </option>
+                                                                <option value="3" {{ (collect(old('typeCustomerService.'.$i))->contains(3)) ? 'selected' : '' }}>
+                                                                    Đã thuê
+                                                                </option>
+                                                                <option value="4" {{ (collect(old('typeCustomerService.'.$i))->contains(4)) ? 'selected' : '' }}>
+                                                                    Đã hủy
+                                                                </option>
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" name="note[]" class="form-control"
@@ -624,12 +632,12 @@
                                                                 <button style="border-radius:50%" type="button"
                                                                         id="plus_record" class="btn btn-success btn-sm">
                                                                     <i
-                                                                        class="fas fa-plus"></i>
+                                                                            class="fas fa-plus"></i>
                                                                 </button>
                                                             @else
                                                                 <button style="border-radius:50%" type="button"
                                                                         class="btn btn-danger btn-sm minus_record"><i
-                                                                        class="fas fa-minus"></i></button>
+                                                                            class="fas fa-minus"></i></button>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -644,7 +652,8 @@
                                                                 <option selected="selected" value=" ">Dịch vụ
                                                                 </option>
                                                                 @foreach($services as $service)
-                                                                    <option value="{{ $service->id }}" @if($value->service_id == $service->id) selected @endif>
+                                                                    <option value="{{ $service->id }}"
+                                                                            @if($value->service_id == $service->id) selected @endif>
                                                                         {{ $service->name }}
                                                                     </option>
                                                                 @endforeach
@@ -656,20 +665,13 @@
                                                             @endif
                                                         </td>
                                                         <td class="d-flex justify-content-center align-items-center">
-{{--                                                                <input name="time_view[]"--}}
-{{--                                                                    class="form-control form-control-border number-hidden-input text-center input-time"--}}
-{{--                                                                    type="number" min="1" max="10000"--}}
-{{--                                                                    value="{{ $value->time }}"--}}
-{{--                                                                    {{ $value->time == null ? 'disabled' : '' }}>--}}
-{{--                                                                <input type="hidden" name="time[]"--}}
-{{--                                                                    value="{{ $value->time }}">--}}
                                                             @if(!empty($value->contract_date))
-{{--                                                                <input type="date" value="{{ date('Y-m-d', strtotime($value->contract_date)) }}" class="form-control contractDateInput"--}}
-{{--                                                                       name="contract_date[]" style="display: table-cell;">--}}
-                                                                <input name="contract_date[]" value="{{ date('d/m/Y', strtotime($value->contract_date)) }}" type="text"
-                                                                       class="datepicker_start form-control text-center contractDateInput" style="display: table-cell;">
+                                                                <input name="contract_date[]"
+                                                                       value="{{ date('d/m/Y', strtotime($value->contract_date)) }}"
+                                                                       type="text"
+                                                                       class="datepicker_start form-control text-center contractDateInput"
+                                                                       style="display: table-cell;">
                                                             @else
-{{--                                                                <input type="text" disabled class="form-control contractDateDisabled">--}}
                                                                 <input name="contract_date[]" type="text"
                                                                        class="datepicker_start form-control text-center contractDateInput">
                                                             @endif
@@ -699,8 +701,8 @@
                                                                 </option>
                                                                 @foreach ($staff as $item)
                                                                     <option
-                                                                        {{ $item->id == $value->user_id ? 'selected' : '' }}
-                                                                        value="{{ $item->id }}">
+                                                                            {{ $item->id == $value->user_id ? 'selected' : '' }}
+                                                                            value="{{ $item->id }}">
                                                                         {{ $item->first_name }}
                                                                         {{ $item->last_name }}
                                                                     </option>
@@ -711,10 +713,18 @@
                                                             <select class="form-control typeOrder select2 status-dell"
                                                                     name="typeCustomerService[]">
                                                                 <option selected disabled>--Chọn--</option>
-                                                                <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>Giữ chỗ</option>
-                                                                <option value="2" {{ $value->type == 2 ? 'selected' : '' }}>Đã cọc</option>
-                                                                <option value="3" {{ $value->type == 3 ? 'selected' : '' }}>Đã thuê</option>
-                                                                <option value="4" {{ $value->type == 4 ? 'selected' : '' }}>Đã hủy</option>
+                                                                <option value="1" {{ $value->type == 1 ? 'selected' : '' }}>
+                                                                    Giữ chỗ
+                                                                </option>
+                                                                <option value="2" {{ $value->type == 2 ? 'selected' : '' }}>
+                                                                    Đã cọc
+                                                                </option>
+                                                                <option value="3" {{ $value->type == 3 ? 'selected' : '' }}>
+                                                                    Đã thuê
+                                                                </option>
+                                                                <option value="4" {{ $value->type == 4 ? 'selected' : '' }}>
+                                                                    Đã hủy
+                                                                </option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -722,10 +732,6 @@
                                                                    value="{{ $value->note }}">
                                                         </td>
                                                         <td class="text-center align-middle">
-                                                            {{-- <button style="border-radius:50%" type="button"
-                                                                id="plus_record" class="btn btn-success btn-sm">
-                                                                <i class="fas fa-plus"></i>
-                                                            </button> --}}
                                                             @if ($key == 0)
                                                                 <button style="border-radius:50%" type="button"
                                                                         id="plus_record" class="btn btn-success btn-sm">
@@ -751,7 +757,8 @@
                                         data-url="{{ route('customer.checkDateAndTypeByService') }}"
                                         data-method="POST"
                                         data-id="{{ $customer->id }}"
-                                        class="btn btn-primary btnSave" id="btnSave">{{ trans('language.save') }}</button>
+                                        class="btn btn-primary btnSave"
+                                        id="btnSave">{{ trans('language.save') }}</button>
                             </div>
                         </div>
                     </form>
@@ -771,12 +778,6 @@
                                     </select>
                                 </td>
                                 <td class="d-flex justify-content-center align-items-center">
-{{--                                        <input name="time_view[]"--}}
-{{--                                            class="form-control form-control-border number-hidden-input text-center input-time"--}}
-{{--                                            type="number" min="1" max="10000" value="" disabled>--}}
-{{--                                        <input type="hidden" name="time[]">--}}
-{{--                                    <input type="text" disabled class="form-control contractDateDisabled">--}}
-{{--                                    <input type="date" class="form-control contractDateInput" name="contract_date[]">--}}
                                     <input name="contract_date[]" type="text"
                                            class="datepicker_start form-control text-center contractDateInput">
                                 </td>
@@ -800,7 +801,7 @@
                                         </option>
                                         @foreach ($staff as $item)
                                             <option
-                                                value="{{ $item->id }}">
+                                                    value="{{ $item->id }}">
                                                 {{ $item->first_name }}
                                                 {{ $item->last_name }}
                                             </option>
@@ -814,7 +815,6 @@
                                         <option value="1">Đã giữ chỗ</option>
                                         <option value="2">Đã cọc</option>
                                         <option value="3">Đã thuê</option>
-{{--                                        <option value="4">Đã hủy</option>--}}
                                     </select>
                                 </td>
                                 <td>
