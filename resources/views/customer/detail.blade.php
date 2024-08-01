@@ -255,4 +255,72 @@
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/customer_detail.js') }}"></script>
+    <script>
+        function formatDate(dateStr) {
+            var parts = dateStr.split('/');
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        $('#btnSave').on('click', function (e) {
+            e.preventDefault();
+
+            let url = $(this).data('url');
+            let method = $(this).data('method');
+            let form = $(this).closest('form');
+
+            let formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+
+            let bookings = [];
+            $('.booking-box').each(function(index) {
+                let serviceId = $(this).find('.service_change').val();
+                let startDate = formatDate($(this).find('.started_date').val());
+                let endDate = formatDate($(this).find('.ended_date').val());
+                let currentBookingId = $(this).data('booking-id');
+
+                console.log('ID:', currentBookingId);
+                console.log('Service ID:', serviceId);
+                console.log('Start Date:', startDate);
+                console.log('End Date:', endDate);
+
+                if (serviceId && startDate && endDate) {
+                    bookings.push({
+                        id: currentBookingId,
+                        service_id: serviceId,
+                        started_at: startDate,
+                        ended_at: endDate,
+                    });
+                } else {
+                    console.error('Một hoặc nhiều giá trị thiếu hoặc không hợp lệ.');
+                }
+            });
+
+
+            formData.append('bookings', JSON.stringify(bookings));
+
+            $.ajax({
+                url: url,
+                method: method,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // console.log(response);
+                    if(response.bookingError == false) {
+                        Swal.fire(
+                            response.message
+                        );
+                    } else {
+                        form.submit();
+                    }
+                },
+                error: function(xhr) {
+                    Swal.fire(
+                        xhr.message
+                    );
+                    // console.log(xhr.responseText);
+                }
+            });
+        });
+    </script>
 @endsection

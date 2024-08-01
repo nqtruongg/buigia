@@ -144,7 +144,11 @@
                                                     </ul>
                                                 </td>
                                                 <td>
-                                                    {{ date('d-m-Y', strtotime($detail->contract_date)) }}
+                                                    @if(!empty($detail->contract_date))
+                                                        {{ date('d-m-Y', strtotime($detail->contract_date)) }}
+                                                    @else
+                                                        Chưa có ngày
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     {{ number_format($detail->subtotal, 0, ',', '.') }} đ
