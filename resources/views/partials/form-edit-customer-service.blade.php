@@ -16,36 +16,35 @@
                         @csrf
                         <table class="table table-bordered" id="table_service">
                             <thead>
-                            <tr>
-                                <th class="text-center align-middle">#</th>
-                                <th class="text-center align-middle w-15">
-                                    {{ trans('language.service.title') }}
-                                </th>
-                                <th class="text-center align-middle">
-                                    {{ trans('language.contract_date') }}
-                                </th>
-                                <th class="text-center align-middle">
-                                    {{ trans('language.started_at') }}
-                                </th>
-                                <th class="text-center align-middle">
-                                    {{ trans('language.ended_at') }}</th>
-                                <th class="text-center align-middle">
-                                    {{ trans('language.subtotal') }}
-                                </th>
-                                <th class="text-center align-middle w-15">
-                                    {{ trans('language.customer.staff') }}
-                                </th>
-                                <th class="text-center align-middle w-10">
-                                    {{ trans('language.type') }}
-                                </th>
-                                <th class="text-center align-middle">
-                                    {{ trans('language.note') }}
-                                </th>
-                                <th>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th class="text-center align-middle">#</th>
+                                    <th class="text-center align-middle w-15">
+                                        {{ trans('language.service.title') }}
+                                    </th>
+                                    <th class="text-center align-middle">
+                                        {{ trans('language.contract_date') }}
+                                    </th>
+                                    <th class="text-center align-middle">
+                                        {{ trans('language.started_at') }}
+                                    </th>
+                                    <th class="text-center align-middle">
+                                        {{ trans('language.ended_at') }}</th>
+                                    <th class="text-center align-middle">
+                                        {{ trans('language.subtotal') }}
+                                    </th>
+                                    <th class="text-center align-middle w-15">
+                                        {{ trans('language.customer.staff') }}
+                                    </th>
+                                    <th class="text-center align-middle w-10">
+                                        {{ trans('language.type') }}
+                                    </th>
+                                    <th class="text-center align-middle">
+                                        {{ trans('language.note') }}
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
                             </thead>
-
                             <tbody>
                             @if (request()->old())
                                 @for ($i = 0; $i < count(old('services', [])); $i++)
