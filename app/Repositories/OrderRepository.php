@@ -49,7 +49,11 @@ class OrderRepository
             $orders = $orders->where('ended_at', 'LIKE', "%{$request->end_date}%");
         }
 
+        if(auth()->user()->department->type == 'manager'){
         $orders = $orders->latest('id')->paginate(self::PAGINATE);
+        }else{
+            $orders = $orders->where('user_id', auth()->user()->id)->latest('id')->paginate(self::PAGINATE);
+        }
         return $orders;
     }
 

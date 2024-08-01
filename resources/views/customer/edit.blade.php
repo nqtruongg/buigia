@@ -444,10 +444,10 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.address') }}</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="text" class="form-control" name="address" id="address"
                                                                value="{{ old('address') ?? $customer->address }}"
                                                                placeholder="{{ trans('language.customer.address') }}">
                                                         @if ($errors->first('address'))
@@ -457,10 +457,77 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+
+                                                <style>
+                                                    .checkbox-wrapper-59 input[type="checkbox"] {
+                                                        visibility: hidden;
+                                                        display: none;
+                                                    }
+
+                                                    .checkbox-wrapper-59 *,
+                                                    .checkbox-wrapper-59 ::after,
+                                                    .checkbox-wrapper-59 ::before {
+                                                        box-sizing: border-box;
+                                                    }
+
+                                                    .checkbox-wrapper-59 .switch {
+                                                        width: 60px;
+                                                        height: 30px;
+                                                        position: relative;
+                                                        display: inline-block;
+                                                    }
+
+                                                    .checkbox-wrapper-59 .slider {
+                                                        position: absolute;
+                                                        top: 0;
+                                                        bottom: 0;
+                                                        left: 0;
+                                                        right: 0;
+                                                        border-radius: 30px;
+                                                        box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+                                                        cursor: pointer;
+                                                        border: 4px solid transparent;
+                                                        overflow: hidden;
+                                                        transition: 0.2s;
+                                                    }
+
+                                                    .checkbox-wrapper-59 .slider:before {
+                                                        position: absolute;
+                                                        content: "";
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        background-color: #777;
+                                                        border-radius: 30px;
+                                                        transform: translateX(-56px);
+                                                        transition: 0.2s;
+                                                    }
+
+                                                    .checkbox-wrapper-59 input:checked+.slider:before {
+                                                        transform: translateX(4px);
+                                                        background-color: limeGreen;
+                                                    }
+
+                                                    .checkbox-wrapper-59 input:checked+.slider {
+                                                        box-shadow: 0 0 0 2px limeGreen, 0 0 8px limeGreen;
+                                                    }
+                                                </style>
+
+
+
+                                                <div class="col-md-2">
+                                                    <label for="">Sử dụng địa chỉ đã chọn</label>
+                                                    <div
+                                                        class="checkbox-wrapper-59 d-flex justify-content-center align-items-center">
+                                                        <label class="switch">
+                                                            <input type="checkbox" id="copy_address_checkbox">
+                                                            <span class="slider"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.invoice_address') }}</label>
-                                                        <input type="text" class="form-control" name="invoice_address"
+                                                        <input type="text" class="form-control" name="invoice_address" id="invoice_address"
                                                                value="{{ old('invoice_address') ?? $customer->invoice_address }}"
                                                                placeholder="{{ trans('language.customer.invoice_address') }}">
                                                         @if ($errors->first('invoice_address'))
@@ -909,4 +976,20 @@
             });
         });
     </script>
+<script>
+    $('#copy_address_checkbox').on('change', function() {
+        if ($(this).is(':checked')) {
+            var city = $('#city_register option:selected').text();
+            var district = $('#district_register option:selected').text();
+            var commune = $('#commune_register option:selected').text();
+            var address = $('#address').val();
+
+            var combinedAddress = address + ', ' + commune + ', ' + district + ', ' + city;
+
+            $('#invoice_address').val(combinedAddress);
+        } else {
+            $('#invoice_address').val('');
+        }
+    });
+</script>
 @endsection
