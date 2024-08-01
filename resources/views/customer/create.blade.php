@@ -243,12 +243,13 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <div class="col-md-6">
+                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{ trans('language.customer.staff') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <select class="form-control select2" name="user_id" id="user_id">
-                                                            <option selected="selected" value=" ">Nhân viên
+                                                            <option selected="selected" value=" ">
+                                                                Nhân viên
                                                             </option>
                                                             @php
                                                                 $choose_staff = old('user_id') ? old('user_id') : '';
@@ -266,7 +267,7 @@
                                                             </div>
                                                         @endif
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                             </div>
 
                                             <div class="row">

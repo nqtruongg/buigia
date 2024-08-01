@@ -24,6 +24,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            @dd($customers)
                                             <label>{{ trans('language.customer.title') }}<span
                                                     class="text-danger">*</span></label>
                                             <select name="customer" id="customer_info" class="form-control select2">
