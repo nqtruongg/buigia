@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HouseHolder;
 
+use App\Exports\HouseHolderExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseHolderRequest;
 use App\Models\HouseHolder;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HouseHolderController extends Controller
 {
@@ -101,5 +103,10 @@ class HouseHolderController extends Controller
                 'message' => trans('message.server_error')
             ], 500);
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new HouseHolderExport, 'householder.xlsx');
     }
 }

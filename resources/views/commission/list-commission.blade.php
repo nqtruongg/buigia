@@ -17,8 +17,8 @@
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i>Tìm kiếm nâng
                             cao</button>
-                        {{-- <a href="{{ route('commission.create') }}" type="button" class="btn btn-info">
-                            <i class="fas fa-plus"></i>{{ trans('language.commission.add') }}</a> --}}
+                        <a href="{{ route('commission.commissionBonus.export') }}" type="button" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>{{ trans('language.export') }}</a>
                     </div>
                 </div>
             </div>

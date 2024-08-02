@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/{id}', [UserController::class, 'update'])->name('user.update');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
         Route::post('/get-list-role', [UserController::class, 'getListRole'])->name('user.getListRole');
+        Route::get('/export', [UserController::class, 'export'])->name('user.export');
     });
 
     //department
@@ -161,6 +162,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upfile-detail/{id}', [CustomerController::class, 'uploadDetail'])->name('customer.uploadDetail');
 
         Route::post('/check-date-and-type', [CustomerController::class, 'checkDateAndTypeByService'])->name('customer.checkDateAndTypeByService');
+        Route::get('/export', [CustomerController::class, 'export'])->name('customer.export');
     });
 
     // order
@@ -170,6 +172,7 @@ Route::middleware(['auth'])->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('index');
             Route::post('/update-type/{id}', 'update')->name('updateType');
+            Route::get('/export', 'export')->name('export');
         });
 
     //service
@@ -201,6 +204,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit-extend/{id}', [ReceivableController::class, 'editExtend'])->name('receivable.editExtend');
         Route::post('/update-extend/{id}', [ReceivableController::class, 'updateExtend'])->name('receivable.updateExtend');
         Route::post('/add-form-extend', [ReceivableController::class, 'addFormExtend'])->name('receivable.addFormExtend');
+        Route::get('/export', [ReceivableController::class, 'export'])->name('receivable.export');
     });
 
     //price quote
@@ -230,9 +234,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/getAddress', [ReceiptController::class, 'getAddress'])->name('receipt.getAddress');
         Route::get('/printf/{id}', [ReceiptController::class, 'printf'])->name('receipt.printf');
+        Route::get('/export', [ReceiptController::class, 'export'])->name('receipt.export');
     });
 
-    //receipt
+    //payment
     Route::group(['prefix' => 'payment'], function () {
         Route::get('/', [PaymentController::class, 'index'])->name('payment.index');
         Route::get('/create', [PaymentController::class, 'create'])->name('payment.create');
@@ -240,8 +245,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
         Route::post('/update/{id}', [PaymentController::class, 'update'])->name('payment.update');
         Route::delete('/delete/{id}', [PaymentController::class, 'delete'])->name('payment.delete');
-
         Route::get('/printf/{id}', [PaymentController::class, 'printf'])->name('payment.printf');
+        Route::get('/export', [PaymentController::class, 'export'])->name('payment.export');
     });
 
     //supplier
@@ -274,6 +279,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
+            Route::get('/export', 'export')->name('export');
         });
 
     // categoryPost
@@ -321,6 +327,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update/{id}', 'update')->name('update');
             Route::delete('/delete/{id}', 'delete')->name('delete');
             Route::get('/commissionBonus', 'listCommissionBonus')->name('commissionBonus');
+            Route::get('/export', 'export')->name('commissionBonus.export');
         });
 
 

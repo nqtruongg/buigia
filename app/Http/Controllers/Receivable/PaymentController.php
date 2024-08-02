@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Receivable;
 
+use App\Exports\PaymentExport;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Services\PaymentService;
@@ -9,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PaymentController extends Controller
 {
@@ -109,5 +111,10 @@ class PaymentController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $data->date);
         $formattedDate = "Ngày " . $date->day . " tháng " . $date->month . " năm " . $date->year;
         return view('payment.printf', compact('data', 'formattedDate'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new PaymentExport, 'payment.xlsx');
     }
 }

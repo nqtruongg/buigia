@@ -52,6 +52,7 @@ return [
     'commission_id' => 'Phần trăm hoa hồng',
     'type' => 'Trạng thái',
     'contract_date' => 'Ngày tạo đơn',
+    'export' => 'Xuất file excel',
 
     //department
     'department' => [

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Exports\OrderExport;
 use App\Http\Controllers\Controller;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -43,5 +45,10 @@ class OrderController extends Controller
                 'status_failed' => trans('message.server_error')
             ]);
         }
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new OrderExport, 'orders.xlsx');
     }
 }
