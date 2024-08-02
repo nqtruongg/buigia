@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Receivable;
 
+use App\Exports\ReceivableExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReceivableRequest;
 use App\Http\Requests\UpdateReceivableRequest;
@@ -13,6 +14,7 @@ use App\Services\ReceivableService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReceivableController extends Controller
 {
@@ -228,5 +230,10 @@ class ReceivableController extends Controller
                 'html' => $html
             ]);
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReceivableExport, 'receivable.xlsx');
     }
 }

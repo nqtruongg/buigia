@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CustomerExport;
 
 class CustomerController extends Controller
 {
@@ -401,5 +403,10 @@ class CustomerController extends Controller
         $item->save();
 
         return response()->json(['newStatus' => $item->active]);
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new CustomerExport, 'customer.xlsx');
     }
 }

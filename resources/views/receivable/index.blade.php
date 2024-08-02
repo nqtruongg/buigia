@@ -17,6 +17,8 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
+                        <a href="{{ route('receivable.export') }}" type="button" class="btn btn-primary mr-2">
+                            <i class="fas fa-plus"></i>{{ trans('language.export') }}</a>
                         <a href="{{ route('receivable.create') }}" type="button" class="btn btn-info mr-2">
                             <i class="fas fa-plus"></i>{{ trans('language.receivable.new') }}</a>
                         <a href="{{ route('receivable.createExtend') }}" type="button" class="btn btn-info">

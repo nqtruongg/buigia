@@ -16,6 +16,8 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
+                        <a href="{{ route('customer.export') }}" type="button" class="btn btn-primary mr-2">
+                            <i class="fas fa-plus"></i>{{ trans('language.export') }}</a>
                         <a href="{{ route('customer.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.customer.add') }}</a>
                     </div>
@@ -138,7 +140,9 @@
                                                 <td class="text-center">
                                                     <button
                                                         class="toggle-active-btn @if ($item->active == 1) btn btn-success @else btn btn-danger @endif text-white"
-                                                        data-id="{{ $item->id }}" data-url="{{ route('customer.toggleStatus') }}" data-status="{{ $item->active }}">
+                                                        data-id="{{ $item->id }}"
+                                                        data-url="{{ route('customer.toggleStatus') }}"
+                                                        data-status="{{ $item->active }}">
                                                         {{ $item->active == 1 ? 'Đã kích hoạt' : 'Chưa kích hoạt' }}
                                                     </button>
                                                 </td>

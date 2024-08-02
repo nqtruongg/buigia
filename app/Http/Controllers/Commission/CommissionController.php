@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Commission;
 
+use App\Exports\CommissionBonusExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommissionRequest;
 use App\Services\CommissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CommissionController extends Controller
 {
@@ -123,5 +125,8 @@ class CommissionController extends Controller
         }
     }
 
-
+    public function export()
+    {
+        return Excel::download(new CommissionBonusExport, 'commission_bonus.xlsx');
+    }
 }

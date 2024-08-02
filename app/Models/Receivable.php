@@ -33,4 +33,24 @@ class Receivable extends Model
         }
         return $html;
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function customerService()
+    {
+        return $this->belongsTo(CustomerService::class, 'customer_service_id');
+    }
 }
