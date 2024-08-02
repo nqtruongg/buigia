@@ -43,7 +43,6 @@ class BannerRepository
             $banner = $banner->where('banners.hot', $request->hot);
         }
 
-
         $banner = $banner->where('banners.parent_id', 0)
             ->whereNull('banners.deleted_at')
             ->leftJoin('banners as child', function($join) {
