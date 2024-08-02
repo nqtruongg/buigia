@@ -442,10 +442,6 @@
                                                     </div>
                                                 </div>
 
-
-
-
-
                                                 <style>
                                                     .checkbox-wrapper-59 input[type="checkbox"] {
                                                         visibility: hidden;
@@ -500,8 +496,6 @@
                                                     }
                                                 </style>
 
-
-
                                                 <div class="col-md-2">
                                                     <label for="">Sử dụng địa chỉ đã chọn</label>
                                                     <div
@@ -512,8 +506,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-
-
 
                                                 <div class="col-md-5">
                                                     <div class="form-group">

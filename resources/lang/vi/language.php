@@ -35,7 +35,7 @@ return [
     'address' => 'Địa chỉ',
     'password' => 'Mật khẩu',
     'no-data' => 'Không có dữ liệu',
-    'time' => 'Thời gian',
+    'time' => 'Ngày kí',
     'vat' => 'VAT',
     'note' => 'Ghi chú',
     'file_name' => 'Tên file',
