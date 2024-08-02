@@ -70,31 +70,15 @@ class CategoryPostRepository
             'category_posts.content',
             DB::raw('COUNT(child.id) as child_count')
         )
-        ->where('category_posts.parent_id', $id)
-        ->whereNull('category_posts.deleted_at')
-        ->leftJoin('category_posts as child', function($join) {
-            $join->on('category_posts.id', '=', 'child.parent_id')
-                 ->whereNull('child.deleted_at');
-        })
-        ->groupBy('category_posts.id');
-
-        // Thêm các điều kiện lọc
-        if ($request->name) {
-            $categoryPost = $categoryPost->where('category_posts.name', 'LIKE', "%{$request->name}%");
-        }
-
-        if ($request->active != '') {
-            $categoryPost = $categoryPost->where('category_posts.active', $request->active);
-        }
-
-        if ($request->hot != '') {
-            $categoryPost = $categoryPost->where('category_posts.hot', $request->hot);
-        }
-
-        // Phân trang và sắp xếp
-        $categoryPost = $categoryPost->orderBy('category_posts.id', 'DESC')
-                                     ->paginate(self::PAGINATE);
-
+            ->where('category_posts.parent_id', $id)
+            ->whereNull('category_posts.deleted_at')
+            ->leftJoin('category_posts as child', function($join) {
+                $join->on('category_posts.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('category_posts.id')
+            ->orderBy('category_posts.id', 'DESC')
+            ->paginate(self::PAGINATE);
         return $categoryPost;
     }
 
