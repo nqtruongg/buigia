@@ -30,9 +30,9 @@ class BannerService
         return $this->bannerRepository->getBannerById($id);
     }
 
-    public function getBannerByIdCate($id, $request)
+    public function getBannerByIdCate($id)
     {
-        return $this->bannerRepository->getBannerByIdCate($id, $request);
+        return $this->bannerRepository->getBannerByIdCate($id);
     }
 
     public function getAllParentCate()
