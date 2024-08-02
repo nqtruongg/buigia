@@ -22,9 +22,9 @@ class CategoryPostController extends Controller
 
     public function index(Request $request)
     {
-        $listCategoryPost = $this->categoryPostService->getListCategoryPost();
+        $listCategoryPost = $this->categoryPostService->getListCategoryPost($request);
 
-        $listCategoryPostByIdCate = $this->categoryPostService->getCategoryPostByIdCate($request->query('parent_id'));
+        $listCategoryPostByIdCate = $this->categoryPostService->getCategoryPostByIdCate($request->query('parent_id'), $request);
 
         return view('categorypost.list', compact('listCategoryPost', 'listCategoryPostByIdCate'));
     }
@@ -32,9 +32,9 @@ class CategoryPostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $listCategoryPost = $this->categoryPostService->getListCategoryPost();
+        $listCategoryPost = $this->categoryPostService->getListCategoryPost($request);
 
         return view('categorypost.create', compact('listCategoryPost'));
     }
@@ -78,9 +78,9 @@ class CategoryPostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
-        $listCategoryPost = $this->categoryPostService->getListCategoryPost();
+        $listCategoryPost = $this->categoryPostService->getListCategoryPost($request);
 
         $categoryPostById = $this->categoryPostService->getCategoryPostById($id);
 

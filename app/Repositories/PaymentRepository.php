@@ -62,7 +62,7 @@ class PaymentRepository
         )
         ->where('id', $id)
         ->first();
-        
+
         return $data;
     }
 
@@ -76,6 +76,7 @@ class PaymentRepository
     {
         $params = [
             'name' => $request->name,
+            'user_id' => $request->user_id ?? null,
             'price' => $request->price,
             'reason' => $request->reason,
             'address' => $request->address,
@@ -85,19 +86,21 @@ class PaymentRepository
         return true;
     }
 
+
     public function updatePayment($request, $id)
     {
         $data = Payment::find($id);
         if($data){
             $params = [
                 'name' => $request->name,
+                'user_id' => $request->user_id ?? null,
                 'price' => $request->price,
                 'reason' => $request->reason,
                 'address' => $request->address,
             ];
 
             $data->update($params);
-    
+
             return true;
         }
         return false;

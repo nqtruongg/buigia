@@ -24,8 +24,7 @@ class BannerController extends Controller
 
         $listBanner = $this->bannerService->getListBannerIndex($request);
 
-        $listBannerByCate = $this->bannerService->getBannerByIdCate($request->query('parent_id'));
-
+        $listBannerByCate = $this->bannerService->getBannerByIdCate($request->query('parent_id'), $request);
 
         return view('banner.list', compact('parentBanner', 'listBanner', 'listBannerByCate'));
     }

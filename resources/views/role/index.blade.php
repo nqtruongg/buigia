@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i>Tìm kiếm nâng cao</button>
                         <a href="{{ route('role.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.role.add') }}</a>
                     </div>
@@ -26,17 +26,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="collapse {{ optional(request())->hasAny(['name']) ? 'show' : '' }}"
+                        <div class="collapse {{ optional(request())->hasAny(['name', 'department_id']) ? 'show' : '' }}"
                             id="collapseExample">
-                            <form action="{{ route('service.index') }}" method="get">
+                            <form action="{{ route('role.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="col-md-12 d-flex">
-                                        <div class="col-md-10">
+                                        <div class="col-md-5">
                                             <div class="form-group">
-                                                <label>{{ trans('language.service.name') }}</label>
+                                                <label>{{ trans('language.role.name') }}</label>
                                                 <input type="text" class="form-control form-control-sm" name="name"
                                                     value="{{ request()->name ?? '' }}"
-                                                    placeholder="{{ trans('language.service.name') }}">
+                                                    placeholder="{{ trans('language.role.name') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.department.title') }}</label>
+                                                <select class="form-control form-control-sm select2" name="department_id"
+                                                    id="department_id">
+                                                    <option selected="selected" value="">Phòng ban</option>
+                                                    @foreach ($departments as $item)
+                                                        <option @if (request()->department_id == $item->id) selected @endif
+                                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="mr-2">

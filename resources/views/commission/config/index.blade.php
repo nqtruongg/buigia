@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i>Tìm kiếm nâng cao</button>
                         <a href="{{ route('commission.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.commission.add') }}</a>
                     </div>
@@ -26,17 +26,25 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="collapse {{ optional(request())->hasAny(['name', 'email', 'phone', 'code', 'tax_code', 'career']) ? 'show' : '' }}"
+                        <div class="collapse {{ optional(request())->hasAny(['name', 'percent']) ? 'show' : '' }}"
                             id="collapseExample">
                             <form action="{{ route('commission.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="col-md-12 d-flex">
-                                        <div class="col-md-3">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>{{ trans('language.commission.name') }}</label>
                                                 <input type="text" class="form-control form-control-sm" name="name"
                                                     value="{{ request()->name ?? '' }}"
                                                     placeholder="{{ trans('language.commission.name') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.commission.percent') }}</label>
+                                                <input type="text" class="form-control form-control-sm" name="percent"
+                                                    value="{{ request()->percent ?? '' }}"
+                                                    placeholder="{{ trans('language.commission.percent') }}">
                                             </div>
                                         </div>
                                         <div class="mr-2">

@@ -26,6 +26,7 @@ function convert_block_three(number) {
     }
 }
 
+
 function convert_block_two(number) {
     var dv = chuHangDonVi[number[1]];
     var chuc = chuHangChuc[number[0]];
@@ -103,9 +104,9 @@ $(document).on('click', '#view', function(){
 
     if (customer === '' || price === '' || reason === '' || address === '') {
         toastr.error('Vui lòng điền đầy đủ thông tin.');
-        return; 
+        return;
     }
-    
+
     $('#payer').html(customer);
     $('#address_pay').html(address);
     $('#reason_pay').html(reason);

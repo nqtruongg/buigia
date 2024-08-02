@@ -18,9 +18,9 @@ class SettingService
         return $this->settingRepository->getAllSetting($request);
     }
 
-    public function getSettingByIdCate($id)
+    public function getSettingByIdCate($id, $request)
     {
-        return $this->settingRepository->getSettingByIdCate($id);
+        return $this->settingRepository->getSettingByIdCate($id, $request);
     }
 
     public function getSettingById($id)

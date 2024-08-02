@@ -4,34 +4,99 @@ namespace App\Repositories;
 
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class SettingRepository
 {
-
     const PAGINATE = 15;
+
     const PAGINATE_FILE = 5;
 
     public function getAllSetting($request)
     {
-        $setting = Setting::query();
+        $setting = Setting::select(
+            'settings.id',
+            'settings.name',
+            'settings.slug',
+            'settings.image_path',
+            'settings.banner_path',
+            'settings.order',
+            'settings.active',
+            'settings.hot',
+            'settings.parent_id',
+            'settings.type',
+            DB::raw('COUNT(child.id) as child_count')
+        );
 
-        if($request->name != null) {
+        if ($request->name != '') {
             $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
         } else {
-            $setting = $setting->where('parent_id', 0);
+            $setting = $setting->where('settings.parent_id', 0)
+                ->whereNull('settings.deleted_at');
         }
 
-        $setting = $setting->orderBy('id', 'DESC')
+        if ($request->active != '') {
+            $setting = $setting->where('settings.active', $request->active);
+        }
+
+        if ($request->hot != '') {
+            $setting = $setting->where('settings.hot', $request->hot);
+        }
+
+        $setting = $setting->leftJoin('settings as child', function ($join) {
+                $join->on('settings.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('settings.id')
+            ->orderBy('settings.id', 'DESC')
             ->paginate(self::PAGINATE);
 
         return $setting;
     }
 
-    public function getSettingByIdCate($id)
+    public function getSettingByIdCate($id, $request)
     {
-        $setting = Setting::where('parent_id', $id)
+        $setting = Setting::select(
+            'settings.id',
+            'settings.name',
+            'settings.slug',
+            'settings.image_path',
+            'settings.banner_path',
+            'settings.order',
+            'settings.active',
+            'settings.hot',
+            'settings.parent_id',
+            'settings.type',
+            DB::raw('COUNT(child.id) as child_count')
+        )
+            ->leftJoin('settings as child', function ($join) {
+                $join->on('settings.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('settings.id');
+
+        if ($request->name != '') {
+            $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
+        } else {
+            $setting = $setting->where('settings.parent_id', 0)
+                ->whereNull('settings.deleted_at');
+        }
+
+        if ($request->active != '') {
+            $setting = $setting->where('settings.active', $request->active);
+        }
+
+        if ($request->hot != '') {
+            $setting = $setting->where('settings.hot', $request->hot);
+        }
+
+        // Điều kiện này phải sau các điều kiện khác để tránh xung đột
+        $setting = $setting->where('settings.parent_id', $id)
+            ->whereNull('settings.deleted_at')
+            ->orderBy('settings.id', 'DESC')
             ->paginate(self::PAGINATE);
+
         return $setting;
     }
 

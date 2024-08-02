@@ -3,6 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Area;
+use App\Models\City;
+use App\Models\Commune;
+use App\Models\District;
+use Illuminate\Support\Facades\DB;
 
 class AreaRepository
 {
@@ -22,6 +26,48 @@ class AreaRepository
             ->orderBy('id', 'DESC')
             ->paginate(self::PAGINATE);
         return $area;
+    }
+
+    public function getAllCities()
+    {
+        $cities = City::select(
+            'cities.id',
+            'cities.name',
+            'cities.type',
+            DB::raw('COUNT(districts.id) as child_count')
+        )
+            ->leftJoin('districts', 'cities.id', '=', 'districts.city_id')
+            ->groupBy('cities.id', 'cities.name', 'cities.type')
+            ->orderBy('cities.id', 'ASC')
+            ->paginate(self::PAGINATE);
+
+        return $cities;
+
+    }
+
+    public function getAllDistrictByCityId($city_id)
+    {
+        $districts = District::select(
+            'districts.id',
+            'districts.name',
+            'districts.type',
+            'districts.city_id',
+            DB::raw('COUNT(communes.id) as child_count')
+        )
+            ->where('city_id', $city_id)
+            ->leftJoin('communes', 'districts.id', '=', 'communes.district_id')
+            ->groupBy('districts.id', 'districts.name', 'districts.type', 'districts.city_id')
+            ->orderBy('districts.id', 'ASC')
+            ->paginate(self::PAGINATE);
+        return $districts;
+    }
+
+    public function getAllCommunesByCityId($district_id)
+    {
+        $communes = Commune::select('id', 'name', 'type', 'district_id')
+            ->where('district_id', $district_id)
+            ->paginate(self::PAGINATE);
+        return $communes;
     }
 
     public function getAreaByCate($id)

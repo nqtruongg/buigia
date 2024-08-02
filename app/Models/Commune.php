@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commune extends Model
 {
-    protected $table="communes";
+    protected $table = "communes";
     protected $guarded = [];
 
-    public function district(){
-      return  $this->belongsTo(District::class,'district_id','id');
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
+
 }

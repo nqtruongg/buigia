@@ -25,8 +25,14 @@ class CategoryServiceRepository
             'category_services.content',
             DB::raw('COUNT(child.id) as child_count')
         );
-        if ($request->name != null) {
-            $categoryService = $categoryService->where('name', 'LIKE', "%{$request->name}%");
+        if ($request->name != '') {
+            $categoryService = $categoryService->where('category_services.name', 'LIKE', "%{$request->name}%");
+        }
+        if ($request->hot != '') {
+            $categoryService = $categoryService->where('category_services.hot', $request->hot);
+        }
+        if ($request->active != '') {
+            $categoryService = $categoryService->where('category_services.active', $request->active);
         }
         $categoryService = $categoryService
             ->where('category_services.parent_id', 0)
@@ -41,30 +47,46 @@ class CategoryServiceRepository
         return $categoryService;
     }
 
-    public function getCategoryServiceByCate($id)
-    {
-        $categoryService = CategoryService::select(
-            'category_services.id',
-            'category_services.name',
-            'category_services.slug',
-            'category_services.hot',
-            'category_services.active',
-            'category_services.order',
-            'category_services.parent_id',
-            'category_services.description',
-            'category_services.content',
-            DB::raw('COUNT(child.id) as child_count')
-        )->where('category_services.parent_id', $id)
-            ->whereNull('category_services.deleted_at')
-            ->leftJoin('category_services as child', function ($join) {
-                $join->on('category_services.id', '=', 'child.parent_id')
-                    ->whereNull('child.deleted_at');
-            })
-            ->groupBy('category_services.id')
-            ->orderBy('category_services.id', 'DESC')
-            ->paginate(self::PAGINATE);
-        return $categoryService;
+public function getCategoryServiceByCate($id, $request)
+{
+    $categoryService = CategoryService::select(
+        'category_services.id',
+        'category_services.name',
+        'category_services.slug',
+        'category_services.hot',
+        'category_services.active',
+        'category_services.order',
+        'category_services.parent_id',
+        'category_services.description',
+        'category_services.content',
+        DB::raw('COUNT(child.id) as child_count')
+    )->where('category_services.parent_id', $id)
+      ->whereNull('category_services.deleted_at')
+      ->leftJoin('category_services as child', function ($join) {
+          $join->on('category_services.id', '=', 'child.parent_id')
+               ->whereNull('child.deleted_at');
+      })
+      ->groupBy('category_services.id');
+
+    // Thêm các điều kiện lọc
+    if ($request->name) {
+        $categoryService = $categoryService->where('category_services.name', 'LIKE', "%{$request->name}%");
     }
+
+    if ($request->active != '') {
+        $categoryService = $categoryService->where('category_services.active', $request->active);
+    }
+
+    if ($request->hot != '') {
+        $categoryService = $categoryService->where('category_services.hot', $request->hot);
+    }
+
+    // Phân trang và sắp xếp
+    $categoryService = $categoryService->orderBy('category_services.id', 'DESC')
+                                       ->paginate(self::PAGINATE);
+
+    return $categoryService;
+}
 
     public function getListCategoryServiceParent()
     {
