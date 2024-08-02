@@ -82,31 +82,14 @@ class BannerRepository
             'banners.parent_id',
             'banners.description',
             DB::raw('COUNT(child.id) as child_count')
-        )
-        ->leftJoin('banners as child', function($join) {
-            $join->on('banners.id', '=', 'child.parent_id')
-                 ->whereNull('child.deleted_at');
-        })
-        ->groupBy('banners.id');
-
-        if ($request->name != '') {
-            $banner = $banner->where('banners.name', 'LIKE', "%{$request->name}%");
-        }
-
-        if ($request->active != '') {
-            $banner = $banner->where('banners.active', $request->active);
-        }
-
-        if ($request->hot != '') {
-            $banner = $banner->where('banners.hot', $request->hot);
-        }
-
-        // Điều kiện này phải sau các điều kiện khác để tránh xung đột
-        $banner = $banner->where('banners.parent_id', $id)
-                         ->whereNull('banners.deleted_at')
-                         ->orderBy('banners.id', 'DESC')
-                         ->paginate(self::PAGINATE);
-
+        )->where('banners.parent_id', $id)
+            ->whereNull('banners.deleted_at')
+            ->leftJoin('banners as child', function($join) {
+                $join->on('banners.id', '=', 'child.parent_id')
+                    ->whereNull('child.deleted_at');
+            })
+            ->groupBy('banners.id')
+            ->orderBy('banners.id', 'DESC')->paginate(self::PAGINATE);
         return $banner;
     }
 
