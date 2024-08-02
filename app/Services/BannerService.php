@@ -17,7 +17,6 @@ class BannerService
     public function __construct(BannerRepository $bannerRepository)
     {
         $this->bannerRepository = $bannerRepository;
-
     }
 
     public function getListBannerIndex($request)
@@ -30,9 +29,9 @@ class BannerService
         return $this->bannerRepository->getBannerById($id);
     }
 
-    public function getBannerByIdCate($id)
+    public function getBannerByIdCate($request, $id)
     {
-        return $this->bannerRepository->getBannerByIdCate($id);
+        return $this->bannerRepository->getBannerByIdCate($request, $id);
     }
 
     public function getAllParentCate()

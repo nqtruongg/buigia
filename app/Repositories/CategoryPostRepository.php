@@ -30,9 +30,6 @@ class CategoryPostRepository
         );
         if ($request->name != '') {
             $categoryPost = $categoryPost->where('category_posts.name', 'LIKE', "%{$request->name}%");
-        } else {
-            $categoryPost = $categoryPost->where('category_posts.parent_id', 0)
-                ->whereNull('category_posts.deleted_at');
         }
 
         if($request->active != ''){
@@ -42,6 +39,8 @@ class CategoryPostRepository
             $categoryPost = $categoryPost->where('category_posts.hot', $request->hot);
         }
 
+        $categoryPost = $categoryPost->where('category_posts.parent_id', 0)
+            ->whereNull('category_posts.deleted_at');
 
         $categoryPost = $categoryPost->where('category_posts.parent_id', 0)
             ->whereNull('category_posts.deleted_at')
@@ -56,7 +55,7 @@ class CategoryPostRepository
         return $categoryPost;
     }
 
-    public function getCategoryPostByIdCate($id, $request)
+    public function getCategoryPostByIdCate($request, $id)
     {
         $categoryPost = CategoryPost::select(
             'category_posts.id',
@@ -69,8 +68,20 @@ class CategoryPostRepository
             'category_posts.description',
             'category_posts.content',
             DB::raw('COUNT(child.id) as child_count')
-        )
-            ->where('category_posts.parent_id', $id)
+        );
+
+        if ($request->name != '') {
+            $categoryPost = $categoryPost->where('category_posts.name', 'LIKE', "%{$request->name}%");
+        }
+
+        if($request->active != ''){
+            $categoryPost = $categoryPost->where('category_posts.active', $request->active);
+        }
+        if($request->hot != ''){
+            $categoryPost = $categoryPost->where('category_posts.hot', $request->hot);
+        }
+
+        $categoryPost = $categoryPost->where('category_posts.parent_id', $id)
             ->whereNull('category_posts.deleted_at')
             ->leftJoin('category_posts as child', function($join) {
                 $join->on('category_posts.id', '=', 'child.parent_id')

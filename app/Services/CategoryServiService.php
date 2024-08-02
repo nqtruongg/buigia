@@ -40,8 +40,8 @@ class CategoryServiService {
         return $this->categoryServiceRepository->getListCategoryServiceParent();
     }
 
-    public function getCategoryServiceByCate($id)
+    public function getCategoryServiceByCate($request, $id)
     {
-        return $this->categoryServiceRepository->getCategoryServiceByCate($id);
+        return $this->categoryServiceRepository->getCategoryServiceByCate($request, $id);
     }
 }

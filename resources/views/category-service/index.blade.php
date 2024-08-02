@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
                         <a href="{{ route('categoryService.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.categoryService.add') }}</a>
                     </div>
@@ -36,6 +36,9 @@
                         <div class="collapse {{ optional(request())->hasAny(['name', 'hot', 'active']) ? 'show' : '' }}"
                             id="collapseExample">
                             <form action="{{ $url }}" method="get">
+                                @if(!empty($_GET['parent_id']))
+                                    <input type="hidden" name="parent_id" value="{{ request()->parent_id }}">
+                                @endif
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-4">

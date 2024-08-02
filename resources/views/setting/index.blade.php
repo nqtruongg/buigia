@@ -30,6 +30,9 @@
                         <div class="collapse {{ optional(request())->hasAny(['name', 'active', 'hot']) ? 'show' : '' }}"
                             id="collapseExample">
                            <form action="{{ route('setting.index') }}" method="get">
+                               @if(!empty($_GET['parent_id']))
+                                   <input type="hidden" name="parent_id" value="{{ request()->parent_id }}">
+                               @endif
                                <div class="card-header">
                                    <div class="col-md-12 d-flex">
                                        <div class="col-md-4">

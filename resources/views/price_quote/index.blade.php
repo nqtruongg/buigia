@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
                         <a href="{{ route('priceQuote.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.price_quote.add') }}</a>
                     </div>

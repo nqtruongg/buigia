@@ -31,9 +31,6 @@ class BannerRepository
 
         if ($request->name != '') {
             $banner = $banner->where('banners.name', 'LIKE', "%{$request->name}%");
-        } else {
-            $banner = $banner->where('banners.parent_id', 0)
-                ->whereNull('banners.deleted_at');
         }
 
         if($request->active != ''){
@@ -42,6 +39,9 @@ class BannerRepository
         if($request->hot != ''){
             $banner = $banner->where('banners.hot', $request->hot);
         }
+
+        $banner = $banner->where('banners.parent_id', 0)
+            ->whereNull('banners.deleted_at');
 
         $banner = $banner->where('banners.parent_id', 0)
             ->whereNull('banners.deleted_at')
@@ -69,7 +69,7 @@ class BannerRepository
         return $banner;
     }
 
-    public function getBannerByIdCate($id, $request)
+    public function getBannerByIdCate($request, $id)
     {
         $banner = Banner::select(
             'banners.id',
@@ -81,7 +81,21 @@ class BannerRepository
             'banners.parent_id',
             'banners.description',
             DB::raw('COUNT(child.id) as child_count')
-        )->where('banners.parent_id', $id)
+        );
+
+        if ($request->name != '') {
+            $banner = $banner->where('banners.name', 'LIKE', "%{$request->name}%");
+        }
+
+        if($request->active != ''){
+            $banner = $banner->where('banners.active', $request->active);
+        }
+        if($request->hot != ''){
+            $banner = $banner->where('banners.hot', $request->hot);
+        }
+
+        $banner = $banner->where('banners.parent_id', $id)
+
             ->whereNull('banners.deleted_at')
             ->leftJoin('banners as child', function($join) {
                 $join->on('banners.id', '=', 'child.parent_id')

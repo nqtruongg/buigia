@@ -26,7 +26,7 @@ class SettingController extends Controller
     {
         $listSetting = $this->settingService->getAllSetting($request);
 
-        $listSettingByIdCate = $this->settingService->getSettingByIdCate($request->query('parent_id'));
+        $listSettingByIdCate = $this->settingService->getSettingByIdCate($request, $request->query('parent_id'));
 
         return view('setting.index', compact('listSetting', 'listSettingByIdCate'));
     }

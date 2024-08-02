@@ -32,13 +32,13 @@ class AreaController extends Controller
         $districtId = $request->get('district_id');
 
         if (!empty($districtId)) {
-            $communes = $this->areaService->getAllCommunesByCityId($districtId);
+            $communes = $this->areaService->getAllCommunesByCityId($request, $districtId);
             return view('area.index', compact('communes'));
         } elseif (!empty($cityId)) {
-            $districts = $this->areaService->getAllDistrictByCityId($cityId);
+            $districts = $this->areaService->getAllDistrictByCityId($request, $cityId);
             return view('area.index', compact('districts'));
         } else {
-            $cities = $this->areaService->getAllCities();
+            $cities = $this->areaService->getAllCities($request);
             return view('area.index', compact('cities'));
         }
     }

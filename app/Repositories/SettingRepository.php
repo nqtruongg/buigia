@@ -31,9 +31,6 @@ class SettingRepository
 
         if ($request->name != '') {
             $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
-        } else {
-            $setting = $setting->where('settings.parent_id', 0)
-                ->whereNull('settings.deleted_at');
         }
 
         if($request->active != ''){
@@ -42,6 +39,9 @@ class SettingRepository
         if($request->hot != ''){
             $setting = $setting->where('settings.hot', $request->hot);
         }
+
+        $setting = $setting->where('settings.parent_id', 0)
+            ->whereNull('settings.deleted_at');
 
         $setting = $setting->leftJoin('settings as child', function ($join) {
                 $join->on('settings.id', '=', 'child.parent_id')
@@ -54,7 +54,7 @@ class SettingRepository
         return $setting;
     }
 
-    public function getSettingByIdCate($id)
+    public function getSettingByIdCate($request, $id)
     {
         $setting = Setting::select(
             'settings.id',
@@ -68,8 +68,20 @@ class SettingRepository
             'settings.parent_id',
             'settings.type',
             DB::Raw('COUNT(child.id) as child_count')
-        )
-            ->where('settings.parent_id', $id)
+        );
+
+        if ($request->name != '') {
+            $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
+        }
+
+        if($request->active != ''){
+            $setting = $setting->where('settings.active', $request->active);
+        }
+        if($request->hot != ''){
+            $setting = $setting->where('settings.hot', $request->hot);
+        }
+
+        $setting = $setting->where('settings.parent_id', $id)
             ->whereNull('settings.deleted_at')
             ->leftJoin('settings as child', function($join) {
                 $join->on('settings.id', '=', 'child.parent_id')

@@ -15,39 +15,82 @@ class UserRepository
 
     public function getListUser($request)
     {
+//        $users = User::select(
+//            'users.id',
+//            'users.email',
+//            'users.phone',
+//            'users.address',
+//            'users.department_id',
+//            'users.role_id',
+//            'departments.name as department_name',
+//            'roles.name as role_name',
+//            DB::raw('CONCAT(first_name, " ", last_name) as full_name'),
+//        )
+//        ->leftjoin('departments', 'departments.id', 'users.department_id')
+//        ->leftjoin('roles', 'roles.id', 'users.role_id');
+//
+//        if ($request->name != null) {
+//            $fullName = $request->name;
+//            $users->where(function ($query) use ($fullName) {
+//                $query->whereRaw("CONCAT(last_name, ' ', first_name) LIKE ?", ["%$fullName%"]);
+//            });
+//        }
+//
+//        if($request->email != null){
+//            $users = $users->where('users.email', $request->email);
+//        }
+//
+//        if($request->phone != null){
+//            $users = $users->where('users.phone', $request->phone);
+//        }
+//
+//        if($request->department_id != null){
+//            $users = $users->where('users.department_id', $request->department_id);
+//        }
+//
+//        if($request->role_id != null){
+//            $users = $users->where('users.role_id', $request->role_id);
+//        }
+//
+//        $users = $users->orderBy('users.id', 'desc')->paginate(self::PAGINATE);
+//
+//        return $users;
+
         $users = User::select(
             'users.id',
             'users.email',
             'users.phone',
             'users.address',
+            'users.department_id',
+            'users.role_id',
             'departments.name as department_name',
             'roles.name as role_name',
-            DB::raw('CONCAT(first_name, " ", last_name) as full_name'),
+            DB::raw('CONCAT(first_name, " ", last_name) as full_name')
         )
-        ->leftjoin('departments', 'departments.id', 'users.department_id')
-        ->leftjoin('roles', 'roles.id', 'users.role_id');
+            ->leftJoin('departments', 'departments.id', '=', 'users.department_id')
+            ->leftJoin('roles', 'roles.id', '=', 'users.role_id');
 
         if ($request->name != null) {
             $fullName = $request->name;
             $users->where(function ($query) use ($fullName) {
-                $query->whereRaw("CONCAT(last_name, ' ', first_name) LIKE ?", ["%$fullName%"]);
+                $query->whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%$fullName%"]);
             });
         }
 
         if($request->email != null){
-            $users = $users->where('users.email', $request->email);
+            $users->where('users.email', $request->email);
         }
 
         if($request->phone != null){
-            $users = $users->where('users.phone', $request->phone);
+            $users->where('users.phone', $request->phone);
         }
 
         if($request->department_id != null){
-            $users = $users->where('users.department_id', $request->department_id);
+            $users->where('users.department_id', $request->department_id);
         }
 
         if($request->role_id != null){
-            $users = $users->where('users.role_id', $request->role_id);
+            $users->where('users.role_id', $request->role_id);
         }
 
         $users = $users->orderBy('users.id', 'desc')->paginate(self::PAGINATE);
