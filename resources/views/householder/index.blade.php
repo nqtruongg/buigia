@@ -16,6 +16,8 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                        <a href="{{ route('householder.export') }}" type="button" class="btn btn-primary mr-2">
+                            <i class="fas fa-plus"></i>{{ trans('language.export') }}</a>
                         <a href="{{ route('householder.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.householder.add') }}</a>
                     </div>

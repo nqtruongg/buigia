@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Receivable;
 
+use App\Exports\ReceiptExport;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Receipt;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReceiptController extends Controller
 {
@@ -83,7 +85,7 @@ class ReceiptController extends Controller
     public function getAddress(Request $request)
     {
         if ($request->ajax()) {
-            
+
             $customer = Customer::select('address', 'name')->where('id', $request->customer)->first();
             if($customer){
                 return response()->json([
@@ -91,7 +93,7 @@ class ReceiptController extends Controller
                     'address' => $customer->address,
                     'name' => $customer->name,
                 ]);
-            } 
+            }
         }
     }
 
@@ -124,5 +126,10 @@ class ReceiptController extends Controller
                 'message' => trans('message.server_error')
             ], 500);
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReceiptExport, 'receipt.xlsx');
     }
 }
