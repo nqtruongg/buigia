@@ -23,8 +23,9 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = $this->roleService->getListRole($request);
+        $departments = $this->roleService->getDepartment();
 
-        return view('role.index', compact('roles'));
+        return view('role.index', compact('roles', 'departments'));
     }
 
     public function create()

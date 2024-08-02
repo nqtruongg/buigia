@@ -12,7 +12,7 @@ class RoleRepository
 {
     const PAGINATE = 15;
 
-    public function getListRole()
+    public function getListRole($request)
     {
         $roles = Role::select(
             'roles.id',
@@ -20,14 +20,22 @@ class RoleRepository
             'roles.name',
             'departments.name as department_name',
             DB::raw("GROUP_CONCAT(permissions.description SEPARATOR ', ') as permissions")
-        )
-            ->leftJoin('departments', 'departments.id', '=', 'roles.department_id')
-            ->leftJoin('role_has_permission', 'role_has_permission.role_id', '=', 'roles.id')
-            ->leftJoin('permissions', 'permissions.id', '=', 'role_has_permission.permission_id')
-            ->groupBy('roles.id', 'roles.department_id', 'roles.name', 'departments.name')
-            ->orderBy('roles.id', 'desc')
-            ->paginate(self::PAGINATE);
+        );
 
+        if ($request->name != null) {
+            $roles = $roles->where('roles.name', 'LIKE', "%{$request->name}%");
+        }
+
+        if($request->department_id != null){
+            $roles = $roles->where('roles.department_id', $request->department_id);
+        }
+
+        $roles = $roles->leftJoin('departments', 'departments.id', '=', 'roles.department_id')
+        ->leftJoin('role_has_permission', 'role_has_permission.role_id', '=', 'roles.id')
+        ->leftJoin('permissions', 'permissions.id', '=', 'role_has_permission.permission_id')
+        ->groupBy('roles.id', 'roles.department_id', 'roles.name', 'departments.name')
+        ->orderBy('roles.id', 'desc')
+        ->paginate(self::PAGINATE);
         return $roles;
     }
 

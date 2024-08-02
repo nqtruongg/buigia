@@ -16,8 +16,14 @@ class PostRepository
     public function getListPost($request)
     {
         $post = Post::query();
-        if ($request->name != null) {
+        if ($request->name != '') {
             $post = $post->where('name', 'LIKE', "%{$request->name}%");
+        }
+        if ($request->hot != '') {
+            $post = $post->where('hot', $request->hot);
+        }
+        if ($request->active != '') {
+            $post = $post->where('active', $request->active);
         }
         $post = $post->orderBy('id', 'desc')->paginate(self::PAGINATE);
         return $post;

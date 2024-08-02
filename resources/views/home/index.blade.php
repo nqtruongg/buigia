@@ -39,11 +39,11 @@
                                         Tổng doanh số</div>
                                     @if (auth()->user()->department->type == 'manager')
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format(\App\Models\Receipt::sum(\DB::raw('CAST(REPLACE(price, \',\', \'\') AS UNSIGNED)')), 0, ',', '.') }}đ
+                                            {{ number_format(\App\Models\Receipt::sum(\DB::raw('CAST(REPLACE(price, \',\', \'\') AS UNSIGNED)')), 0, ',', ',') }}đ
                                         </div>
                                     @else
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            {{ number_format(\App\Models\Receipt::where('user_id', auth()->user()->id)->sum(\DB::raw('CAST(REPLACE(price, \',\', \'\') AS UNSIGNED)')), 0, ',', '.') }}đ
+                                            {{ number_format(\App\Models\Receipt::where('user_id', auth()->user()->id)->sum(\DB::raw('CAST(REPLACE(price, \',\', \'\') AS UNSIGNED)')), 0, ',', ',') }}đ
                                         </div>
                                     @endif
                                 </div>

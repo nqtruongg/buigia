@@ -27,42 +27,66 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="collapse {{ optional(request())->hasAny(['name', 'email', 'phone', 'role_id', 'department_id']) ? 'show' : '' }}"
+                        @php
+                            $url = route('categoryService.index');
+                            if (request()->query('parent_id')) {
+                                $url .= '?parent_id=' . request()->query('parent_id');
+                            }
+                        @endphp
+                        <div class="collapse {{ optional(request())->hasAny(['name', 'hot', 'active']) ? 'show' : '' }}"
                             id="collapseExample">
-                            <form action="{{ route('banner.index') }}" method="get">
+                            <form action="{{ $url }}" method="get">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>{{ trans('language.categoryService.name') }}</label>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        name="name" value="{{ request()->categoryService ?? '' }}"
-                                                        placeholder="{{ trans('language.categoryService.name') }}">
-                                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.categoryService.name') }}</label>
+                                                <input type="text" class="form-control form-control-sm" name="name"
+                                                    value="{{ request()->name ?? '' }}"
+                                                    placeholder="{{ trans('language.categoryService.name') }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>{{ trans('language.categoryService.parent_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select class="form-control" name="parent_id">
-                                                            <option value="" disabled selected>--chọn--</option>
-                                                            @foreach ($categoryServices as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->name }}
-                                                                </option>
-                                                                @if (count($category->childrenRecursive) > 0)
-                                                                    @include('components.child-category', [
-                                                                        'children' => $category->childrenRecursive,
-                                                                        'depth' => 1,
-                                                                    ])
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.categoryService.active') }}</label>
+                                                <select class="form-control form-control-sm select2" name="active">
+                                                    <option value=""
+                                                        {{ request()->active == null ? 'selected' : '' }}>--Chọn--</option>
+                                                    <option value="1" {{ request()->active == 1 ? 'selected' : '' }}>
+                                                        Hiển thị</option>
+                                                    <option value="0"
+                                                        {{ request()->active == '0' ? 'selected' : '' }}>Ẩn</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.categoryService.hot') }}</label>
+                                                <select class="form-control form-control-sm select2" name="hot">
+                                                    <option value="" {{ request()->hot == null ? 'selected' : '' }}>
+                                                        --Chọn--</option>
+                                                    <option value="1" {{ request()->hot == 1 ? 'selected' : '' }}>Nổi
+                                                        bật</option>
+                                                    <option value="0" {{ request()->hot == '0' ? 'selected' : '' }}>Ẩn
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mr-2">
+                                            <div class="form-group d-flex flex-column">
+                                                <label>&nbsp;</label>
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-search"></i>{{ trans('language.search') }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-group d-flex flex-column">
+                                                <label>&nbsp;</label>
+                                                <a href="{{ route('categoryService.index') }}"
+                                                    class="btn btn-success btn-sm">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +115,8 @@
                                                         {{ $key + 1 + ($listCategoryServiceByCate->currentPage() - 1) * $listCategoryServiceByCate->perPage() }}
                                                     </td>
                                                     <td class="text-center">
-                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
+                                                        <i
+                                                            class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a
@@ -152,7 +177,8 @@
                                                         {{ $key + 1 + ($categoryServices->currentPage() - 1) * $categoryServices->perPage() }}
                                                     </td>
                                                     <td class="text-center">
-                                                        <i class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
+                                                        <i
+                                                            class="nav-icon fas {{ $item->child_count > 0 ? 'fa-folder-open' : 'fa-file' }}"></i>
                                                     </td>
                                                     <td>
                                                         <a
@@ -209,7 +235,7 @@
                             </table>
                             <div>
                                 <div class="text-center">
-                                    @if(!empty($_GET['parent_id']))
+                                    @if (!empty($_GET['parent_id']))
                                         {{ $listCategoryServiceByCate->appends(request()->query())->links('pagination::bootstrap-4') }}
                                     @else
                                         {{ $categoryServices->links('pagination::bootstrap-4') }}

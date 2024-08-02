@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i>Tìm kiếm nâng cao</button>
                         <a href="{{ route('post.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.post.add') }}</a>
                     </div>
@@ -32,26 +32,48 @@
                             <form action="{{ route('post.index') }}" method="get">
                                 <div class="card-header">
                                     <div class="col-md-12 d-flex">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>{{ trans('language.post.name') }}</label>
                                                 <input type="text" class="form-control form-control-sm" name="name"
-                                                    value="{{ request()->name ?? '' }}"
-                                                    placeholder="{{ trans('language.post.name') }}">
+                                                       value="{{ request()->name ?? '' }}"
+                                                       placeholder="{{ trans('language.post.name') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.post.active') }}</label>
+                                                <select class="form-control form-control-sm select2" name="active">
+                                                    <option value="" {{ request()->active === null ? 'selected' : '' }}>--Chọn--</option>
+                                                    <option value="1" {{ request()->active == 1 ? 'selected' : '' }}>Hiển thị</option>
+                                                    <option value="0" {{ request()->active === '0' ? 'selected' : '' }}>Ẩn</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>{{ trans('language.post.hot') }}</label>
+                                                <select class="form-control form-control-sm select2" name="hot">
+                                                    <option value="" {{ request()->hot === null ? 'selected' : '' }}>--Chọn--</option>
+                                                    <option value="1" {{ request()->hot == 1 ? 'selected' : '' }}>Nổi bật</option>
+                                                    <option value="0" {{ request()->hot === '0' ? 'selected' : '' }}>Ẩn</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="mr-2">
                                             <div class="form-group d-flex flex-column">
                                                 <label>&nbsp;</label>
-                                                <button type="submit" class="btn btn-success btn-sm"><i
-                                                        class="fas fa-search"></i>{{ trans('language.search') }}</button>
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-search"></i>{{ trans('language.search') }}
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="">
                                             <div class="form-group d-flex flex-column">
                                                 <label>&nbsp;</label>
-                                                <a href="{{ route('post.index') }}" class="btn btn-success btn-sm"><i
-                                                        class="fas fa-sync-alt"></i></a>
+                                                <a href="{{ route('post.index') }}" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
