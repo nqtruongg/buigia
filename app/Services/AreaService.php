@@ -16,19 +16,19 @@ class AreaService
         return $this->areaRepository->getListParentArea();
     }
 
-    public function getAllCities()
+    public function getAllCities($request)
     {
-        return $this->areaRepository->getAllCities();
+        return $this->areaRepository->getAllCities($request);
     }
 
-    public function getAllDistrictByCityId($city_id)
+    public function getAllDistrictByCityId($request, $city_id)
     {
-        return $this->areaRepository->getAllDistrictByCityId($city_id);
+        return $this->areaRepository->getAllDistrictByCityId($request, $city_id);
     }
 
-    public function getAllCommunesByCityId($district_id)
+    public function getAllCommunesByCityId($request, $district_id)
     {
-        return $this->areaRepository->getAllCommunesByCityId($district_id);
+        return $this->areaRepository->getAllCommunesByCityId($request, $district_id);
     }
 
     public function getAreaByCate($id)

@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
                         <a href="{{ route('area.create') }}" type="button" class="btn btn-info">
                             <i class="fas fa-plus"></i>{{ trans('language.area.add') }}</a>
                     </div>
@@ -26,9 +26,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="collapse {{ optional(request())->hasAny(['name', 'email', 'phone', 'code', 'tax_code', 'career']) ? 'show' : '' }}"
+                        <div class="collapse {{ optional(request())->hasAny(['name']) ? 'show' : '' }}"
                             id="collapseExample">
                             <form action="{{ route('area.index') }}" method="get">
+                                @if(!empty($_GET['city_id']))
+                                    <input type="hidden" name="city_id" value="{{ request()->city_id }}">
+                                @elseif(!empty($_GET['district_id']))
+                                    <input type="hidden" name="district_id" value="{{ request()->district_id }}">
+                                @endif
                                 <div class="card-header">
                                     <div class="col-md-12 d-flex">
                                         <div class="col-md-3">

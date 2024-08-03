@@ -24,7 +24,7 @@ class CategoryPostController extends Controller
     {
         $listCategoryPost = $this->categoryPostService->getListCategoryPost($request);
 
-        $listCategoryPostByIdCate = $this->categoryPostService->getCategoryPostByIdCate($request->query('parent_id'));
+        $listCategoryPostByIdCate = $this->categoryPostService->getCategoryPostByIdCate($request, $request->query('parent_id'));
 
         return view('categorypost.list', compact('listCategoryPost', 'listCategoryPostByIdCate'));
     }

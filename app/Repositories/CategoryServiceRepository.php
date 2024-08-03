@@ -47,7 +47,7 @@ class CategoryServiceRepository
         return $categoryService;
     }
 
-    public function getCategoryServiceByCate($id)
+    public function getCategoryServiceByCate($request, $id)
     {
         $categoryService = CategoryService::select(
             'category_services.id',
@@ -60,7 +60,19 @@ class CategoryServiceRepository
             'category_services.description',
             'category_services.content',
             DB::raw('COUNT(child.id) as child_count')
-        )->where('category_services.parent_id', $id)
+        );
+
+        if ($request->name != '') {
+            $categoryService = $categoryService->where('category_services.name', 'LIKE', "%{$request->name}%");
+        }
+        if ($request->hot != '') {
+            $categoryService = $categoryService->where('category_services.hot', $request->hot);
+        }
+        if ($request->active != '') {
+            $categoryService = $categoryService->where('category_services.active', $request->active);
+        }
+
+        $categoryService = $categoryService->where('category_services.parent_id', $id)
             ->whereNull('category_services.deleted_at')
             ->leftJoin('category_services as child', function ($join) {
                 $join->on('category_services.id', '=', 'child.parent_id')

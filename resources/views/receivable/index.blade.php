@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-success mr-2" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i></button>
+                            aria-expanded="false" aria-controls="collapseExample"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</button>
                         <a href="{{ route('receivable.export') }}" type="button" class="btn btn-primary mr-2">
                             <i class="fas fa-plus"></i>{{ trans('language.export') }}</a>
                         <a href="{{ route('receivable.create') }}" type="button" class="btn btn-info mr-2">
@@ -157,8 +157,8 @@
                                                 <td class="text-center">
                                                     {{ $key + 1 + ($receivables->currentPage() - 1) * $receivables->perPage() }}
                                                 </td>
-                                                <td><a
-                                                        href="{{ route('customer.detail', ['id' => $item->customer_id]) }}">{{ $item->customer_name }}</a>
+                                                <td>
+                                                    <a href="{{ route('customer.detail', ['id' => $item->customer_id ?? 0]) }}">{{ $item->customer_name }}</a>
                                                 </td>
                                                 <td class="text-center">{{ $item->customer_code }}</td>
                                                 <td class="text-center">{{ $item->service_name }}</td>

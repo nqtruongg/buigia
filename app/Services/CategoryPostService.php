@@ -24,9 +24,9 @@ class CategoryPostService
         return $this->categoryPostRepository->getCategoryPostById($id);
     }
 
-    public function getCategoryPostByIdCate($id, $request)
+    public function getCategoryPostByIdCate($request, $id)
     {
-        return $this->categoryPostRepository->getCategoryPostByIdCate($id, $request);
+        return $this->categoryPostRepository->getCategoryPostByIdCate($request, $id);
     }
 
     public function createCategoryPost($request)

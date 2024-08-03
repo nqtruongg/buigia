@@ -28,15 +28,20 @@ class AreaRepository
         return $area;
     }
 
-    public function getAllCities()
+    public function getAllCities($request)
     {
         $cities = City::select(
             'cities.id',
             'cities.name',
             'cities.type',
             DB::raw('COUNT(districts.id) as child_count')
-        )
-            ->leftJoin('districts', 'cities.id', '=', 'districts.city_id')
+        );
+
+        if ($request->name != '') {
+            $cities = $cities->where('cities.name', 'LIKE', "%{$request->name}%");
+        }
+
+        $cities = $cities->leftJoin('districts', 'cities.id', '=', 'districts.city_id')
             ->groupBy('cities.id', 'cities.name', 'cities.type')
             ->orderBy('cities.id', 'ASC')
             ->paginate(self::PAGINATE);
@@ -45,7 +50,7 @@ class AreaRepository
 
     }
 
-    public function getAllDistrictByCityId($city_id)
+    public function getAllDistrictByCityId($request, $city_id)
     {
         $districts = District::select(
             'districts.id',
@@ -53,8 +58,13 @@ class AreaRepository
             'districts.type',
             'districts.city_id',
             DB::raw('COUNT(communes.id) as child_count')
-        )
-            ->where('city_id', $city_id)
+        );
+
+        if ($request->name != '') {
+            $districts = $districts->where('districts.name', 'LIKE', "%{$request->name}%");
+        }
+
+        $districts = $districts->where('city_id', $city_id)
             ->leftJoin('communes', 'districts.id', '=', 'communes.district_id')
             ->groupBy('districts.id', 'districts.name', 'districts.type', 'districts.city_id')
             ->orderBy('districts.id', 'ASC')
@@ -62,10 +72,13 @@ class AreaRepository
         return $districts;
     }
 
-    public function getAllCommunesByCityId($district_id)
+    public function getAllCommunesByCityId($request, $district_id)
     {
-        $communes = Commune::select('id', 'name', 'type', 'district_id')
-            ->where('district_id', $district_id)
+        $communes = Commune::select('id', 'name', 'type', 'district_id');
+        if ($request->name != '') {
+            $communes = $communes->where('name', 'LIKE', "%{$request->name}%");
+        }
+        $communes = $communes->where('district_id', $district_id)
             ->paginate(self::PAGINATE);
         return $communes;
     }

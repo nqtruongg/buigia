@@ -22,7 +22,7 @@ class CategoryServiceController extends Controller
     {
         $categoryServices = $this->categoryService->getListCategoryService($request);
 
-        $listCategoryServiceByCate = $this->categoryService->getCategoryServiceByCate($request->query('parent_id'));
+        $listCategoryServiceByCate = $this->categoryService->getCategoryServiceByCate($request, $request->query('parent_id'));
 
         return view('category-service.index', compact('categoryServices', 'listCategoryServiceByCate'));
     }
