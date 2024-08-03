@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryServiceRequest;
 use App\Models\CategoryService;
 use App\Services\CategoryServiService;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class CategoryServiceController extends Controller
         return view('category-service.create', compact('listCateCategoryService'));
     }
 
-    public function store(Request $request)
+    public function store(CategoryServiceRequest $request)
     {
         try {
             DB::beginTransaction();

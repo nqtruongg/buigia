@@ -20,7 +20,8 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>{{ trans('language.department.name') }}</label>
+                                    <label>{{ trans('language.department.name') }}<span
+                                            class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="name"
                                         placeholder="{{ trans('language.department.name') }}">
                                 </div>

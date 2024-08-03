@@ -78,11 +78,11 @@ class SettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request,string $id)
     {
         $setting = $this->settingService->getSettingById($id);
 
-        $listSetting = $this->settingService->getAllSetting();
+        $listSetting = $this->settingService->getAllSetting($request);
 
         return view('setting.edit', compact('setting', 'listSetting'));
     }

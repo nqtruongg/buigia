@@ -16,27 +16,28 @@ class SettingRepository
     public function getAllSetting($request)
     {
         $setting = Setting::select(
-                'settings.id',
-                'settings.name',
-                'settings.slug',
-                'settings.image_path',
-                'settings.banner_path',
-                'settings.order',
-                'settings.active',
-                'settings.hot',
-                'settings.parent_id',
-                'settings.type',
-                DB::Raw('COUNT(child.id) as child_count')
-            );
+            'settings.id',
+            'settings.name',
+            'settings.slug',
+            'settings.image_path',
+            'settings.banner_path',
+            'settings.order',
+            'settings.active',
+            'settings.hot',
+            'settings.parent_id',
+            'settings.type',
+            DB::raw('COUNT(child.id) as child_count')
+        );
 
         if ($request->name != '') {
             $setting = $setting->where('settings.name', 'LIKE', "%{$request->name}%");
         }
 
-        if($request->active != ''){
+        if ($request->active != '') {
             $setting = $setting->where('settings.active', $request->active);
         }
-        if($request->hot != ''){
+
+        if ($request->hot != '') {
             $setting = $setting->where('settings.hot', $request->hot);
         }
 
@@ -44,9 +45,9 @@ class SettingRepository
             ->whereNull('settings.deleted_at');
 
         $setting = $setting->leftJoin('settings as child', function ($join) {
-                $join->on('settings.id', '=', 'child.parent_id')
-                    ->whereNull('child.deleted_at');
-            })
+            $join->on('settings.id', '=', 'child.parent_id')
+                ->whereNull('child.deleted_at');
+        })
             ->groupBy('settings.id')
             ->orderBy('settings.id', 'DESC')
             ->paginate(self::PAGINATE);

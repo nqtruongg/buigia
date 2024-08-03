@@ -310,7 +310,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/update/{id}', 'update')->name('update');
-            Route::delete('/delete/{id}', 'destroy')->name('delete');
+            Route::delete('/delete/{id}', 'delete')->name('delete');
             Route::post('/change-active', 'changeActive')->name('changeActive');
             Route::post('/change-hot', 'changeHot')->name('changeHot');
         });

@@ -52,8 +52,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.image_path') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.image_path') }}</label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
                                             <div class="form-group mt-3 mb-3">
                                                 <img id="img" src="" alt="">
@@ -62,8 +61,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.link') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.link') }}</label>
                                             <input type="text" class="form-control" name="link"
                                                    value="{{ old('link') ?? '' }}"
                                                    placeholder="{{ trans('language.banner.link') }}">
@@ -78,14 +76,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.hot') }}<span class="text-danger">*</span></label><br>
+                                            <label>{{ trans('language.banner.hot') }}</label><br>
                                             Có <input type="radio" name="hot" value="1">
                                             không <input type="radio" name="hot" value="0" checked>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.active') }}<span class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.active') }}</label>
                                             <br>
                                             Hiện <input type="radio" name="active" value="1" checked>
                                             ẩn <input type="radio" name="active" value="0">
@@ -95,8 +93,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.description') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.description') }}</label>
                                             <textarea class="form-control"
                                                       placeholder="{{ trans('language.banner.description') }}"
                                                       cols="40" rows="10" name="description">{{ old('description') ?? '' }}</textarea>
@@ -106,8 +103,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.parent_id') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.parent_id') }}</label>
                                             <select class="form-control" name="parent_id">
                                                 <option disabled selected>--chọn--</option>
                                                 @foreach($parentBanner as $category)
@@ -126,8 +122,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.banner.order') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.banner.order') }}</label>
                                             <input type="number" class="form-control" name="order"
                                                    value="{{ old('order') ?? 0 }}"
                                                    placeholder="{{ trans('language.banner.order') }}">
