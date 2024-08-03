@@ -416,6 +416,8 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['prefix' => 'address'], function () {
             Route::get('district', [AddressController::class, 'getDistricts'])->name('ajax.address.districts');
             Route::get('communes', [AddressController::class, 'getCommunes'])->name('ajax.address.communes');
+            Route::get('district-service', [AddressController::class, 'getDistrictsService'])->name('ajax.address.districts-service');
+            Route::get('communes-service', [AddressController::class, 'getCommunesService'])->name('ajax.address.communes-service');
         });
     });
 });

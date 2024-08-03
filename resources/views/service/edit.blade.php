@@ -364,45 +364,92 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.service.area') }}
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <br>
-                                            <select name="area" class="form-control" id="area">
-                                                <option value="" selected disabled>--chọn--</option>
-                                                @if(!empty($listArea))
-                                                    @foreach($listArea as $area)
-                                                        <option {{  $service->area_id == $area->id ? 'selected' : ''}} value="{{ $area->id }}">{{ $area->name }}</option>
-                                                    @endforeach
-                                                @endif
+                                            <label for="">{{ __('language.area.city_id') }}<span
+                                                        class="text-danger">*</span></label>
+                                            <select name="city_id" id="city_register"
+                                                    data-url="{{ route('ajax.address.districts') }}"
+                                                    class="form-control">
+                                                <!-- Removed the initial option with $area->city_id value -->
+                                                <option value="">--{{ __('language.area.city_id') }}--
+                                                </option>
+                                                @foreach (App\Models\City::all() as $i)
+                                                    <option value="{{ $i->id }}"
+                                                            {{ $i->id == $service->city_id ? 'selected' : '' }}>
+                                                        {{ $i->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
-                                            @if ($errors->first('area_id'))
+                                            @if ($errors->first('city_id'))
                                                 <div class="invalid-alert text-danger">
-                                                    {{ $errors->first('area_id') }}
+                                                    {{ $errors->first('city_id') }}
                                                 </div>
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.service.houseHolder') }}<span
-                                                    class="text-danger">*</span></label><br>
-                                            <select name="houseHolder" class="form-control" id="houseHolder">
-                                                <option value="" selected disabled>--chọn--</option>
-                                                @if(!empty($listHouseHoulder))
-                                                    @foreach($listHouseHoulder as $houseHolder)
-                                                        <option {{  $service->householder_id == $houseHolder->id ? 'selected' : ''}}
-                                                            value="{{ $houseHolder->id }}">{{ $houseHolder->name }}</option>
-                                                    @endforeach
-                                                @endif
+                                            <label for="">{{ __('language.area.district_id') }}<span
+                                                        class="text-danger">*</span></label>
+                                            <select name="district_id" id="district_register"
+                                                    class="form-control"
+                                                    data-url="{{ route('ajax.address.communes') }}">
+                                                <option value="{{ $service->district_id }}">
+                                                    {{ $service->district->name ?? ''}}</option>
+                                                <option value="">
+                                                    --{{ __('language.area.district_id') }}--
+                                                </option>
                                             </select>
-                                            @if ($errors->first('householder_id'))
+                                            @if ($errors->first('district_id'))
                                                 <div class="invalid-alert text-danger">
-                                                    {{ $errors->first('householder_id') }}
+                                                    {{ $errors->first('district_id') }}
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">{{ __('language.area.commune_id') }}<span
+                                                        class="text-danger">*</span></label>
+                                            <select name="commune_id" id="commune_register"
+                                                    class="w-100 form-control">
+                                                <option value="{{ $service->commune_id }}">
+                                                    {{ $service->commune->name ?? '' }}</option>
+                                                <option value="">
+                                                    --{{ __('language.area.commune_id') }}--
+                                                </option>
+                                            </select>
+                                            @if ($errors->first('commune_id'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('commune_id') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.customer.address') }}</label>
+                                            <input type="text" class="form-control" name="address" id="address"
+                                                   value="{{ old('address') ?? $service->address }}"
+                                                   placeholder="{{ trans('language.customer.address') }}">
+                                            @if ($errors->first('address'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('address') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.service.order') }}</label>
+                                            <input type="number" class="form-control" min="0" name="order"
+                                                   value="{{ old('order') ?? $service->order }}"
+                                                   placeholder="{{ trans('language.service.order') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -435,13 +482,25 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.service.order') }}<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" min="0" name="order"
-                                                   value="{{ old('order') ?? $service->order }}"
-                                                   placeholder="{{ trans('language.service.order') }}">
+                                            <label>{{ trans('language.service.houseHolder') }}<span
+                                                    class="text-danger">*</span></label><br>
+                                            <select name="houseHolder" class="form-control" id="houseHolder">
+                                                <option value="" selected disabled>--chọn--</option>
+                                                @if(!empty($listHouseHoulder))
+                                                    @foreach($listHouseHoulder as $houseHolder)
+                                                        <option {{  $service->householder_id == $houseHolder->id ? 'selected' : ''}}
+                                                            value="{{ $houseHolder->id }}">{{ $houseHolder->name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            @if ($errors->first('householder_id'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('householder_id') }}
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="row">
@@ -494,8 +553,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.title_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.title_seo') }}</label>
                                             <input type="text" class="form-control" name="title_seo"
                                                    value="{{ old('title_seo') ?? $service->title_seo }}"
                                                    placeholder="{{ trans('language.post.title_seo') }}">
@@ -503,8 +561,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.description_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.description_seo') }}</label>
                                             <input type="text" class="form-control" name="description_seo"
                                                    value="{{ old('description_seo') ?? $service->description_seo }}"
                                                    placeholder="{{ trans('language.post.description_seo') }}">
@@ -512,8 +569,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.keyword_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.keyword_seo') }}</label>
                                             <input type="text" class="form-control" name="keyword_seo"
                                                    value="{{ old('keyword_seo') ?? $service->keyword_seo }}"
                                                    placeholder="{{ trans('language.post.keyword_seo') }}">

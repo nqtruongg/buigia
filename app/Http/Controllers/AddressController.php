@@ -49,4 +49,32 @@ class AddressController extends Controller
             "message" => "success"
         ], 200);
     }
+    public function getDistrictsService(Request $request)
+    {
+        $cityId=$request->cityId;
+        $address=new AddressHelper();
+        $data = $this->city->find($cityId)->districts()->where('active', 1)->orderby('name')->get();
+        $districts=$address->districts($data,$cityId);
+        return response()->json([
+            "code" => 200,
+            'data'=>$districts,
+            "message" => "success"
+        ], 200);
+    }
+    public function getCommunesService(Request $request)
+    {
+        $districtId=$request->districtId;
+   //     dd($districtId);
+        $address=new AddressHelper();
+        $data = $this->district->find($districtId)->communes()->where('active', 1)->orderby('name')->get();
+       // $data=$this->district->find($districtId)->join('communes', 'districts.id', '=', 'communes.district_id')->get();
+      // dd($data);
+        $communes=$address->communes($data,$districtId);
+     //   dd($communes);
+        return response()->json([
+            "code" => 200,
+            'data'=>$communes,
+            "message" => "success"
+        ], 200);
+    }
 }

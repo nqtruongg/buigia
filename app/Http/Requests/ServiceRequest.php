@@ -44,10 +44,13 @@ class ServiceRequest extends FormRequest
             // 'percent' => 'required',
             'acreage' => 'required',
             'type' => 'required',
-            'area' => 'required',
             'houseHolder' => 'required',
             'category_id' => 'required',
             'direction' => ['string', new Alpha],
+            'city_id' => 'required',
+            'district_id' => 'required',
+            'commune_id' => 'required',
+            'address' => 'required',
         ];
     }
 
@@ -67,6 +70,10 @@ class ServiceRequest extends FormRequest
             'price.max' => 'Giá không thể vượt quá :max ký tự.',
 
             'direction.string' => 'Hướng phải là chữ',
+            'city_id.required' => 'Vui lòng chọn thành phố',
+            'district_id.required' => 'Vui lòng chọn quận',
+            'commune_id.required' => 'Vui lòng chọn xã',
+            'address.required' => 'Vui lòng nhập địa chỉ',
 
 //            'description.required' => 'Mô tả là bắt buộc.',
 //            'description.string' => 'Mô tả phải là một chuỗi.',
@@ -74,7 +81,6 @@ class ServiceRequest extends FormRequest
             // 'percent.required' => 'Phần trăm hoa hồng là bắt buộc',
             'type.required' => 'Tình trạng là bắt buộc',
             'acreage.required' => 'Diện tích là bắt buộc',
-            'area.required' => 'Vui lòng chọn khu vực',
             'houseHolder.required' => 'Vui lòng chọn chủ nhà',
             'category_id.required' => 'Bạn cần chọn danh mục bất động sản'
         ];
