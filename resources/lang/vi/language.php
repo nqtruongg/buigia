@@ -128,6 +128,7 @@ return [
         'description_seo' => 'Mô tả seo',
         'title_seo' => 'Tiêu đề seo',
         'keyword_seo' => 'Từ khóa seo',
+        'address' => 'Địa chỉ cụ thể',
     ],
 
     //customer
