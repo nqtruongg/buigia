@@ -86,7 +86,6 @@ class ServiceRepository
             'numberBedroom' => $request->numberBedroom,
             'toilet' => $request->toilet,
             'direction' => $request->direction,
-            'area_id' => $request->area,
             'householder_id' => $request->houseHolder,
             'description' => $request->description,
             'description_seo' => $request->description_seo ?? null,
@@ -96,6 +95,10 @@ class ServiceRepository
             'active' => $request->active ?? 1,
             'hot' => $request->hot ?? 0,
             'order' => $request->order ?? 0,
+            'city_id' => $request->city_id ?? null,
+            'district_id' => $request->district_id ?? null,
+            'commune_id' => $request->commune_id ?? null,
+            'address' => $request->address ?? null,
         ]);
 
         if ($request->has('category_id')) {
@@ -169,7 +172,6 @@ class ServiceRepository
             'image_path' => $imagePath,
             'banner_path' => $bannerPath,
             'direction' => $request->direction ?? $service->direction,
-            'area_id' => $request->area ?? $service->area_id,
             'householder_id' => $request->houseHolder ?? $service->householder_id,
             'description_seo' => $request->description_seo ?? $service->description_seo,
             'keyword_seo' => $request->keyword_seo ?? $service->keyword_seo,
@@ -178,6 +180,10 @@ class ServiceRepository
             'active' => $request->active ?? $service->active,
             'hot' => $request->hot ?? $service->hot,
             'order' => $request->order ?? $service->order,
+            'city_id' => $request->city_id ?? null,
+            'district_id' => $request->district_id ?? null,
+            'commune_id' => $request->commune_id ?? null,
+            'address' => $request->address ?? null,
         ]);
 
         if ($request->has('category_id')) {

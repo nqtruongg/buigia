@@ -67,4 +67,19 @@ class Service extends Model
         return $this->belongsToMany(CategoryService::class, 'service_and_categoryservices', 'service_id', 'categoryService_id');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class, 'commune_id');
+    }
+
 }

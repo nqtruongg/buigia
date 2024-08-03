@@ -14,7 +14,7 @@
             line-height: 1.2;
         }
 
-        #imagePreview > img {
+        #imagePreview>img {
             width: 114.9px;
             height: 115px;
             object-fit: cover;
@@ -32,7 +32,7 @@
             position: relative;
         }
 
-        .box_img > img {
+        .box_img>img {
             width: 114.9px;
             height: 115px;
             object-fit: cover;
@@ -148,7 +148,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <form id="form_submit" action="{{ route('service.store') }}" method="post"
-                              enctype="multipart/form-data">
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -157,8 +157,8 @@
                                             <label>{{ trans('language.service.name') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                   value="{{ old('name') ?? '' }}"
-                                                   placeholder="{{ trans('language.service.name') }}">
+                                                value="{{ old('name') ?? '' }}"
+                                                placeholder="{{ trans('language.service.name') }}">
                                             @if ($errors->first('name'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('name') }}
@@ -171,8 +171,8 @@
                                             <label>{{ trans('language.service.slug') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="slug" name="slug"
-                                                   value="{{ old('slug') ?? '' }}"
-                                                   placeholder="{{ trans('language.service.slug') }}">
+                                                value="{{ old('slug') ?? '' }}"
+                                                placeholder="{{ trans('language.service.slug') }}">
                                             @if ($errors->first('slug'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('slug') }}
@@ -188,8 +188,8 @@
                                             <label>{{ trans('language.service.price') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="price"
-                                                   value="{{ old('price') ?? '' }}"
-                                                   placeholder="{{ trans('language.service.price') }}">
+                                                value="{{ old('price') ?? '' }}"
+                                                placeholder="{{ trans('language.service.price') }}">
                                             @if ($errors->first('price'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('price') }}
@@ -235,21 +235,22 @@
                                             <input type="file" class="form-control" id="banner_path" name="banner_path">
                                         </div>
                                         <div class="form-group">
-                                            <img id="img_banner_path" src="" style="object-fit: cover" alt="">
+                                            <img id="img_banner_path" src="" style="object-fit: cover"
+                                                alt="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-12 mt-3 mb-3">
                                     <label for="relatedPhotos"
-                                           class="form-label">{{ trans('language.service.relatedPhotos') }}</label>
+                                        class="form-label">{{ trans('language.service.relatedPhotos') }}</label>
                                     <div style="border: 1px solid #272727; padding: 20px 0 0 18px; border-radius: 5px;">
                                         <div id="variantContainer" class="d-flex flex-wrap">
                                             <div class="variantColor d-flex align-items-center">
                                                 <div class="mb-3 w-25 file-input-wrapper"
-                                                     style="margin-right: 18px; width: 110px !important;">
-                                                    <input type="file" multiple name="relatedPhotos[]"
-                                                           id="relatedPhotos" class="form-control">
+                                                    style="margin-right: 18px; width: 110px !important;">
+                                                    <input type="file" multiple name="relatedPhotos[]" id="relatedPhotos"
+                                                        class="form-control">
                                                     <div class="custom-button" style="border: 2px solid #565656;">
                                                         <i class="nav-icon fas fa-upload"></i>
                                                     </div>
@@ -269,8 +270,9 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.service.acreage') }}<span
                                                     class="text-danger">*</span></label><br>
-                                            <input type="number" class="form-control" value="{{ old('acreage') ?? '' }}" name="acreage"
-                                                   placeholder="{{ trans('language.service.acreage') }}">
+                                            <input type="number" class="form-control"
+                                                value="{{ old('acreage') ?? '' }}" name="acreage"
+                                                placeholder="{{ trans('language.service.acreage') }}">
                                             @if ($errors->first('acreage'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('acreage') }}
@@ -282,30 +284,12 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.service.numberBedroom') }}<span
                                                     class="text-danger">*</span></label><br>
-                                            <input type="number" class="form-control" value="{{ old('numberBedroom') ?? '' }}" name="numberBedroom"
-                                                   placeholder="{{ trans('language.service.numberBedroom') }}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>{{ trans('language.service.toilet') }}<span
-                                                    class="text-danger">*</span></label><br>
-                                            <input type="number" class="form-control" value="{{ old('toilet') ?? '' }}" name="toilet"
-                                                   placeholder="{{ trans('language.service.toilet') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>{{ trans('language.service.direction') }}<span
-                                                    class="text-danger">*</span></label><br>
-                                            <input type="text" class="form-control" value="{{ old('direction') ?? '' }}" name="direction"
-                                                   placeholder="{{ trans('language.service.direction') }}">
-                                            @if ($errors->first('direction'))
+                                            <input type="number" class="form-control"
+                                                value="{{ old('numberBedroom') ?? '' }}" name="numberBedroom"
+                                                placeholder="{{ trans('language.service.numberBedroom') }}">
+                                                @if ($errors->first('numberBedroom'))
                                                 <div class="invalid-alert text-danger">
-                                                    {{ $errors->first('direction') }}
+                                                    {{ $errors->first('numberBedroom') }}
                                                 </div>
                                             @endif
                                         </div>
@@ -315,14 +299,44 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label>{{ trans('language.service.toilet') }}<span
+                                                    class="text-danger">*</span></label><br>
+                                            <input type="number" class="form-control" value="{{ old('toilet') ?? '' }}"
+                                                name="toilet" placeholder="{{ trans('language.service.toilet') }}">
+                                                @if ($errors->first('toilet'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('toilet') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.service.direction') }}<span
+                                                    class="text-danger">*</span></label><br>
+                                            <input type="text" class="form-control"
+                                                value="{{ old('direction') ?? '' }}" name="direction"
+                                                placeholder="{{ trans('language.service.direction') }}">
+                                            @if ($errors->first('direction'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('direction') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{ trans('language.service.area') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <br>
                                             <select name="area" class="form-control" id="area">
                                                 <option value="" selected disabled>--chọn--</option>
-                                                @if(!empty($listArea))
-                                                    @foreach($listArea as $area)
+                                                @if (!empty($listArea))
+                                                    @foreach ($listArea as $area)
                                                         <option value="{{ $area->id }}">{{ $area->name }}</option>
                                                     @endforeach
                                                 @endif
@@ -334,24 +348,84 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+
+                                </div> --}}
+
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.service.houseHolder') }}<span
-                                                    class="text-danger">*</span></label><br>
-                                            <select name="houseHolder" class="form-control" id="houseHolder">
-                                                <option value="" selected disabled>--chọn--</option>
-                                                @if(!empty($listHouseHoulder))
-                                                    @foreach($listHouseHoulder as $houseHolder)
-                                                        <option
-                                                            value="{{ $houseHolder->id }}">{{ $houseHolder->name }}</option>
-                                                    @endforeach
-                                                @endif
+                                            <label for="">{{ __('language.area.city_id') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="city_id" id="city_register"
+                                                data-url="{{ route('ajax.address.districts-service') }}" class="form-control">
+                                                <option value="">--{{ __('language.area.city_id') }}--
+                                                </option>
+                                                @foreach (App\Models\City::query()->where('active', 1)->orderBy('id')->get() as $i)
+                                                    <option value="{{ $i->id }}">{{ $i->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
-                                            @if ($errors->first('householder_id'))
+                                            @if ($errors->first('city_id'))
                                                 <div class="invalid-alert text-danger">
-                                                    {{ $errors->first('householder_id') }}
+                                                    {{ $errors->first('city_id') }}
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">{{ __('language.area.district_id') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="district_id" id="district_register" class="form-control"
+                                                data-url="{{ route('ajax.address.communes-service') }}">
+                                                <option value="">
+                                                    --{{ __('language.area.district_id') }}--</option>
+                                            </select>
+                                            @if ($errors->first('district_id'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('district_id') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">{{ __('language.area.commune_id') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="commune_id" id="commune_register" class="w-100 form-control">
+                                                <option value="">
+                                                    --{{ __('language.area.commune_id') }}--</option>
+                                            </select>
+                                            @if ($errors->first('commune_id'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('commune_id') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.service.address') }}<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="address"
+                                                value="{{ old('address') ?? '' }}"
+                                                placeholder="{{ trans('language.service.address') }}">
+                                            @if ($errors->first('address'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('address') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>{{ trans('language.service.order') }}</label>
+                                            <input type="number" class="form-control" min="0" name="order"
+                                                value="{{ old('order') ?? 0 }}"
+                                                placeholder="{{ trans('language.service.order') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -360,9 +434,10 @@
                                     <div class="col-md-6 mb-3">
                                         <label>{{ trans('language.service.category') }}<span
                                                 class="text-danger">*</span></label><br>
-                                        <select name="category_id[]" multiple class="form-control select2" id="categoryService">
+                                        <select name="category_id[]" multiple class="form-control select2"
+                                            id="categoryService">
                                             <option value="" disabled>--chọn--</option>
-                                            @if(!empty($listCategoryService))
+                                            @if (!empty($listCategoryService))
                                                 @foreach ($listCategoryService as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @if (count($category->childrenRecursive) > 0)
@@ -380,14 +455,24 @@
                                             </div>
                                         @endif
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.service.order') }}<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" min="0" name="order"
-                                                   value="{{ old('order') ?? 0 }}"
-                                                   placeholder="{{ trans('language.service.order') }}">
+                                            <label>{{ trans('language.service.houseHolder') }}<span
+                                                    class="text-danger">*</span></label><br>
+                                            <select name="houseHolder" class="form-control" id="houseHolder">
+                                                <option value="" selected disabled>--chọn--</option>
+                                                @if (!empty($listHouseHoulder))
+                                                    @foreach ($listHouseHoulder as $houseHolder)
+                                                        <option value="{{ $houseHolder->id }}">{{ $houseHolder->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            @if ($errors->first('houseHolder'))
+                                                <div class="invalid-alert text-danger">
+                                                    {{ $errors->first('houseHolder') }}
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -418,7 +503,7 @@
                                             <label>{{ trans('language.service.description') }}<span
                                                     class="text-danger">*</span></label>
                                             <textarea class="form-control" name="description" id="" cols="30" rows="10"
-                                                      placeholder="{{ trans('language.service.description') }}">{{ old('description') ?? '' }}</textarea>
+                                                placeholder="{{ trans('language.service.description') }}">{{ old('description') ?? '' }}</textarea>
                                             @if ($errors->first('description'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('description') }}
@@ -434,7 +519,7 @@
                                             <label>{{ trans('language.post.content') }}<span
                                                     class="text-danger">*</span></label>
                                             <textarea class="form-control" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
-                                                      name="content">{{ old('content') ?? '' }}</textarea>
+                                                name="content">{{ old('content') ?? '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -442,29 +527,26 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.title_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.title_seo') }}</label>
                                             <input type="text" class="form-control" name="title_seo"
-                                                   value="{{ old('title_seo') ?? '' }}"
-                                                   placeholder="{{ trans('language.post.title_seo') }}">
+                                                value="{{ old('title_seo') ?? '' }}"
+                                                placeholder="{{ trans('language.post.title_seo') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.description_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.description_seo') }}</label>
                                             <input type="text" class="form-control" name="description_seo"
-                                                   value="{{ old('description_seo') ?? '' }}"
-                                                   placeholder="{{ trans('language.post.description_seo') }}">
+                                                value="{{ old('description_seo') ?? '' }}"
+                                                placeholder="{{ trans('language.post.description_seo') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.post.keyword_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.post.keyword_seo') }}</label>
                                             <input type="text" class="form-control" name="keyword_seo"
-                                                   value="{{ old('keyword_seo') ?? '' }}"
-                                                   placeholder="{{ trans('language.post.keyword_seo') }}">
+                                                value="{{ old('keyword_seo') ?? '' }}"
+                                                placeholder="{{ trans('language.post.keyword_seo') }}">
                                         </div>
                                     </div>
                                 </div>
