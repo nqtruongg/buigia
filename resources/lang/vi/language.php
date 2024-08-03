@@ -374,6 +374,7 @@ return [
         'description' => 'Mô tả ngắn',
         'address' => 'Địa chỉ cụ thể',
         'active' => 'Trạng thái',
+        'type' => 'Loại khu vực',
         'hot' => 'Nổi bật',
         'order' => 'Thứ tự',
         'parent_id' => 'Chọn danh mục',
