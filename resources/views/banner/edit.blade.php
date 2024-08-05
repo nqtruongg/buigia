@@ -94,14 +94,14 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.description') }}</label>
-                                            <textarea class="form-control"
+                                            <textarea class="form-control tinymce_editor_init"
                                                       placeholder="{{ trans('language.banner.description') }}"
-                                                      cols="40" rows="10" name="description">{{ old('description') ?? $banner->description }}</textarea>
+                                                      cols="40" rows="10" id="ckeditor1" name="description">{{ old('description') ?? $banner->description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.parent_id') }}</label>
                                             <select class="form-control" name="parent_id">
@@ -119,18 +119,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.order') }}</label>
                                             <input type="number" class="form-control" name="order"
                                                    value="{{ old('order') ?? $banner->order }}"
                                                    placeholder="{{ trans('language.banner.order') }}">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span></span>
                                     </div>
                                 </div>
                             </div>

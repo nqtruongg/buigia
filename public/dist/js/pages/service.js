@@ -105,7 +105,7 @@ $(function () {
     $(".btnRemoveEditAjax").click(function () {
         var url = $(this).data('url');
         var method = $(this).data('method');
-        var $button = $(this);
+        var button = $(this);
 
         Swal.fire({
             title: 'Bạn có chắc chắn muốn xóa ảnh này?',
@@ -126,26 +126,24 @@ $(function () {
                             data.message
                         );
 
-                        var $fileInputWrapper = $button.closest('.variantColor');
-                        $fileInputWrapper.remove();
+                        var fileInputWrapper = button.closest('.variantColor');
+                        fileInputWrapper.remove();
 
-                        if ($('#variantContainer .file-input-wrapper').length === 0) {
-                            var newBoxHTML = `
-                                <div class="variantColor d-flex align-items-center">
-                                    <div class="mb-3 w-25 file-input-wrapper"
-                                         style="margin-right: 18px; width: 110px !important;">
-                                        <input type="file" multiple name="relatedPhotos[]"
-                                               id="relatedPhotos" class="form-control">
-                                        <div class="custom-button" style="border: 2px solid #565656;">
-                                            <i class="nav-icon fas fa-upload"></i>
-                                        </div>
-                                        <img src="#" alt="Preview Image">
-                                        <button class="remove-button" type="button">&times;</button>
-                                    </div>
-                                </div>
-                            `;
-                            $('#variantContainer').append(newBoxHTML);
-                        }
+                        // if ($('#variantContainer .file-input-wrapper').length === 0) {
+                        //     var newBoxHTML = `
+                        //         <div class="variantColor d-flex align-items-center">
+                        //             <div class="mb-3 w-25 file-input-wrapper" style="margin-right: 18px; width: 110px !important;">
+                        //                 <input type="file" multiple name="relatedPhotos[]" id="relatedPhotos" class="form-control">
+                        //                 <div class="custom-button" style="border: 2px solid #565656;">
+                        //                     <i class="nav-icon fas fa-upload"></i>
+                        //                 </div>
+                        //                 <img src="#" alt="Preview Image">
+                        //                 <button class="remove-button" type="button">×</button>
+                        //             </div>
+                        //         </div>
+                        //     `;
+                        //     $('#variantContainer').append(newBoxHTML);
+                        // }
 
                     }.bind(this),
                     error: function (xhr, status, error) {

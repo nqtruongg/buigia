@@ -315,6 +315,21 @@
                                     </button>
                                 </div>
 
+                                <div class="d-none" id="cloneBoxVariantColor">
+                                    <div class="variantColor d-flex align-items-center">
+                                        <div class="mb-3 w-25 file-input-wrapper"
+                                             style="margin-right: 18px; width: 110px !important;">
+                                            <input type="file" multiple name="relatedPhotos[]"
+                                                   id="relatedPhotos" class="form-control">
+                                            <div class="custom-button" style="border: 2px solid #565656;">
+                                                <i class="nav-icon fas fa-upload"></i>
+                                            </div>
+                                            <img src="#" alt="Preview Image">
+                                            <button class="remove-button" type="button">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -528,7 +543,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.service.description') }}<span
                                                     class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="description" id="" cols="30" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" name="description" id="ckeditor1" cols="30" rows="10"
                                                       placeholder="{{ trans('language.service.description') }}">{{ old('price') ?? $service->description }}</textarea>
                                             @if ($errors->first('description'))
                                                 <div class="invalid-alert text-danger">
@@ -544,7 +559,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.post.content') }}<span
                                                     class="text-danger">*</span></label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor2" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
                                                       name="content">{{ old('content') ?? $service->content }}</textarea>
                                         </div>
                                     </div>

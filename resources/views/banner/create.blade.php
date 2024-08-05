@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <form id="form_submit" action="{{ route('banner.store') }}" method="post"
-                              enctype="multipart/form-data">
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -25,8 +25,8 @@
                                             <label>{{ trans('language.banner.name') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                   value="{{ old('name') ?? '' }}"
-                                                   placeholder="{{ trans('language.banner.name') }}">
+                                                value="{{ old('name') ?? '' }}"
+                                                placeholder="{{ trans('language.banner.name') }}">
                                             @if ($errors->first('name'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('name') }}
@@ -39,8 +39,8 @@
                                             <label>{{ trans('language.banner.slug') }}<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="slug" name="slug"
-                                                   value="{{ old('slug') ?? '' }}"
-                                                   placeholder="{{ trans('language.banner.slug') }}">
+                                                value="{{ old('slug') ?? '' }}"
+                                                placeholder="{{ trans('language.banner.slug') }}">
                                             @if ($errors->first('link'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('link') }}
@@ -63,8 +63,8 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.link') }}</label>
                                             <input type="text" class="form-control" name="link"
-                                                   value="{{ old('link') ?? '' }}"
-                                                   placeholder="{{ trans('language.banner.link') }}">
+                                                value="{{ old('link') ?? '' }}"
+                                                placeholder="{{ trans('language.banner.link') }}">
                                             @if ($errors->first('link'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('link') }}
@@ -94,42 +94,36 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.description') }}</label>
-                                            <textarea class="form-control"
-                                                      placeholder="{{ trans('language.banner.description') }}"
-                                                      cols="40" rows="10" name="description">{{ old('description') ?? '' }}</textarea>
+                                            <textarea class="form-control tinymce_editor_init" placeholder="{{ trans('language.banner.description') }}"
+                                                cols="40" rows="10" id="ckeditor1" name="description">{{ old('description') ?? '' }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.parent_id') }}</label>
                                             <select class="form-control" name="parent_id">
                                                 <option disabled selected>--chọn--</option>
-                                                @foreach($parentBanner as $category)
+                                                @foreach ($parentBanner as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @if(count($category->childrenRecursive) > 0)
+                                                    @if (count($category->childrenRecursive) > 0)
                                                         @include('components.child-category', [
                                                             'children' => $category->childrenRecursive,
-                                                            'depth' => 1
+                                                            'depth' => 1,
                                                         ])
                                                     @endif
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ trans('language.banner.order') }}</label>
                                             <input type="number" class="form-control" name="order"
-                                                   value="{{ old('order') ?? 0 }}"
-                                                   placeholder="{{ trans('language.banner.order') }}">
+                                                value="{{ old('order') ?? 0 }}"
+                                                placeholder="{{ trans('language.banner.order') }}">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span></span>
                                     </div>
                                 </div>
                             </div>
