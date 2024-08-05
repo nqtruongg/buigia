@@ -26,6 +26,7 @@ class SettingRepository
             'settings.hot',
             'settings.parent_id',
             'settings.type',
+            'settings.description',
             DB::raw('COUNT(child.id) as child_count')
         );
 
@@ -68,6 +69,7 @@ class SettingRepository
             'settings.hot',
             'settings.parent_id',
             'settings.type',
+            'settings.description',
             DB::Raw('COUNT(child.id) as child_count')
         );
 

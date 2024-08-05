@@ -105,7 +105,7 @@
                                                 <td class="text-center">
                                                     <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" class="w-100">
                                                 </td>
-                                                <td>{{ $item->description }}</td>
+                                                <td>{!! $item->description !!}</td>
                                                 <td class="text-center">
                                                     <button
                                                         class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"

@@ -100,7 +100,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.post.description') }}</label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.post.description') }}" cols="40"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor1" placeholder="{{ trans('language.post.description') }}" cols="40"
                                                       rows="10" name="description">{{ old('description') ?? $post->description }}</textarea>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.post.content') }}</label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor2" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
                                                       name="content">{{ old('content') ?? $post->content }}</textarea>
                                         </div>
                                     </div>
