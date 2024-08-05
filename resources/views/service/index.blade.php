@@ -80,7 +80,7 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td class="text-center">{{ number_format($item->price) }}đ</td>
                                                 {{-- <td class="text-center">{{ $item->percent ?? 0 }}%</td> --}}
-                                                <td>{{ $item->description }}</td>
+                                                <td>{!! $item->description !!}</td>
                                                 <td class="text-center">{!! \App\Models\Service::checkType($item->type) !!}</td>
                                                 <td class="text-center">
                                                     <div class="flex justify-center items-center">

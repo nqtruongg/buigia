@@ -111,7 +111,7 @@
                                                         <a
                                                             href="{{ route('categoryPost.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
                                                     </td>
-                                                    <td>{{ $item->description }}</td>
+                                                    <td>{!! $item->description !!}</td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"
@@ -172,7 +172,7 @@
                                                         <a
                                                             href="{{ route('categoryPost.index') . '?parent_id=' . $item->id }}">{{ $item->name }}</a>
                                                     </td>
-                                                    <td>{{ $item->description }}</td>
+                                                    <td>{!! $item->description !!}</td>
                                                     <td class="text-center">
                                                         <button
                                                             class="toggle-active-btn btn {{ $item->active == 1 ? 'btn-success' : 'btn-danger' }} text-white"

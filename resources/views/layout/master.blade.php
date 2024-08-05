@@ -54,6 +54,7 @@
     <script src="{{ asset('dist/js/partials/common.js') }}"></script>
     <script src="{{ asset('dist/js/partials/change-status.js') }}"></script>
     <script src="{{ asset('dist/js/partials/upload-image.js') }}"></script>
+    <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
     <script type="module">
         // Show alert
         @if (session('status_succeed'))

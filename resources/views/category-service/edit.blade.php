@@ -77,7 +77,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.categoryService.description') }}</label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.categoryService.description') }}" cols="40"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor1" placeholder="{{ trans('language.categoryService.description') }}" cols="40"
                                                 rows="10" name="description">{{ old('description') ?? $categoryService->description }}</textarea>
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('language.categoryService.content') }}</label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.categoryService.content') }}" cols="40" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor2" placeholder="{{ trans('language.categoryService.content') }}" cols="40" rows="10"
                                                 name="content">{{ old('content') ?? $categoryService->content }}</textarea>
                                         </div>
                                     </div>

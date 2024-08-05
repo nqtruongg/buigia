@@ -528,7 +528,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.service.description') }}<span
                                                     class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="description" id="" cols="30" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" name="description" id="ckeditor1" cols="30" rows="10"
                                                       placeholder="{{ trans('language.service.description') }}">{{ old('price') ?? $service->description }}</textarea>
                                             @if ($errors->first('description'))
                                                 <div class="invalid-alert text-danger">
@@ -544,7 +544,7 @@
                                         <div class="form-group">
                                             <label>{{ trans('language.post.content') }}<span
                                                     class="text-danger">*</span></label>
-                                            <textarea class="form-control" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
+                                            <textarea class="form-control tinymce_editor_init" id="ckeditor2" placeholder="{{ trans('language.post.content') }}" cols="40" rows="10"
                                                       name="content">{{ old('content') ?? $service->content }}</textarea>
                                         </div>
                                     </div>

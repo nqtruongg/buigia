@@ -65,7 +65,7 @@
                                             <label>{{ trans('language.content') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea id="summernote" name="content" cols="30" rows="10">{!!$data->content!!}</textarea>
+                                            <textarea id="ckeditor1" class="tinymce_editor_init" name="content" cols="30" rows="10">{!!$data->content!!}</textarea>
                                             @if ($errors->first('content'))
                                                 <div class="invalid-alert text-danger">
                                                     {{ $errors->first('content') }}
@@ -149,7 +149,7 @@
                                                             </div>
                                                         @endif
                                                     </td>
-                                                    
+
                                                     <td>
                                                         @if ($i == 0)
                                                             <button style="border-radius:50%" type="button"
