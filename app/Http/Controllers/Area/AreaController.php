@@ -6,6 +6,9 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AreaRequest;
 use App\Models\Area;
+use App\Models\City;
+use App\Models\Commune;
+use App\Models\District;
 use App\Services\AreaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,13 +63,22 @@ class AreaController extends Controller
     {
         try {
             DB::beginTransaction();
-            $this->areaService->createArea($request);
+
+            $cityId = $request->get('city_id');
+            $districtId = $request->get('district_id');
+
+            if (!empty($districtId)) {
+                $this->areaService->createCommune($request);
+                $redirectUrl = route('area.index') . '?district_id=' . $districtId;
+            } elseif (!empty($cityId)) {
+                $this->areaService->createDistrict($request);
+                $redirectUrl = route('area.index') . '?city_id=' . $cityId;
+            } else {
+                $this->areaService->createCity($request);
+                $redirectUrl = route('area.index');
+            }
+
             DB::commit();
-
-            $redirectUrl = $request->parent_id ?
-                route('area.index') . '?parent_id=' . $request->parent_id :
-                route('area.index');
-
 
             return redirect($redirectUrl)->with([
                 'status_succeed' => trans('message.create_service_success')
@@ -79,6 +91,7 @@ class AreaController extends Controller
             ]);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -93,10 +106,19 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-        $area = $this->areaService->getAreaById($id);
-        $listCateArea = $this->areaService->getListParentArea();
-        // $districts = $this->areaAddress->getDistricts($area->city_id);
-        return view('area.edit', compact('area', 'listCateArea'));
+        $cityId = request()->get('city_id');
+        $districtId = request()->get('district_id');
+
+        if (!empty($districtId)) {
+            $recodById = $this->areaService->getCommuneById($districtId, $id);
+            return view('area.edit', compact('recodById'));
+        } elseif (!empty($cityId)) {
+            $recodById = $this->areaService->getDistrictById($cityId, $id);
+            return view('area.edit', compact('recodById'));
+        } else {
+            $recodById = $this->areaService->getCityById($id);
+            return view('area.edit', compact('recodById'));
+        }
     }
 
     /**
@@ -106,11 +128,27 @@ class AreaController extends Controller
     {
         try {
             DB::beginTransaction();
-            $this->areaService->updateArea($request, $id);
+
+            $cityId = $request->get('city_id');
+            $districtId = $request->get('district_id');
+
+            if (!empty($districtId)) {
+                $this->areaService->updateCommuneById($request, $districtId, $id);
+                $redirectUrl = route('area.index') . '?district_id=' . $districtId;
+            } elseif (!empty($cityId)) {
+                $this->areaService->updateDistrictById($request, $cityId, $id);
+                $redirectUrl = route('area.index') . '?city_id=' . $cityId;
+            } else {
+                $this->areaService->updateCityById($request, $id);
+                $redirectUrl = route('area.index');
+            }
+
             DB::commit();
-            return redirect()->route('area.index')->with([
+
+            return redirect($redirectUrl)->with([
                 'status_succeed' => trans('message.update_service_success')
             ]);
+
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Message: ' . $exception->getMessage() . ' ---Line: ' . $exception->getLine());
@@ -147,7 +185,24 @@ class AreaController extends Controller
 
     public function changeActive(Request $request)
     {
-        $item = Area::find($request->id);
+        $cityId = $request->get('city_id');
+        $districtId = $request->get('district_id');
+        $itemId = $request->get('id');
+
+        if (!empty($districtId)) {
+            $item = Commune::find($itemId);
+        }
+        elseif (!empty($cityId)) {
+            $item = District::where('city_id', $cityId)->find($itemId);
+        }
+        else {
+            $item = City::find($itemId);
+        }
+
+        if (!$item) {
+            return response()->json(['error' => 'Item not found'], 404);
+        }
+
         $item->active = $item->active == 1 ? 0 : 1;
         $item->save();
 

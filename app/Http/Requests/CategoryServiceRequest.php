@@ -26,9 +26,10 @@ class CategoryServiceRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'slug' => [
-                'nullable',
+                'required',
                 'string',
                 'max:255',
+                'unique:category_services,slug',
                 Rule::unique(CategoryService::class, 'slug')->where(function ($query) {
                     $query->whereNull('deleted_at')->whereNot('id', $this->id);
                 })

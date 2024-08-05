@@ -50,9 +50,49 @@ class AreaService
         return $this->areaRepository->createArea($request);
     }
 
-    public function updateArea($request, $id)
+    public function createCity($request)
     {
-        return $this->areaRepository->updateArea($request, $id);
+        return $this->areaRepository->createCity($request);
+    }
+
+    public function createDistrict($request)
+    {
+        return $this->areaRepository->createDistrict($request);
+    }
+
+    public function createCommune($request)
+    {
+        return $this->areaRepository->createCommune($request);
+    }
+
+    public function updateCityById($request, $id)
+    {
+        return $this->areaRepository->updateCityById($request, $id);
+    }
+
+    public function updateDistrictById($request, $cityId, $id)
+    {
+        return $this->areaRepository->updateDistrictById($request, $cityId, $id);
+    }
+
+    public function updateCommuneById($request, $districtId, $id)
+    {
+        return $this->areaRepository->updateCommuneById($request, $districtId, $id);
+    }
+
+    public function getCityById($id)
+    {
+        return $this->areaRepository->getCityById($id);
+    }
+
+    public function getDistrictById($cityId, $id)
+    {
+        return $this->areaRepository->getDistrictById($cityId, $id);
+    }
+
+    public function getCommuneById($districtId, $id)
+    {
+        return $this->areaRepository->getCommuneById($districtId, $id);
     }
 
     public function deleteArea($id)

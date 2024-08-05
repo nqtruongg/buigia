@@ -1,5 +1,4 @@
-
-$('#name').on('input', function() {
+$('#name').on('input', function () {
     let name = $('#name').val().trim().toLowerCase();
 
     const vnAccents = [
@@ -47,17 +46,20 @@ $('#name').on('input', function() {
 });
 
 $(document).ready(function () {
-    // Abstracted function to handle the AJAX request and UI updates
     function toggleStatus(button, statusType) {
         var itemId = button.data("id");
         var url = button.data("url");
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
+        var cityId = button.data("city_id");
+        var districtId = button.data("district_id");
 
         $.ajax({
             url: url,
             type: "POST",
             data: {
                 id: itemId,
+                city_id: cityId,
+                district_id: districtId,
                 _token: csrfToken,
             },
             success: function (response) {

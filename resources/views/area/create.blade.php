@@ -15,14 +15,8 @@
     @php
         $infoTabHasErrors =
             $errors->has('name') ||
-            $errors->has('city_id') ||
-            $errors->has('district_id') ||
-            $errors->has('commune_id') ||
-            $errors->has('active') ||
-            $errors->has('hot') ||
-            $errors->has('order') ||
-            $errors->has('slug') ||
-            $errors->has('career');
+            $errors->has('type') ||
+            $errors->has('active');
     @endphp
 
     <section class="content">
@@ -36,9 +30,9 @@
                                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
-                                            href="#custom-tabs-four-home" role="tab"
-                                            aria-controls="custom-tabs-four-home"
-                                            aria-selected="true">{{ trans('language.area.info') }}
+                                           href="#custom-tabs-four-home" role="tab"
+                                           aria-controls="custom-tabs-four-home"
+                                           aria-selected="true">{{ trans('language.area.info') }}
                                             @if ($infoTabHasErrors)
                                                 <i class="fas fa-circle text-red"></i>
                                             @endif
@@ -49,7 +43,7 @@
                             <div class="card-body">
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
                                     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
-                                        aria-labelledby="custom-tabs-four-home-tab">
+                                         aria-labelledby="custom-tabs-four-home-tab">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -57,8 +51,8 @@
                                                         <label>{{ trans('language.area.name') }}<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" class="form-control" id="name" name="name"
-                                                            value="{{ old('name') ?? '' }}"
-                                                            placeholder="{{ trans('language.area.name') }}">
+                                                               value="{{ old('name') ?? '' }}"
+                                                               placeholder="{{ trans('language.area.name') }}">
                                                         @if ($errors->first('name'))
                                                             <div class="invalid-alert text-danger">
                                                                 {{ $errors->first('name') }}
@@ -66,138 +60,59 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
-
+                                                <div class="col-md-6">
+                                                    @if(!empty($_GET['city_id']))
+                                                        <input type="hidden" name="city_id" value="{{ request('city_id') }}">
+                                                    @elseif(!empty($_GET['district_id']))
+                                                        <input type="hidden" name="district_id" value="{{ request('district_id') }}">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>{{ trans('language.area.slug') }}<span
+                                                        <label>{{ trans('language.area.type') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="slug" name="slug"
-                                                            value="{{ old('slug') ?? '' }}"
-                                                            placeholder="{{ trans('language.area.slug') }}">
-                                                        @if ($errors->first('slug'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('slug') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="">{{ __('language.area.city_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="city_id" id="city_register"
-                                                            data-url="{{ route('ajax.address.districts') }}"
-                                                            class="form-control">
+                                                        <select name="type" id="type" class="form-control select2">
                                                             <option value="">
-                                                                --{{ __('language.area.city_id') }}--
+                                                                --{{ __('language.area.type') }}--
                                                             </option>
-                                                            @foreach (App\Models\City::all() as $i)
-                                                                <option value="{{ $i->id }}">
-                                                                    {{ $i->name }}</option>
-                                                            @endforeach
+                                                            @if(!empty($_GET['city_id']))
+                                                                <option value="Quận">Quận</option>
+                                                                <option value="Huyện">
+                                                                    Huyện
+                                                                </option>
+                                                                <option value="Thành phố">
+                                                                    Thành phố
+                                                                </option>
+                                                            @elseif(!empty($_GET['district_id']))
+                                                                <option value="Phường">Phường</option>
+                                                                <option value="Xã">
+                                                                    Xã
+                                                                </option>
+                                                                <option value="Thị trấn">
+                                                                    Thị trấn
+                                                                </option>
+                                                            @else
+                                                                <option value="Tỉnh">Tỉnh</option>
+                                                                <option value="Thành phố trung ương">
+                                                                    Thành phố Trung ương
+                                                                </option>
+                                                            @endif
                                                         </select>
-                                                        @if ($errors->first('city_id'))
+                                                        @if ($errors->first('type'))
                                                             <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('city_id') }}
+                                                                {{ $errors->first('type') }}
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6 mt-2">
                                                     <div class="form-group">
-                                                        <label for="">{{ __('language.area.district_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="district_id" id="district_register"
-                                                            class="form-control"
-                                                            data-url="{{ route('ajax.address.communes') }}">
-                                                            <option value="">
-                                                                --{{ __('language.area.district_id') }}--
-                                                            </option>
-                                                        </select>
-                                                        @if ($errors->first('district_id'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('district_id') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="">{{ __('language.area.commune_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="commune_id" id="commune_register" class="w-100 form-control">
-                                                            <option value="">
-                                                                --{{ __('language.area.commune_id') }}--
-                                                            </option>
-                                                        </select>
-                                                        @if ($errors->first('commune_id'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('commune_id') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>{{ trans('language.area.address') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="address"
-                                                            value="{{ old('address') ?? '' }}"
-                                                            placeholder="{{ trans('language.area.address') }}">
-                                                        @if ($errors->first('address'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('address') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="">{{ __('language.area.parent_id') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="parent_id" id=""
-                                                            class="form-control">
-                                                            <option value="">
-                                                                --{{ __('language.area.parent_id') }}--
-                                                            </option>
-                                                            @foreach($listCateArea as $category)
-                                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-
-                                                                @if(count($category->childrenRecursive) > 0)
-                                                                    @include('components.child-category', [
-                                                                        'children' => $category->childrenRecursive,
-                                                                        'depth' => 1
-                                                                    ])
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                        @if ($errors->first('parent_id'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('parent_id') }}
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>{{ trans('language.area.order') }}<span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" name="order"
-                                                            value="{{ old('order') ?? '' }}"
-                                                            placeholder="{{ trans('language.area.order') }}">
-                                                        @if ($errors->first('order'))
-                                                            <div class="invalid-alert text-danger">
-                                                                {{ $errors->first('order') }}
-                                                            </div>
-                                                        @endif
+                                                        <label>{{ trans('language.area.active') }}</label>
+                                                        <br>
+                                                        Hiện <input type="radio" name="active" value="1" checked>
+                                                        ẩn <input type="radio" name="active" value="0">
                                                     </div>
                                                 </div>
                                             </div>

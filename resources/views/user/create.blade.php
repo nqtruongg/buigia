@@ -129,7 +129,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.password') }}</label>
+                                            <label>{{ trans('language.password') }}<span
+                                                    class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="password"
                                                 value="{{ old('password') ?? '' }}"
                                                 placeholder="{{ trans('language.password') }}">

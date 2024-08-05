@@ -34,6 +34,7 @@ class AreaRepository
             'cities.id',
             'cities.name',
             'cities.type',
+            'cities.active',
             DB::raw('COUNT(districts.id) as child_count')
         );
 
@@ -56,6 +57,7 @@ class AreaRepository
             'districts.id',
             'districts.name',
             'districts.type',
+            'districts.active',
             'districts.city_id',
             DB::raw('COUNT(communes.id) as child_count')
         );
@@ -74,7 +76,7 @@ class AreaRepository
 
     public function getAllCommunesByCityId($request, $district_id)
     {
-        $communes = Commune::select('id', 'name', 'type', 'district_id');
+        $communes = Commune::select('id', 'name', 'type','active', 'district_id');
         if ($request->name != '') {
             $communes = $communes->where('name', 'LIKE', "%{$request->name}%");
         }
@@ -107,6 +109,56 @@ class AreaRepository
         return $area;
     }
 
+    public function getCityById($id)
+    {
+        $city = City::find($id);
+        return $city;
+    }
+
+    public function getDistrictById($cityId, $id)
+    {
+        $district = District::where('city_id', $cityId)->find($id);
+        return $district;
+    }
+
+    public function getCommuneById($districtId, $id)
+    {
+        $commune = Commune::where('district_id', $districtId)->find($id);
+        return $commune;
+    }
+
+    public function updateCityById($request, $id)
+    {
+        $city = City::find($id);
+        $city->name = $request->name;
+        $city->type = $request->type;
+        $city->active = $request->active;
+        $city->save();
+        return true;
+    }
+
+    public function updateDistrictById($request, $cityId, $id)
+    {
+        $district = District::where('city_id', $cityId)->find($id);
+        $district->name = $request->name;
+        $district->type = $request->type;
+        $district->active = $request->active;
+        $district->city_id = $request->city_id;
+        $district->save();
+        return true;
+    }
+
+    public function updateCommuneById($request, $districtId, $id)
+    {
+        $commune = Commune::where('district_id', $districtId)->find($id);
+        $commune->name = $request->name;
+        $commune->type = $request->type;
+        $commune->active = $request->active;
+        $commune->district_id = $request->district_id;
+        $commune->save();
+        return true;
+    }
+
     public function createArea($request)
     {
         $area = new Area();
@@ -118,6 +170,38 @@ class AreaRepository
         $area->parent_id = $request->parent_id ?? 0;
         $area->slug = $request->slug;
         $area->order = $request->order;
+        $area->save();
+        return true;
+    }
+
+    public function createCity($request)
+    {
+        $area = new City();
+        $area->name = $request->name;
+        $area->type = $request->type;
+        $area->active = $request->active ?? 1;
+        $area->save();
+        return true;
+    }
+
+    public function createDistrict($request)
+    {
+        $area = new District();
+        $area->name = $request->name;
+        $area->type = $request->type;
+        $area->active = $request->active ?? 1;
+        $area->city_id = $request->city_id;
+        $area->save();
+        return true;
+    }
+
+    public function createCommune($request)
+    {
+        $area = new Commune();
+        $area->name = $request->name;
+        $area->type = $request->type;
+        $area->active = $request->active ?? 1;
+        $area->district_id = $request->district_id;
         $area->save();
         return true;
     }

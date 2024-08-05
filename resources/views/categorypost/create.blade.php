@@ -52,8 +52,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.image_path') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.image_path') }}</label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
                                         </div>
                                         <div class="form-group">
@@ -62,8 +61,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.banner_path') }}
-                                                <span class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.banner_path') }}</label>
                                             <input type="file" class="form-control" id="banner_path" name="banner_path">
                                         </div>
                                         <div class="form-group">
@@ -74,16 +72,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.hot') }}<span
-                                                    class="text-danger">*</span></label><br>
+                                            <label>{{ trans('language.categoryPost.hot') }}</label><br>
                                             Có <input type="radio" name="hot" value="1">
                                             không <input type="radio" name="hot" value="0" checked>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.active') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.active') }}</label>
                                             <br>
                                             Hiện <input type="radio" name="active" value="1" checked>
                                             ẩn <input type="radio" name="active" value="0">
@@ -93,8 +89,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.description') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.description') }}</label>
                                             <textarea class="form-control" placeholder="{{ trans('language.categoryPost.description') }}" cols="40"
                                                 rows="10" name="description">{{ old('description') ?? '' }}</textarea>
                                         </div>
@@ -103,8 +98,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.content') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.content') }}</label>
                                             <textarea class="form-control" placeholder="{{ trans('language.categoryPost.content') }}" cols="40" rows="10"
                                                 name="content">{{ old('content') ?? '' }}</textarea>
                                         </div>
@@ -113,8 +107,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.parent_id') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.parent_id') }}</label>
                                             <select class="form-control" name="parent_id">
                                                 <option disabled selected>--chọn--</option>
                                                 @foreach ($listCategoryPost as $category)
@@ -132,8 +125,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.order') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.order') }}</label>
                                             <input type="number" class="form-control" min="0" name="order"
                                                 value="{{ old('order') ?? 0 }}"
                                                 placeholder="{{ trans('language.categoryPost.order') }}">
@@ -143,8 +135,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.title_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.title_seo') }}</label>
                                             <input type="text" class="form-control" name="title_seo"
                                                 value="{{ old('title_seo') ?? '' }}"
                                                 placeholder="{{ trans('language.categoryPost.title_seo') }}">
@@ -152,8 +143,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.description_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.description_seo') }}</label>
                                             <input type="text" class="form-control" name="description_seo"
                                                 value="{{ old('description_seo') ?? '' }}"
                                                 placeholder="{{ trans('language.categoryPost.description_seo') }}">
@@ -161,8 +151,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('language.categoryPost.keyword_seo') }}<span
-                                                    class="text-danger">*</span></label>
+                                            <label>{{ trans('language.categoryPost.keyword_seo') }}</label>
                                             <input type="text" class="form-control" name="keyword_seo"
                                                 value="{{ old('keyword_seo') ?? '' }}"
                                                 placeholder="{{ trans('language.categoryPost.keyword_seo') }}">
