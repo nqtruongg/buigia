@@ -315,6 +315,21 @@
                                     </button>
                                 </div>
 
+                                <div class="d-none" id="cloneBoxVariantColor">
+                                    <div class="variantColor d-flex align-items-center">
+                                        <div class="mb-3 w-25 file-input-wrapper"
+                                             style="margin-right: 18px; width: 110px !important;">
+                                            <input type="file" multiple name="relatedPhotos[]"
+                                                   id="relatedPhotos" class="form-control">
+                                            <div class="custom-button" style="border: 2px solid #565656;">
+                                                <i class="nav-icon fas fa-upload"></i>
+                                            </div>
+                                            <img src="#" alt="Preview Image">
+                                            <button class="remove-button" type="button">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">

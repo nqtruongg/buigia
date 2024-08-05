@@ -191,16 +191,17 @@ class ServiceRepository
         }
 
         if ($request->hasFile('relatedPhotos')) {
-            $service->serviceImages()->each(function ($image) {
-                $oldPhotoPath = str_replace('/storage/', 'public/', $image->related_photo);
-                if (Storage::exists($oldPhotoPath)) {
-                    Storage::delete($oldPhotoPath);
-                }
-            });
+//            $service->serviceImages()->each(function ($image) {
+//                $oldPhotoPath = str_replace('/storage/', 'public/', $image->related_photo);
+//                if (Storage::exists($oldPhotoPath)) {
+//                    Storage::delete($oldPhotoPath);
+//                }
+//            });
 
-            $service->serviceImages()->delete();
+//            $service->serviceImages()->delete();
 
             $relatedPhotos = [];
+
             foreach ($request->file('relatedPhotos') as $file) {
                 $path = $file->storePublicly('public/services');
                 $relatedPhotos[] = ['related_photo' => Storage::url($path)];
